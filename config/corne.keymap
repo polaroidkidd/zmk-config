@@ -172,11 +172,6 @@
                         #binding-cells = <0>;
                         bindings = <&macro_press &kp LGUI &kp SHIFT>, <&macro_tap &kp SPACE>, <&macro_release &kp LGUI &kp SHIFT>;
                 };
-                i3_term: i3_term {
-                        compatible = "zmk,behavior-macro";
-                        #binding-cells = <0>;
-                        bindings = <&macro_press &kp LGUI>, <&macro_tap &kp Y>, <&macro_release &kp LGUI>;
-                };
                 i3_float_focus: i3_float_focus {
                         compatible = "zmk,behavior-macro";
                         #binding-cells = <0>;
@@ -203,12 +198,12 @@ bindings = <
                 i3_workspace_layer {
 // -----------------------------------------------------------------------------------------
 // | SCR        | WS1     | WS2     | WS3          | Scratch Show     | Tog Float       |XXX| BTCLR        | BT1          | BT2          | BT3          | BT4          | BT5          |
-// | SCRM       | WS4     | WS5     | WS6          | Scratch Move     | Term            |XXX|              |              |              |              |              |              |
-// | SHFT       | WS7     | WS8     | WS9          | WS0              |                 |XXX|              |              |              |              |              |              |
+// | SCRM       | WS4     | WS5     | WS6          | Scratch Move     |                 |XXX|              |              |              |              |              |              |
+// | SHFT       | WS7     | WS8     | WS9          | WS0              | FLoat Focus     |XXX|              |              |              |              |              |              |
 //                                  | GUI          | LWR-1            | SPC             |XXX| ENT          |              | ALT          |
 bindings = <
      &kp TAB     &i3_ws1   &i3_ws2   &i3_ws3         &i3_scratch_show   &i3_float             &bt BT_SEL 0   &bt BT_SEL 1   &bt BT_SEL 2   &bt BT_SEL 3   &bt BT_SEL 4   &bt BT_CLR
-     &kp LSHFT   &i3_ws4   &i3_ws5   &i3_ws6         &i3_scratch_move   &i3_term              &trans         &trans         &trans         &trans         &trans         &trans
+     &kp LSHFT   &i3_ws4   &i3_ws5   &i3_ws6         &i3_scratch_move   &trans                &trans         &trans         &trans         &trans         &trans         &trans
      &kp LCTRL   &i3_ws7   &i3_ws8   &i3_ws9         &i3_ws0            &i3_float_focus       &trans         &trans         &trans         &trans         &trans         &trans
                                      &i3_tog_on 2    &trans             &kp SPACE             &kp RET        &trans         &kp RALT
                         >;
