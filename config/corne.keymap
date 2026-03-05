@@ -89,12 +89,12 @@
                 i3_scratch_show: i3_scratch_show {
                         compatible = "zmk,behavior-macro";
                         #binding-cells = <0>;
-                        bindings = <&macro_press &kp LGUI>, <&macro_tap &kp MINUS>, <&macro_release &kp LGUI>;
+                        bindings = <&macro_press &kp LGUI>, <&macro_tap &kp DE_MINUS>, <&macro_release &kp LGUI>;
                 };
                 i3_scratch_move: i3_scratch_move {
                         compatible = "zmk,behavior-macro";
                         #binding-cells = <0>;
-                        bindings = <&macro_press &kp LGUI>, <&macro_tap &kp LS(MINUS)>, <&macro_release &kp LGUI>;
+                        bindings = <&macro_press &kp LGUI>, <&macro_tap &kp DE_UNDER>, <&macro_release &kp LGUI>;
                 };
                 i3_move_mod: i3_move_mod {
                         compatible = "zmk,behavior-macro";
