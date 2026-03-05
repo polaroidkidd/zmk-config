@@ -9,6 +9,10 @@
 #include <dt-bindings/zmk/bt.h>
 #include "keys_de_swiss.h"
 
+
+#define DEFAULT 0
+#define I3WM    1
+
 / {
         behaviors {
                 i3_tog_on: i3_toggle_layer_on {
@@ -168,28 +172,28 @@ bindings = <
                             &kp LGUI   &lwr_i3   &kp SPACE        &kp RET   &mo 3   &kp RALT
                         >;
                 };
-                lower_layer {
+                i3_wm_layer {
 // -----------------------------------------------------------------------------------------
-// | SCR              | WS1     | WS2     | WS3          |         |           |XXX| BTCLR        | BT1          | BT2          | BT3          | BT4          | BT5          |
-// | SCRM             | WS4     | WS5     | WS6          |         |           |XXX|              |              |              |              |              |              |
-// | SHFT             | WS7     | WS8     | WS9          | WS0     |           |XXX|              |              |              |              |              |              |
-//                                        | GUI          |         | SPC       |XXX| ENT          |              | ALT          |
+// | SCR        | WS1     | WS2     | WS3          | Scratch Show     |           |XXX| BTCLR        | BT1          | BT2          | BT3          | BT4          | BT5          |
+// | SCRM       | WS4     | WS5     | WS6          | Scratch Move     |           |XXX|              |              |              |              |              |              |
+// | SHFT       | WS7     | WS8     | WS9          | WS0              |           |XXX|              |              |              |              |              |              |
+//                                  | GUI          | LWR-1            | SPC       |XXX| ENT          |              | ALT          |
 bindings = <
-     &i3_scratch_show   &i3_ws1   &i3_ws2   &i3_ws3        &trans    &trans          &bt BT_SEL 0   &bt BT_SEL 1   &bt BT_SEL 2   &bt BT_SEL 3   &bt BT_SEL 4   &bt BT_CLR
-     &i3_scratch_move   &i3_ws4   &i3_ws5   &i3_ws6        &trans    &trans          &trans         &trans         &trans         &trans         &trans         &trans
-     &kp LSHFT          &i3_ws7   &i3_ws8   &i3_ws9        &i3_ws0   &trans          &trans         &trans         &trans         &trans         &trans         &trans
-                                            &i3_tog_on 2   &trans    &kp SPACE       &kp RET        &trans         &kp RALT
+     &kp TAB     &i3_ws1   &i3_ws2   &i3_ws3         &i3_scratch_show   &trans          &bt BT_SEL 0   &bt BT_SEL 1   &bt BT_SEL 2   &bt BT_SEL 3   &bt BT_SEL 4   &bt BT_CLR
+     &kp LSHFT   &i3_ws4   &i3_ws5   &i3_ws6         &i3_scratch_move   &trans          &trans         &trans         &trans         &trans         &trans         &trans
+     &kp LCTRL   &i3_ws7   &i3_ws8   &i3_ws9         &i3_ws0            &trans          &trans         &trans         &trans         &trans         &trans         &trans
+                                     &i3_tog_on 2    &trans             &kp SPACE       &kp RET        &trans         &kp RALT
                         >;
                 };
 
                 focus_layer {
 // -----------------------------------------------------------------------------------------
-// |              | SPLIT-W        | F-U            | SPLIT-E         |        |        |XXX|        |        |         |       |        |       |     |
-// |              | F-L            | F-D            | F-R             |        |        |XXX|        |        |         |       |        |       |     |
-// | MOV          |                |                |                 |        |        |XXX|        |        |         |       |        |       |     |
+// |              | SPLIT-W        | F-U            | SPLIT-E         |        |        |XXX|        |        |         |       |        |       |
+// |              | F-L            | F-D            | F-R             |        |        |XXX|        |        |         |       |        |       |
+// | MOV          |                |                |                 |        |        |XXX|        |        |         |       |        |       |
 //                                 |                |                 | SPC    |        |XXX|        |        |         |
 bindings = <
-     &trans         &i3_split_w      &i3_focus_up     &i3_split_w       &trans   &trans       &trans   &trans   &trans   &trans   &trans   &trans
+     &trans         &i3_split_w      &i3_focus_up     &i3_split_e       &trans   &trans       &trans   &trans   &trans   &trans   &trans   &trans
      &trans         &i3_focus_left   &i3_focus_down   &i3_focus_right   &trans   &trans       &trans   &trans   &trans   &trans   &trans   &trans
      &i3_move_mod   &trans           &trans           &trans            &trans   &trans       &trans   &trans   &trans   &trans   &trans   &trans
                                                       &trans            &trans   &trans       &trans   &trans   &trans
