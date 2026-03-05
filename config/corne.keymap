@@ -10,6 +10,69 @@
 #include "keys_de_swiss.h"
 
 / {
+        macros {
+                i3_ws1: i3_ws1 {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        bindings = <&macro_press &kp LGUI>, <&macro_tap &kp N1>, <&macro_release &kp LGUI>;
+                };
+                i3_ws2: i3_ws2 {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        bindings = <&macro_press &kp LGUI>, <&macro_tap &kp N2>, <&macro_release &kp LGUI>;
+                };
+                i3_ws3: i3_ws3 {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        bindings = <&macro_press &kp LGUI>, <&macro_tap &kp N3>, <&macro_release &kp LGUI>;
+                };
+                i3_ws4: i3_ws4 {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        bindings = <&macro_press &kp LGUI>, <&macro_tap &kp N4>, <&macro_release &kp LGUI>;
+                };
+                i3_ws5: i3_ws5 {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        bindings = <&macro_press &kp LGUI>, <&macro_tap &kp N5>, <&macro_release &kp LGUI>;
+                };
+                i3_ws6: i3_ws6 {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        bindings = <&macro_press &kp LGUI>, <&macro_tap &kp N6>, <&macro_release &kp LGUI>;
+                };
+                i3_ws7: i3_ws7 {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        bindings = <&macro_press &kp LGUI>, <&macro_tap &kp N7>, <&macro_release &kp LGUI>;
+                };
+                i3_ws8: i3_ws8 {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        bindings = <&macro_press &kp LGUI>, <&macro_tap &kp N8>, <&macro_release &kp LGUI>;
+                };
+                i3_ws9: i3_ws9 {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        bindings = <&macro_press &kp LGUI>, <&macro_tap &kp N9>, <&macro_release &kp LGUI>;
+                };
+                i3_ws0: i3_ws0 {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        bindings = <&macro_press &kp LGUI>, <&macro_tap &kp N0>, <&macro_release &kp LGUI>;
+                };
+                i3_scratch_show: i3_scratch_show {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        bindings = <&macro_press &kp LGUI>, <&macro_tap &kp MINUS>, <&macro_release &kp LGUI>;
+                };
+                i3_scratch_move: i3_scratch_move {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        bindings = <&macro_press &kp LGUI>, <&macro_tap &kp LS(MINUS)>, <&macro_release &kp LGUI>;
+                };
+        };
+
         keymap {
                 compatible = "zmk,keymap";
 
@@ -28,15 +91,15 @@
                 };
                 lower_layer {
 // -----------------------------------------------------------------------------------------
-// |  TAB |  1  |  2  |  3  |  4  |  5  |   |  6  |  7  |  8  |  9  |  0  | BSPC |
-// | BTCLR| BT1 | BT2 | BT3 | BT4 | BT5 |   | LFT | DWN |  UP | RGT |     |      |
-// | SHFT |     |     |     |     |     |   |     |     |     |     |     |      |
-//                    | GUI |     | SPC |   | ENT |     | ALT |
+// | SCR  | WS1 | WS2 | WS3 |     |     |   | BTCLR| BT1 | BT2 | BT3 | BT4 | BT5 |
+// | SCRM | WS4 | WS5 | WS6 |     |     |   | LFT  | DWN | UP  | RGT |     |     |
+// | SHFT | WS7 | WS8 | WS9 | WS0 |     |   |      |     |     |     |     |     |
+//                    | GUI |     | SPC |   | ENT  |     | ALT |
                         bindings = <
-   &kp TAB    &kp N1       &kp N2       &kp N3       &kp N4       &kp N5         &kp N6   &kp N7   &kp N8 &kp N9    &kp N0 &kp BSPC
-   &bt BT_CLR &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4   &kp LEFT &kp DOWN &kp UP &kp RIGHT &trans &trans
-   &kp LSHFT  &trans       &trans       &trans       &trans       &trans         &trans   &trans   &trans &trans    &trans &trans
-                                    &kp LGUI     &trans       &kp SPACE      &kp RET  &trans   &kp RALT
+   &i3_scratch_show &i3_ws1      &i3_ws2      &i3_ws3      &trans       &trans         &bt BT_CLR &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4
+   &i3_scratch_move &i3_ws4      &i3_ws5      &i3_ws6      &trans       &trans         &kp LEFT   &kp DOWN     &kp UP       &kp RIGHT    &trans       &trans
+   &kp LSHFT  &i3_ws7      &i3_ws8      &i3_ws9      &i3_ws0      &trans         &trans     &trans       &trans       &trans       &trans       &trans
+                                      &kp LGUI    &trans       &kp SPACE      &kp RET  &trans   &kp RALT
                         >;
                 };
 
