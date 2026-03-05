@@ -4,33 +4,37 @@ layers:
       USAGE KEY, HID USAGE KEY KEYBOARD COMMA AND LESS THAN))))', '((ZMK HID USAGE(HID USAGE KEY, HID USAGE KEY KEYBOARD MINUS AND UNDERSCORE)))', LSHFT, '(ZMK HID
       USAGE(HID USAGE KEY, HID USAGE KEY KEYBOARD Z))', X, C, V, B, N, M, '(ZMK HID USAGE(HID USAGE KEY, HID USAGE KEY KEYBOARD COMMA AND LESS THAN))', '((ZMK HID
       USAGE(HID USAGE KEY, HID USAGE KEY KEYBOARD PERIOD AND GREATER THAN)))', '((LS(ZMK HID USAGE(HID USAGE KEY, HID USAGE KEY KEYBOARD 7 AND AMPERSAND))))', ESC,
-    LGUI, lower, SPACE, RET, raise, RALT]
+    LGUI, '&lwr_i3', SPACE, RET, raise, RALT]
   lower:
-  - TAB
-  - '1'
-  - '2'
-  - '3'
-  - '4'
-  - '5'
-  - '6'
-  - '7'
-  - '8'
-  - '9'
-  - '0'
-  - BSPC
+  - '&i3_scratch_show'
+  - '&i3_ws1'
+  - '&i3_ws2'
+  - '&i3_ws3'
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
   - BT CLR
   - {t: BT, h: '0'}
   - {t: BT, h: '1'}
   - {t: BT, h: '2'}
   - {t: BT, h: '3'}
   - {t: BT, h: '4'}
-  - LEFT
-  - DOWN
-  - UP
-  - RIGHT
+  - '&i3_scratch_move'
+  - '&i3_ws4'
+  - '&i3_ws5'
+  - '&i3_ws6'
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - LSHFT
+  - '&i3_ws7'
+  - '&i3_ws8'
+  - '&i3_ws9'
+  - '&i3_ws0'
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -38,16 +42,55 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
+  - '&i3_tog_on 2'
   - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - LGUI
-  - {type: held}
   - SPACE
   - RET
   - {t: ▽, type: trans}
   - RALT
+  focus:
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - '&i3_focus_up'
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - '&i3_focus_left'
+  - '&i3_focus_down'
+  - '&i3_focus_right'
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - '&i3_move_mod'
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
   raise:
   - TAB
   - ((LS(ZMK HID USAGE(HID USAGE KEY, HID USAGE KEY KEYBOARD RIGHT BRACKET AND RIGHT BRACE))))
