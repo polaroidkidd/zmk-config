@@ -158,15 +158,15 @@ bindings = <
                 };
                 lower_layer {
 // -----------------------------------------------------------------------------------------
-// | SCR  | WS1 | WS2 | WS3 |     |     |   | BTCLR| BT1 | BT2 | BT3 | BT4 | BT5 |
-// | SCRM | WS4 | WS5 | WS6 |     |     |   |      |     |     |     |     |     |
-// | SHFT | WS7 | WS8 | WS9 | WS0 |     |   |      |     |     |     |     |     |
-//                    | GUI |     | SPC |   | ENT  |     | ALT |
-                        bindings = <
-   &i3_scratch_show &i3_ws1      &i3_ws2      &i3_ws3      &trans       &trans         &bt BT_CLR &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4
-   &i3_scratch_move &i3_ws4      &i3_ws5      &i3_ws6      &trans       &trans         &trans     &trans       &trans       &trans       &trans       &trans
-   &kp LSHFT                     &i3_ws7      &i3_ws8      &i3_ws9      &i3_ws0      &trans         &trans     &trans       &trans       &trans       &trans       &trans
-                                      &i3_tog_on 2 &trans       &kp SPACE      &kp RET  &trans   &kp RALT
+// | SCR              | WS1     | WS2    | WS3          |     |       |   | BTCLR| BT1 | BT2 | BT3 | BT4 | BT5 |
+// | SCRM             | WS4     | WS5    | WS6          |     |       |   |      |     |     |     |     |     |
+// | SHFT             | WS7     | WS8    | WS9          | WS0 |       |   |      |     |     |     |     |     |
+//                                       | GUI          |     |   SPC |   | ENT  |     | ALT |
+bindings = <
+     &i3_scratch_show   &i3_ws1   &i3_ws2  &i3_ws3        &trans   &trans         &bt BT_CLR &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4
+     &i3_scratch_move   &i3_ws4   &i3_ws5  &i3_ws6        &trans   &trans         &trans     &trans       &trans       &trans       &trans       &trans
+     &kp LSHFT          &i3_ws7   &i3_ws8  &i3_ws9        &i3_ws0  &trans         &trans     &trans       &trans       &trans       &trans       &trans
+                                           &i3_tog_on 2   &trans   &kp SPACE      &kp RET  &trans   &kp RALT
                         >;
                 };
 
