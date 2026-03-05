@@ -3,7 +3,7 @@ name: Draw ZMK keymaps
 on:
   push:
     branches:
-      - main
+      - draw-keyboard
     paths:
       - 'config/*.keymap'
       - 'keymap_drawer.config.yaml'
