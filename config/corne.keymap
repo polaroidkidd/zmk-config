@@ -103,6 +103,13 @@
                         tap-ms = <0>;
                         bindings = <&macro_press &kp LSHFT>, <&macro_pause_for_release>, <&macro_release &kp LSHFT>;
                 };
+                i3_ctrl_mod: i3_ctrl_mod {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        wait-ms = <0>;
+                        tap-ms = <0>;
+                        bindings = <&macro_press &kp LCTRL>, <&macro_pause_for_release>, <&macro_release &kp LCTRL>;
+                };
                 i3_focus_left: i3_focus_left {
                         compatible = "zmk,behavior-macro";
                         #binding-cells = <0>;
@@ -201,7 +208,7 @@ bindings = <
 bindings = <
      &trans         &i3_split_w      &i3_focus_up     &i3_split_e       &i3_split_v   &trans       &trans   &trans   &trans   &trans   &trans   &trans
      &i3_move_mod   &i3_focus_left   &i3_focus_down   &i3_focus_right   &trans        &trans       &trans   &trans   &trans   &trans   &trans   &trans
-     &trans         &trans           &trans           &trans            &trans        &trans       &trans   &trans   &trans   &trans   &trans   &trans
+     &i3_ctrl_mod   &trans           &trans           &trans            &trans        &trans       &trans   &trans   &trans   &trans   &trans   &trans
                                                       &trans            &trans        &trans       &trans   &trans   &trans
                         >;
                 };
