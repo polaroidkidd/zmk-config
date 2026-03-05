@@ -15,7 +15,6 @@
                         compatible = "zmk,behavior-toggle-layer";
                         #binding-cells = <1>;
                         toggle-mode = "on";
-                        locking;
                 };
                 i3_tog_off: i3_toggle_layer_off {
                         compatible = "zmk,behavior-toggle-layer";
@@ -199,4 +198,4 @@
                         >;
                 };
         };
-}
+};
