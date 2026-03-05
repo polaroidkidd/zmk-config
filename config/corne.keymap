@@ -138,6 +138,18 @@
                         #binding-cells = <0>;
                         bindings = <&macro_press &kp LGUI &kp LSHFT>, <&macro_tap &kp RIGHT>, <&macro_release &kp LSHFT &kp LGUI>;
                 };
+
+                i3_split_e: i3_split_e {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        bindings = <&macro_press &kp LGUI>, <&macro_tap &kp E>, <&macro_release &kp LGUI>;
+                };
+
+                i3_split_w: i3_split_w {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        bindings = <&macro_press &kp LGUI>, <&macro_tap &kp W>, <&macro_release &kp LGUI>;
+                };
         };
 
         keymap {
@@ -147,12 +159,12 @@
 // ---------------       ------------------------------------------------------------------------
 // | TAB       | Q        | W       |  E       | R         |XXX|  T       |  Z    | U        |  I         | O       |  P       | ESC      |
 // | SHFT      | A        | S       |  D       | F         |XXX|  G       |  H    | J        |  K         | L       |  ;       | BSPC     |
-// | CTRL      | Y        | X       |  C       | V         |XXX|  B       |  N    | M        |  ,         | .       |  /       |  '       |
+// | CTRL      | Y        | X       |  C       | V         |XXX|  B       |  N    | M        |  ,         | .       |  /       | DEL      |
 //                        | GUI     |  LAYR    | SPC       |XXX|  ENT     |  RSE  | ALT      |
 bindings = <      
      &kp TAB     &kp Q      &kp W      &kp E     &kp R            &kp T     &kp Z   &kp U       &kp I       &kp O     &kp P      &kp ESC
      &kp LSHFT   &kp A      &kp S      &kp D     &kp F            &kp G     &kp H   &kp J       &kp K       &kp L     &kp SEMI   &kp BSPC
-     &kp LCTRL   &kp DE_Y   &kp X      &kp C     &kp V            &kp B     &kp N   &kp M       &kp COMMA   &kp DOT   &kp FSLH   &kp SQT
+     &kp LCTRL   &kp DE_Y   &kp X      &kp C     &kp V            &kp B     &kp N   &kp M       &kp COMMA   &kp DOT   &kp FSLH   &kp DEL
                             &kp LGUI   &lwr_i3   &kp SPACE        &kp RET   &mo 3   &kp RALT
                         >;
                 };
@@ -172,12 +184,12 @@ bindings = <
 
                 focus_layer {
 // -----------------------------------------------------------------------------------------
-// |              |                | F-U            |                 |        |        |XXX|        |        |         |       |        |       |     |
+// |              | SPLIT-W        | F-U            | SPLIT-E         |        |        |XXX|        |        |         |       |        |       |     |
 // |              | F-L            | F-D            | F-R             |        |        |XXX|        |        |         |       |        |       |     |
 // | MOV          |                |                |                 |        |        |XXX|        |        |         |       |        |       |     |
 //                                 |                |                 | SPC    |        |XXX|        |        |         |
 bindings = <
-     &trans         &trans           &i3_focus_up     &trans            &trans   &trans       &trans   &trans   &trans   &trans   &trans   &trans
+     &trans         &i3_split_w      &i3_focus_up     &i3_split_w       &trans   &trans       &trans   &trans   &trans   &trans   &trans   &trans
      &trans         &i3_focus_left   &i3_focus_down   &i3_focus_right   &trans   &trans       &trans   &trans   &trans   &trans   &trans   &trans
      &i3_move_mod   &trans           &trans           &trans            &trans   &trans       &trans   &trans   &trans   &trans   &trans   &trans
                                                       &trans            &trans   &trans       &trans   &trans   &trans
