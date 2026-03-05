@@ -1,7 +1,7 @@
 layout: {zmk_keyboard: corne}
 layers:
-  default: [TAB, Q, W, E, R, T, Z, U, I, O, P, BSPC, LCTRL, A, S, D, F, G, H, J, K, L, ;, '''', LSHFT, '(ZMK HID USAGE(HID USAGE KEY, HID USAGE KEY KEYBOARD Z))',
-    X, C, V, B, N, M, ',', ., /, ESC, LGUI, '&lwr_i3', SPACE, RET, raise, RALT]
+  default: [TAB, Q, W, E, R, T, Z, U, I, O, P, ESC, LSHFT, A, S, D, F, G, H, J, K, L, ;, BSPC, LCTRL, '(ZMK HID USAGE(HID USAGE KEY, HID USAGE KEY KEYBOARD Z))',
+    X, C, V, B, N, M, ',', ., /, '''', LGUI, '&lwr_i3', SPACE, RET, raise, RALT]
   lower:
   - '&i3_scratch_show'
   - '&i3_ws1'
@@ -9,12 +9,12 @@ layers:
   - '&i3_ws3'
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - BT CLR
   - {t: BT, h: '0'}
   - {t: BT, h: '1'}
   - {t: BT, h: '2'}
   - {t: BT, h: '3'}
   - {t: BT, h: '4'}
+  - BT CLR
   - '&i3_scratch_move'
   - '&i3_ws4'
   - '&i3_ws5'
