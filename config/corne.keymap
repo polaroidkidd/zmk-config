@@ -223,12 +223,12 @@
                 i3_float: i3_float {
                         compatible = "zmk,behavior-macro";
                         #binding-cells = <0>;
-                        bindings = <&macro_press &kp LGUI &kp SHIFT>, <&macro_tap &kp SPACE>, <&macro_release &kp LGUI &kp SHIFT>;
+                        bindings = <&macro_press &kp LGUI &kp LSHFT>, <&macro_tap &kp SPACE>, <&macro_release &kp LGUI &kp LSHFT>;
                 };
                 i3_float_focus: i3_float_focus {
                         compatible = "zmk,behavior-macro";
                         #binding-cells = <0>;
-                        bindings = <&macro_press &kp LGUI &kp SHIFT>, <&macro_tap &kp T>, <&macro_release &kp LGUI &kp SHIFT>;
+                        bindings = <&macro_press &kp LGUI &kp LSHFT>, <&macro_tap &kp T>, <&macro_release &kp LGUI &kp LSHFT>;
                 };
         };
 
