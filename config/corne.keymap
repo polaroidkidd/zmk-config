@@ -246,12 +246,12 @@ bindings = <
 
                 i3_workspace_layer {
 // -----------------------------------------------------------------------------------------
-// | SCR        | WS1     | WS2     | WS3          | Scratch Show     | Tog Float       |XXX| BT0          | BT1          | BT2          | BT3          | BT4          | BTCLR        |
+// | SCR        | WS1     | WS2     | WS3          | Scratch Show     | Tog Float       |XXX|              |              |              |              |              |              |
 // | SCRM       | WS4     | WS5     | WS6          | Scratch Move     |                 |XXX|              |              |              |              |              |              |
 // | SHFT       | WS7     | WS8     | WS9          | WS0              | Float Focus     |XXX|              |              |              |              |              |              |
 //                                  | Tog Win      |                  | SPC             |XXX| ENT          |              | ALT          |
 bindings = <
-     &kp TAB     &i3_ws1   &i3_ws2   &i3_ws3         &i3_scratch_show   &i3_float             &bt BT_SEL 0   &bt BT_SEL 1   &bt BT_SEL 2   &bt BT_SEL 3   &bt BT_SEL 4   &bt BT_CLR
+     &kp TAB     &i3_ws1   &i3_ws2   &i3_ws3         &i3_scratch_show   &i3_float             &trans         &trans         &trans         &trans         &trans         &trans
      &kp LSHFT   &i3_ws4   &i3_ws5   &i3_ws6         &i3_scratch_move   &trans                &trans         &trans         &trans         &trans         &trans         &trans
      &kp LCTRL   &i3_ws7   &i3_ws8   &i3_ws9         &i3_ws0            &i3_float_focus       &trans         &trans         &trans         &trans         &trans         &trans
                                      &i3_tog_on 2    &trans             &kp SPACE             &kp RET        &trans         &kp RALT
@@ -260,15 +260,15 @@ bindings = <
 
                 i3_window_layer {
 // -----------------------------------------------------------------------------------------
-// |              | SPLIT-W        | DIR-U          | SPLIT-E         | SPLIT-V     |        |XXX|        |        |         |       |        |       |
-// | MOV-MOD      | DIR-L          | DIR-D          | DIR-R           |             |        |XXX|        |        |         |       |        |       |
-// | CTRL-MOD     |                |                |                 |             |        |XXX|        |        |         |       |        |       |
-//                                 |                |                 | SPC         |        |XXX|        |        |         |
+// |              | SPLIT-W        | DIR-U          | SPLIT-E         | SPLIT-V     |        |XXX| BT0          | BT1          | BT2          | BT3          | BT4          | BTCLR        |
+// | MOV-MOD      | DIR-L          | DIR-D          | DIR-R           |             |        |XXX|              |              |              |              |              |              |
+// | CTRL-MOD     |                |                |                 |             |        |XXX|              |              |              |              |              |              |
+//                                 |                |                 | SPC         |        |XXX| ENT          |              | ALT          |
 bindings = <
-     &trans         &i3_split_w      &i3_dir_up       &i3_split_e       &i3_split_v   &trans       &trans   &trans   &trans   &trans   &trans   &trans
-     &i3_move_mod   &i3_dir_left     &i3_dir_down     &i3_dir_right     &trans        &trans       &trans   &trans   &trans   &trans   &trans   &trans
-     &kp LCTRL      &trans           &trans           &trans            &trans        &trans       &trans   &trans   &trans   &trans   &trans   &trans
-                                                      &trans            &trans        &trans       &trans   &trans   &trans
+     &trans         &i3_split_w      &i3_dir_up       &i3_split_e       &i3_split_v   &trans       &bt BT_SEL 0   &bt BT_SEL 1   &bt BT_SEL 2   &bt BT_SEL 3   &bt BT_SEL 4   &bt BT_CLR
+     &i3_move_mod   &i3_dir_left     &i3_dir_down     &i3_dir_right     &trans        &trans       &trans         &trans         &trans         &trans        &trans         &trans
+     &kp LCTRL      &trans           &trans           &trans            &trans        &trans       &trans         &trans         &trans         &trans        &trans         &trans
+                                                      &trans            &trans        &trans       &trans         &trans         &trans
                         >;
                 };
 
