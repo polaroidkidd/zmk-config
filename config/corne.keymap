@@ -27,6 +27,30 @@
                         #binding-cells = <1>;
                         toggle-mode = "off";
                 };
+                i3_dir_left: i3_dir_left {
+                        compatible = "zmk,behavior-mod-morph";
+                        #binding-cells = <0>;
+                        bindings = <&i3_focus_left>, <&i3_resize_left>;
+                        mods = <(MOD_LCTL|MOD_RCTL)>;
+                };
+                i3_dir_down: i3_dir_down {
+                        compatible = "zmk,behavior-mod-morph";
+                        #binding-cells = <0>;
+                        bindings = <&i3_focus_down>, <&i3_resize_down>;
+                        mods = <(MOD_LCTL|MOD_RCTL)>;
+                };
+                i3_dir_up: i3_dir_up {
+                        compatible = "zmk,behavior-mod-morph";
+                        #binding-cells = <0>;
+                        bindings = <&i3_focus_up>, <&i3_resize_up>;
+                        mods = <(MOD_LCTL|MOD_RCTL)>;
+                };
+                i3_dir_right: i3_dir_right {
+                        compatible = "zmk,behavior-mod-morph";
+                        #binding-cells = <0>;
+                        bindings = <&i3_focus_right>, <&i3_resize_right>;
+                        mods = <(MOD_LCTL|MOD_RCTL)>;
+                };
         };
 
         macros {
@@ -159,30 +183,6 @@
                         tap-ms = <0>;
                         bindings = <&macro_press &kp LGUI &kp RIGHT>, <&macro_pause_for_release>, <&macro_release &kp RIGHT &kp LGUI>;
                 };
-                i3_dir_left: i3_dir_left {
-                        compatible = "zmk,behavior-mod-morph";
-                        #binding-cells = <0>;
-                        bindings = <&i3_focus_left>, <&i3_resize_left>;
-                        mods = <(MOD_LCTL|MOD_RCTL)>;
-                };
-                i3_dir_down: i3_dir_down {
-                        compatible = "zmk,behavior-mod-morph";
-                        #binding-cells = <0>;
-                        bindings = <&i3_focus_down>, <&i3_resize_down>;
-                        mods = <(MOD_LCTL|MOD_RCTL)>;
-                };
-                i3_dir_up: i3_dir_up {
-                        compatible = "zmk,behavior-mod-morph";
-                        #binding-cells = <0>;
-                        bindings = <&i3_focus_up>, <&i3_resize_up>;
-                        mods = <(MOD_LCTL|MOD_RCTL)>;
-                };
-                i3_dir_right: i3_dir_right {
-                        compatible = "zmk,behavior-mod-morph";
-                        #binding-cells = <0>;
-                        bindings = <&i3_focus_right>, <&i3_resize_right>;
-                        mods = <(MOD_LCTL|MOD_RCTL)>;
-                };
                 i3_move_left: i3_move_left {
                         compatible = "zmk,behavior-macro";
                         #binding-cells = <0>;
@@ -203,13 +203,11 @@
                         #binding-cells = <0>;
                         bindings = <&macro_press &kp LGUI &kp LSHFT>, <&macro_tap &kp RIGHT>, <&macro_release &kp LSHFT &kp LGUI>;
                 };
-
                 i3_split_e: i3_split_e {
                         compatible = "zmk,behavior-macro";
                         #binding-cells = <0>;
                         bindings = <&macro_press &kp LGUI>, <&macro_tap &kp E>, <&macro_release &kp LGUI>;
                 };
-
                 i3_split_w: i3_split_w {
                         compatible = "zmk,behavior-macro";
                         #binding-cells = <0>;
