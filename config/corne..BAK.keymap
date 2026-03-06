@@ -1,0 +1,289 @@
+/*
+ * Copyright (c) 2020 The ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/modifiers.h>
+#include "keys_de_swiss.h"
+
+
+#define DEFAULT        0
+#define I3_WORKSPACE   1
+#define I3_WINDOW      2
+
+/ {
+        behaviors {
+                i3_tog_on: i3_toggle_layer_on {
+                        compatible = "zmk,behavior-toggle-layer";
+                        #binding-cells = <1>;
+                        toggle-mode = "on";
+                };
+                i3_tog_off: i3_toggle_layer_off {
+                        compatible = "zmk,behavior-toggle-layer";
+                        #binding-cells = <1>;
+                        toggle-mode = "off";
+                };
+                i3_dir_left: i3_dir_left {
+                        compatible = "zmk,behavior-mod-morph";
+                        #binding-cells = <0>;
+                        bindings = <&i3_focus_left>, <&i3_resize_left>;
+                        mods = <(MOD_LCTL|MOD_RCTL)>;
+                        keep-mods = <(MOD_LCTL|MOD_RCTL)>;
+                };
+                i3_dir_down: i3_dir_down {
+                        compatible = "zmk,behavior-mod-morph";
+                        #binding-cells = <0>;
+                        bindings = <&i3_focus_down>, <&i3_resize_down>;
+                        mods = <(MOD_LCTL|MOD_RCTL)>;
+                        keep-mods = <(MOD_LCTL|MOD_RCTL)>;
+                };
+                i3_dir_up: i3_dir_up {
+                        compatible = "zmk,behavior-mod-morph";
+                        #binding-cells = <0>;
+                        bindings = <&i3_focus_up>, <&i3_resize_up>;
+                        mods = <(MOD_LCTL|MOD_RCTL)>;
+                        keep-mods = <(MOD_LCTL|MOD_RCTL)>;
+                };
+                i3_dir_right: i3_dir_right {
+                        compatible = "zmk,behavior-mod-morph";
+                        #binding-cells = <0>;
+                        bindings = <&i3_focus_right>, <&i3_resize_right>;
+                        mods = <(MOD_LCTL|MOD_RCTL)>;
+                        keep-mods = <(MOD_LCTL|MOD_RCTL)>;
+                };
+        };
+
+        macros {
+                lwr_i3: lwr_i3 {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        wait-ms = <0>;
+                        tap-ms = <0>;
+                        bindings = <&macro_press &mo I3_WORKSPACE>, <&macro_pause_for_release>, <&macro_tap &i3_tog_off I3_WINDOW>, <&macro_release &mo I3_WORKSPACE>;
+                };
+                i3_ws1: i3_ws1 {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        bindings = <&macro_press &kp LGUI>, <&macro_tap &kp N1>, <&macro_release &kp LGUI>;
+                };
+                i3_ws2: i3_ws2 {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        bindings = <&macro_press &kp LGUI>, <&macro_tap &kp N2>, <&macro_release &kp LGUI>;
+                };
+                i3_ws3: i3_ws3 {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        bindings = <&macro_press &kp LGUI>, <&macro_tap &kp N3>, <&macro_release &kp LGUI>;
+                };
+                i3_ws4: i3_ws4 {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        bindings = <&macro_press &kp LGUI>, <&macro_tap &kp N4>, <&macro_release &kp LGUI>;
+                };
+                i3_ws5: i3_ws5 {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        bindings = <&macro_press &kp LGUI>, <&macro_tap &kp N5>, <&macro_release &kp LGUI>;
+                };
+                i3_ws6: i3_ws6 {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        bindings = <&macro_press &kp LGUI>, <&macro_tap &kp N6>, <&macro_release &kp LGUI>;
+                };
+                i3_ws7: i3_ws7 {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        bindings = <&macro_press &kp LGUI>, <&macro_tap &kp N7>, <&macro_release &kp LGUI>;
+                };
+                i3_ws8: i3_ws8 {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        bindings = <&macro_press &kp LGUI>, <&macro_tap &kp N8>, <&macro_release &kp LGUI>;
+                };
+                i3_ws9: i3_ws9 {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        bindings = <&macro_press &kp LGUI>, <&macro_tap &kp N9>, <&macro_release &kp LGUI>;
+                };
+                i3_ws0: i3_ws0 {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        bindings = <&macro_press &kp LGUI>, <&macro_tap &kp N0>, <&macro_release &kp LGUI>;
+                };
+                i3_scratch_show: i3_scratch_show {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        bindings = <&macro_press &kp LGUI>, <&macro_tap &kp DE_MINUS>, <&macro_release &kp LGUI>;
+                };
+                i3_scratch_move: i3_scratch_move {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        bindings = <&macro_press &kp LGUI>, <&macro_tap &kp DE_UNDER>, <&macro_release &kp LGUI>;
+                };
+                i3_move_mod: i3_move_mod {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        wait-ms = <0>;
+                        tap-ms = <0>;
+                        bindings = <&macro_press &kp LSHFT>, <&macro_pause_for_release>, <&macro_release &kp LSHFT>;
+                };
+                i3_focus_left: i3_focus_left {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        bindings = <&macro_press &kp LGUI>, <&macro_tap &kp LEFT>, <&macro_release &kp LGUI>;
+                };
+                i3_focus_down: i3_focus_down {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        bindings = <&macro_press &kp LGUI>, <&macro_tap &kp DOWN>, <&macro_release &kp LGUI>;
+                };
+                i3_focus_up: i3_focus_up {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        bindings = <&macro_press &kp LGUI>, <&macro_tap &kp UP>, <&macro_release &kp LGUI>;
+                };
+                i3_focus_right: i3_focus_right {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        bindings = <&macro_press &kp LGUI>, <&macro_tap &kp RIGHT>, <&macro_release &kp LGUI>;
+                };
+                i3_resize_left: i3_resize_left {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        wait-ms = <0>;
+                        tap-ms = <0>;
+                        bindings = <&macro_press &kp LGUI &kp LEFT>, <&macro_pause_for_release>, <&macro_release &kp LEFT &kp LGUI>;
+                };
+                i3_resize_down: i3_resize_down {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        wait-ms = <0>;
+                        tap-ms = <0>;
+                        bindings = <&macro_press &kp LGUI &kp DOWN>, <&macro_pause_for_release>, <&macro_release &kp DOWN &kp LGUI>;
+                };
+                i3_resize_up: i3_resize_up {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        wait-ms = <0>;
+                        tap-ms = <0>;
+                        bindings = <&macro_press &kp LGUI &kp UP>, <&macro_pause_for_release>, <&macro_release &kp UP &kp LGUI>;
+                };
+                i3_resize_right: i3_resize_right {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        wait-ms = <0>;
+                        tap-ms = <0>;
+                        bindings = <&macro_press &kp LGUI &kp RIGHT>, <&macro_pause_for_release>, <&macro_release &kp RIGHT &kp LGUI>;
+                };
+                i3_move_left: i3_move_left {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        bindings = <&macro_press &kp LGUI &kp LSHFT>, <&macro_tap &kp LEFT>, <&macro_release &kp LSHFT &kp LGUI>;
+                };
+                i3_move_down: i3_move_down {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        bindings = <&macro_press &kp LGUI &kp LSHFT>, <&macro_tap &kp DOWN>, <&macro_release &kp LSHFT &kp LGUI>;
+                };
+                i3_move_up: i3_move_up {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        bindings = <&macro_press &kp LGUI &kp LSHFT>, <&macro_tap &kp UP>, <&macro_release &kp LSHFT &kp LGUI>;
+                };
+                i3_move_right: i3_move_right {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        bindings = <&macro_press &kp LGUI &kp LSHFT>, <&macro_tap &kp RIGHT>, <&macro_release &kp LSHFT &kp LGUI>;
+                };
+                i3_split_e: i3_split_e {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        bindings = <&macro_press &kp LGUI>, <&macro_tap &kp E>, <&macro_release &kp LGUI>;
+                };
+                i3_split_w: i3_split_w {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        bindings = <&macro_press &kp LGUI>, <&macro_tap &kp W>, <&macro_release &kp LGUI>;
+                };
+                i3_split_v: i3_split_v {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        bindings = <&macro_press &kp LGUI>, <&macro_tap &kp V>, <&macro_release &kp LGUI>;
+                };
+                i3_float: i3_float {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        bindings = <&macro_press &kp LGUI &kp LSHFT>, <&macro_tap &kp SPACE>, <&macro_release &kp LGUI &kp LSHFT>;
+                };
+                i3_float_focus: i3_float_focus {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        bindings = <&macro_press &kp LGUI &kp LSHFT>, <&macro_tap &kp T>, <&macro_release &kp LGUI &kp LSHFT>;
+                };
+        };
+
+        keymap {
+                compatible = "zmk,keymap";
+
+                default_layer {
+// ---------------       ------------------------------------------------------------------------
+// | TAB       | Q        | W       |  E       | R         | T       |XXX| Z    | U        |  I         | O       |  P       | ESC      |
+// | SHFT      | A        | S       |  D       | F         | G       |XXX| H    | J        |  K         | L       |  ;       | BSPC     |
+// | CTRL      | Y        | X       |  C       | V         | B       |XXX| N    | M        |  ,         | .       |  /       | DEL      |
+//                        | GUI     |  LAYR    | SPC       | ENT     |XXX| RSE  | ALT      |
+bindings = <
+     &kp TAB     &kp Q      &kp W      &kp E     &kp R       &kp T         &kp Z   &kp U       &kp I       &kp O     &kp P      &kp ESC
+     &kp LSHFT   &kp A      &kp S      &kp D     &kp F       &kp G         &kp H   &kp J       &kp K       &kp L     &kp SEMI   &kp BSPC
+     &kp LCTRL   &kp DE_Y   &kp X      &kp C     &kp V       &kp B         &kp N   &kp M       &kp COMMA   &kp DOT   &kp FSLH   &kp DEL
+                            &kp LGUI   &lwr_i3   &kp SPACE   &kp RET       &mo 3   &kp RALT
+                        >;
+                };
+
+                i3_workspace_layer {
+// -----------------------------------------------------------------------------------------
+// | SCR        | WS1     | WS2     | WS3          | Scratch Show     | Tog Float       |XXX|              |              |              |              |              |              |
+// | SCRM       | WS4     | WS5     | WS6          | Scratch Move     |                 |XXX|              |              |              |              |              |              |
+// | SHFT       | WS7     | WS8     | WS9          | WS0              | Float Focus     |XXX|              |              |              |              |              |              |
+//                                  | Tog Win      |                  | SPC             |XXX| ENT          |              | ALT          |
+bindings = <
+     &kp TAB     &i3_ws1   &i3_ws2   &i3_ws3         &i3_scratch_show   &i3_float             &trans         &trans         &trans         &trans         &trans         &trans
+     &kp LSHFT   &i3_ws4   &i3_ws5   &i3_ws6         &i3_scratch_move   &trans                &trans         &trans         &trans         &trans         &trans         &trans
+     &kp LCTRL   &i3_ws7   &i3_ws8   &i3_ws9         &i3_ws0            &i3_float_focus       &trans         &trans         &trans         &trans         &trans         &trans
+                                     &i3_tog_on 2    &trans             &kp SPACE             &kp RET        &trans         &kp RALT
+                        >;
+                };
+
+                i3_window_layer {
+// -----------------------------------------------------------------------------------------
+// |              | SPLIT-W        | DIR-U          | SPLIT-E         | SPLIT-V     |        |XXX| BT0          | BT1          | BT2          | BT3          | BT4          | BTCLR        |
+// | MOV-MOD      | DIR-L          | DIR-D          | DIR-R           |             |        |XXX|              |              |              |              |              |              |
+// | CTRL-MOD     |                |                |                 |             |        |XXX|              |              |              |              |              |              |
+//                                 |                |                 | SPC         |        |XXX| ENT          |              | ALT          |
+bindings = <
+     &trans         &i3_split_w      &i3_dir_up       &i3_split_e       &i3_split_v   &trans       &bt BT_SEL 0   &bt BT_SEL 1   &bt BT_SEL 2   &bt BT_SEL 3   &bt BT_SEL 4   &bt BT_CLR
+     &i3_move_mod   &i3_dir_left     &i3_dir_down     &i3_dir_right     &trans        &trans       &trans         &trans         &trans         &trans        &trans         &trans
+     &kp LCTRL      &trans           &trans           &trans            &trans        &trans       &trans         &trans         &trans         &trans        &trans         &trans
+                                                      &trans            &trans        &trans       &trans         &trans         &trans
+                        >;
+                };
+
+                raise_layer {
+// -----------------------------------------------------------------------------------------
+// |  TAB |  !  |  @  |  #  |  $  |  %  |   |  ^  |  ü  |  *  |  ö  |  )  | BSPC |
+// | CTRL |  ä  |     |     |     |     |   |  -  |  =  |  [  |  ]  |  \  |  `   |
+// | SHFT | UNL |     |     |     |     |   |  _  |  +  |  {  |  }  | "|" |  ~   |
+//                    | GUI |     | SPC |   | ENT |     | ALT |
+bindings = <
+   &kp TAB    &kp DE_EXCL      &kp DE_AT   &kp DE_HASH   &kp DE_DLLR   &kp DE_PRCNT   &kp DE_CARET   &kp DE_U_UMLAUT   &kp DE_ASTRK   &kp DE_O_UMLAUT   &kp DE_RPAR   &kp BSPC
+   &kp LCTRL  &kp DE_A_UMLAUT  &trans      &trans        &trans        &trans         &kp DE_MINUS   &kp DE_EQUAL      &kp DE_LBKT    &kp DE_RBKT       &kp DE_BSLH   &kp DE_GRAVE
+   &kp LSHFT  &studio_unlock   &trans      &trans        &trans        &trans         &kp DE_UNDER   &kp DE_PLUS       &kp DE_LBRC    &kp DE_RBRC       &kp DE_PIPE   &kp DE_TILDE
+                                &kp LGUI   &trans        &kp SPACE     &kp RET        &trans         &kp RALT
+                        >;
+                };
+        };
+};
