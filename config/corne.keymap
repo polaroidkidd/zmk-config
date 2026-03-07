@@ -71,7 +71,7 @@
                         #binding-cells = <0>;
                         bindings = <&kp DE_TILDE>, <&kp DE_GRAVE>;
                         mods = <(MOD_LSFT)>;                                                
-                }
+                };
 
 
         };
