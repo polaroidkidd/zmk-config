@@ -52,19 +52,19 @@
                         #binding-cells = <0>;
                         bindings = <&kp ESCAPE>, <&kp DE_GRAVE>;
                         mods = <(MOD_LSFT)>;
-                }
+                };
                 del_sqt: delete_single_quote {
                         compatible = "zmk,behavior-mod-morph";
                         #binding-cells = <0>;
                         bindings = <&kp DEL>, <&kp SINGLE_QUOTE>;
                         mods = <(MOD_LSFT)>;
-                }
+                };
                 bas_exl: backspace_exclamation {
                         compatible = "zmk,behavior-mod-morph";
                         #binding-cells = <0>;
                         bindings = <&kp BACKSLASH>, <&kp EXCLAMATION>;
                         mods = <(MOD_LSFT)>;                        
-                }
+                };
 
                 tigr: tidle_grave {
                         compatible = "zmk,behavior-mod-morph";
