@@ -15,6 +15,8 @@
 #define NAV            1
 #define SYM            2
 #define CH_DE          3
+#define CH_BASE        4
+#define CH_RAISED      5
 / {
         conditional_layers {
                 compatible = "zmk,conditional-layers";
@@ -24,14 +26,36 @@
                 };
         };
 
+        behaviors {
+                r_para: right_parentheses  {
+                        compatible = "zmk,behavior-mod-morph";
+                        #binding-cells = <0>;
+                        bindings = <&kp DE_LPAR>, <&kp DE_RPAR>;
+                        mods = <(MOD_LSFT)>;
+                };
+
+                r_bkt: right_brackett  {
+                        compatible = "zmk,behavior-mod-morph";
+                        #binding-cells = <0>;
+                        bindings = <&kp DE_LBKT>, <&kp DE_RBKT>;
+                        mods = <(MOD_LSFT)>;
+                };
+                r_brc: right_brace  {
+                        compatible = "zmk,behavior-mod-morph";
+                        #binding-cells = <0>;
+                        bindings = <&kp DE_LBRC>, <&kp DE_RBRC>;
+                        mods = <(MOD_LSFT)>;
+                };
+        };
+
         keymap {
                 compatible = "zmk,keymap";
 
                 base_layer {
                         bindings = <
         &kp TAB       &kp DE_Q          &kp DE_W     &kp DE_E     &kp DE_R      &kp DE_T           &kp DE_Z       &kp DE_U          &kp DE_I        &kp DE_O          &kp DE_P      &kp BSPC
-        &kp LSHFT     &kp DE_A          &kp DE_S     &kp DE_D     &kp DE_F      &kp DE_G           &kp DE_H       &kp DE_J          &kp DE_K        &kp DE_L          &kp SEMI      &kp DEL
-        &kp LCTRL     &kp DE_Y          &kp DE_X     &kp DE_C     &kp DE_V      &kp DE_B           &kp DE_N       &kp DE_M          &kp DE_COMMA    &kp DE_DOT        &kp FSLH      &kp ESCAPE
+        &kp LSHFT     &kp DE_A          &kp DE_S     &kp DE_D     &kp DE_F      &kp DE_G           &kp DE_H       &kp DE_J          &kp DE_K        &kp DE_L          &r_para       &kp DEL
+        &kp LCTRL     &kp DE_Y          &kp DE_X     &kp DE_C     &kp DE_V      &kp DE_B           &kp DE_N       &kp DE_M          &kp DE_COMMA    &kp DE_DOT        &kp FSLH      &gresc
                                                      &kp LGUI     &mo NAV       &kp SPACE          &kp RET        &mo SYM           &kp LALT
                         >;
                 };
@@ -39,8 +63,8 @@
                 nav_layer {
                         bindings = <
         &kp LG(TAB)   &kp LG(N1)        &kp LG(N2)   &kp LG(N3)   &kp LG(N4)    &kp LG(N5)         &kp LG(N6)     &kp LG(N7)        &kp LG(N8)      &kp LG(N9)        &kp LG(N0)    &kp BSPC
-        &kp LSHFT     &none             &none        &none        &none         &kp LG(DE_MINUS)   &none          &none             &kp LG(UP)      &none             &none         &kp DEL
-        &kp LCTRL     &kp LG(DE_Y)      &none        &none        &kp LG(E)     &kp LG(V)          &none          &kp LG(LEFT)      &kp LG(DOWN)    &kp LG(RIGHT)     &kp RIGHT     &kp ESCAPE
+        &kp LSHFT     &none             &none        &none        &none         &kp LG(DE_MINUS)   &none          &none             &kp LG(UP)      &none             &r_bkt        &kp DEL
+        &kp LCTRL     &kp LG(DE_Y)      &none        &none        &kp LG(E)     &kp LG(V)          &none          &kp LG(LEFT)      &kp LG(DOWN)    &kp LG(RIGHT)     &kp RIGHT     &gresc
                                                      &kp LGUI     &none         &kp LG(SPACE)      &kp RET        &none             &kp LALT
                         >;
                 };
@@ -48,7 +72,7 @@
                 sym_layer {
                         bindings = <
         &kp TAB       &kp DE_N1         &kp DE_N2    &kp DE_N3   &kp DE_N4     &kp DE_N5            &kp DE_N6      &kp DE_N7         &kp DE_N8       &kp DE_N9         &kp DE_N0     &kp BSPC
-        &kp LSHFT     &none             &none        &none       &none         &none                &kp PG_UP      &kp HOME          &kp UP          &kp END           &kp BSLH      &kp GRAVE
+        &kp LSHFT     &none             &none        &none       &none         &none                &kp PG_UP      &kp HOME          &kp UP          &kp END           &r_brc        &kp GRAVE
         &kp LCTRL     &none             &none        &none       &none         &none                &kp PG_DN      &kp LEFT          &kp DOWN        &kp RIGHT         &kp PIPE      &kp TILDE
                                                      &kp N0      &none         &kp SPACE            &kp RET        &none             &kp LALT
                         >;
