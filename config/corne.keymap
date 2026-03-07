@@ -34,7 +34,7 @@
                         mods = <(MOD_LSFT)>;
                 };
 
-                brk: brackett  {
+                brkt: brackett  {
                         compatible = "zmk,behavior-mod-morph";
                         #binding-cells = <0>;
                         bindings = <&kp DE_LBKT>, <&kp DE_RBKT>;
@@ -47,19 +47,19 @@
                         mods = <(MOD_LSFT)>;
                 };
 
-                becp: backtick_escape {
+                esc_grv: escape_grave {
                         compatible = "zmk,behavior-mod-morph";
                         #binding-cells = <0>;
-                        bindings = <&kp DE_ESC>, <&kp GRAVE>;
+                        bindings = <&kp ESCAPE>, <&kp DE_GRAVE>;
                         mods = <(MOD_LSFT)>;
                 }
-                dsqt: delete_single_quote {
+                del_sqt: delete_single_quote {
                         compatible = "zmk,behavior-mod-morph";
                         #binding-cells = <0>;
                         bindings = <&kp DEL>, <&kp SINGLE_QUOTE>;
                         mods = <(MOD_LSFT)>;
                 }
-                bexl: backspace_exclamation {
+                bas_exl: backspace_exclamation {
                         compatible = "zmk,behavior-mod-morph";
                         #binding-cells = <0>;
                         bindings = <&kp BACKSLASH>, <&kp EXCLAMATION>;
@@ -81,26 +81,26 @@
 
                 base_layer {
                         bindings = <
-        &kp TAB       &kp DE_Q          &kp DE_W     &kp DE_E     &kp DE_R      &kp DE_T           &kp DE_Z       &kp DE_U          &kp DE_I        &kp DE_O          &kp DE_P       &dsqt
-        &kp LSHFT     &kp DE_A          &kp DE_S     &kp DE_D     &kp DE_F      &kp DE_G           &kp DE_H       &kp DE_J          &kp DE_K        &kp DE_L          &para          &bexl
-        &kp LCTRL     &kp DE_Y          &kp DE_X     &kp DE_C     &kp DE_V      &kp DE_B           &kp DE_N       &kp DE_M          &kp DE_COMMA    &kp DE_DOT        &kp DE_MINUS   &becp
+        &kp TAB       &kp DE_Q          &kp DE_W     &kp DE_E     &kp DE_R      &kp DE_T           &kp DE_Z       &kp DE_U          &kp DE_I        &kp DE_O          &kp DE_P       &del_sqt
+        &kp LSHFT     &kp DE_A          &kp DE_S     &kp DE_D     &kp DE_F      &kp DE_G           &kp DE_H       &kp DE_J          &kp DE_K        &kp DE_L          &para          &bas_exl
+        &kp LCTRL     &kp DE_Y          &kp DE_X     &kp DE_C     &kp DE_V      &kp DE_B           &kp DE_N       &kp DE_M          &kp DE_COMMA    &kp DE_DOT        &kp DE_MINUS   &esc_grv
                                                      &kp LGUI     &mo NAV       &kp SPACE          &kp RET        &mo SYM           &kp LALT
                         >;
                 };
 
                 nav_layer {
                         bindings = <
-        &kp LG(TAB)   &kp LG(N1)        &kp LG(N2)   &kp LG(N3)   &kp LG(N4)    &kp LG(N5)         &kp LG(N6)     &kp LG(N7)        &kp LG(N8)      &kp LG(N9)        &kp LG(N0)     &dsqt
-        &kp LSHFT     &none             &none        &none        &none         &kp LG(DE_MINUS)   &none          &none             &kp LG(UP)      &none             &brk           &bexl
-        &kp LCTRL     &kp LG(DE_Y)      &none        &none        &kp LG(E)     &kp LG(V)          &none          &kp LG(LEFT)      &kp LG(DOWN)    &kp LG(RIGHT)     &none          &becp
+        &kp LG(TAB)   &kp LG(N1)        &kp LG(N2)   &kp LG(N3)   &kp LG(N4)    &kp LG(N5)         &kp LG(N6)     &kp LG(N7)        &kp LG(N8)      &kp LG(N9)        &kp LG(N0)     &del_sqt
+        &kp LSHFT     &none             &none        &none        &none         &kp LG(DE_MINUS)   &none          &none             &kp LG(UP)      &none             &brkt          &bas_exl
+        &kp LCTRL     &kp LG(DE_Y)      &none        &none        &kp LG(E)     &kp LG(V)          &none          &kp LG(LEFT)      &kp LG(DOWN)    &kp LG(RIGHT)     &none          &esc_grv
                                                      &kp LGUI     &none         &kp LG(SPACE)      &kp RET        &none             &kp LALT
                         >;
                 };
 
                 sym_layer {
                         bindings = <
-        &kp TAB       &kp DE_N1         &kp DE_N2    &kp DE_N3   &kp DE_N4     &kp DE_N5            &kp DE_N6      &kp DE_N7         &kp DE_N8       &kp DE_N9         &kp DE_N0     &dsqt
-        &kp LSHFT     &none             &none        &none       &none         &none                &kp PG_UP      &kp HOME          &kp UP          &kp END           &brc          &bexl
+        &kp TAB       &kp DE_N1         &kp DE_N2    &kp DE_N3   &kp DE_N4     &kp DE_N5            &kp DE_N6      &kp DE_N7         &kp DE_N8       &kp DE_N9         &kp DE_N0     &del_sqt
+        &kp LSHFT     &none             &none        &none       &none         &none                &kp PG_UP      &kp HOME          &kp UP          &kp END           &brc          &bas_exl
         &kp LCTRL     &none             &none        &none       &none         &none                &kp PG_DN      &kp LEFT          &kp DOWN        &kp RIGHT         &kp PIPE      &tigr
                                                      &kp N0      &none         &kp SPACE            &kp RET        &none             &kp LALT
                         >;
@@ -108,7 +108,7 @@
 
                 ch_layer {
                         bindings = <
-        &kp TAB       &kp DE_EXCL       &kp DE_AT   &kp DE_HASH   &kp DE_DLLR   &kp DE_PRCNT       &kp DE_CARET   &kp DE_U_UMLAUT   &kp DE_ASTRK    &kp DE_O_UMLAUT   &kp DE_RPAR    &bexl
+        &kp TAB       &kp DE_EXCL       &kp DE_AT   &kp DE_HASH   &kp DE_DLLR   &kp DE_PRCNT       &kp DE_CARET   &kp DE_U_UMLAUT   &kp DE_ASTRK    &kp DE_O_UMLAUT   &kp DE_RPAR    &bas_exl
         &kp LCTRL     &kp DE_A_UMLAUT   &trans      &trans        &trans        &trans             &kp DE_MINUS   &kp DE_EQUAL      &kp DE_LBKT     &kp DE_RBKT       &kp DE_BSLH    &kp DE_GRAVE
         &kp LSHFT     &studio_unlock    &trans      &trans        &trans        &trans             &kp DE_UNDER   &kp DE_PLUS       &kp DE_LBRC     &kp DE_RBRC       &kp DE_PIPE    &kp DE_TILDE
                                         &kp LGUI    &trans        &kp SPACE     &kp RET            &trans         &kp LALT
