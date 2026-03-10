@@ -372,18 +372,22 @@ class KeymapParser:
 
         # Resolve hold (first param -> hold behavior)
         hold_param = params[0] if params else ""
-        hold_beh_info = self.behaviors.get(hold_beh_name, {})
-        hold_raw = hold_beh_info.get("bindings_raw", "")
-
-        if "BT_CLR" in hold_raw:
-            hold_label = "BT CLR"
-            css_class = "bt-key"
-        elif "BT_SEL" in hold_raw:
-            hold_label = f"BT {hold_param}"
-            css_class = "bt-key"
-        else:
-            hold_label = hold_beh_name
+        if hold_beh_name == "kp":
+            hold_label = self._resolve_kp(hold_param).get("t", hold_param)
             css_class = ""
+        else:
+            hold_beh_info = self.behaviors.get(hold_beh_name, {})
+            hold_raw = hold_beh_info.get("bindings_raw", "")
+
+            if "BT_CLR" in hold_raw:
+                hold_label = "BT CLR"
+                css_class = "bt-key"
+            elif "BT_SEL" in hold_raw:
+                hold_label = f"BT {hold_param}"
+                css_class = "bt-key"
+            else:
+                hold_label = hold_beh_name
+                css_class = ""
 
         result = dict(tap_display)
         result["h"] = hold_label
