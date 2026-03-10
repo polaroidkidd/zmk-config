@@ -252,6 +252,14 @@ class KeymapParser:
         if behavior == "mo":
             return {"t": self._layer_label(params[0] if params else ""), "c": "layer-key"}
 
+        if behavior == "mt":
+            tap_display = self._resolve_kp(params[1] if len(params) > 1 else "")
+            hold_label = self._resolve_kp(params[0] if params else "").get("t", "")
+            result = dict(tap_display)
+            if hold_label and hold_label != result.get("t"):
+                result["h"] = hold_label
+            return result
+
         if behavior in ("ton", "toff"):
             action = "tog ON" if behavior == "ton" else "tog OFF"
             return {"t": self._layer_label(params[0] if params else ""), "h": action, "c": "layer-key"}
@@ -275,6 +283,9 @@ class KeymapParser:
 
         if compat == "zmk,behavior-hold-tap":
             return self._resolve_hold_tap(beh_info, params)
+
+        if compat == "zmk,behavior-tap-dance":
+            return self._resolve_tap_dance(beh_info)
 
         # Fallback: show behavior name + params
         label = behavior
@@ -351,6 +362,11 @@ class KeymapParser:
             idx = params[0] if params else "?"
             return {"t": f"BT {idx}", "c": "bt-key"}
 
+        # Detect one-shot keypress macro
+        if "&macro_param_1to1" in raw and re.search(r"&kp\s+MACRO_PLACEHOLDER\b", raw):
+            key = params[0] if params else ""
+            return self._resolve_kp(key) if key else {"t": "??"}
+
         # Fallback
         return {"t": beh_info.get("compat", "macro")}
 
@@ -385,14 +401,36 @@ class KeymapParser:
             elif "BT_SEL" in hold_raw:
                 hold_label = f"BT {hold_param}"
                 css_class = "bt-key"
+            elif "&macro_param_1to1" in hold_raw and re.search(r"&kp\s+MACRO_PLACEHOLDER\b", hold_raw):
+                hold_display = self._resolve_kp(hold_param)
+                hold_label = hold_display.get("t", hold_param)
+                css_class = hold_display.get("c", "")
             else:
                 hold_label = hold_beh_name
                 css_class = ""
 
         result = dict(tap_display)
-        result["h"] = hold_label
+        if hold_label != result.get("t"):
+            result["h"] = hold_label
         if css_class:
             result["c"] = css_class
+        return result
+
+    def _resolve_tap_dance(self, beh_info):
+        raw = beh_info.get("bindings_raw", "")
+        parts = re.findall(r"<([^>]+)>", raw)
+        if not parts:
+            return {"t": "??"}
+
+        bindings = self._tokenize_bindings(" ".join(parts))
+        if not bindings:
+            return {"t": "??"}
+
+        result = dict(self._resolve_binding(bindings[0]))
+        if len(bindings) > 1:
+            second = self._resolve_binding(bindings[1]).get("t")
+            if second and "s" not in result:
+                result["s"] = second
         return result
 
     # ── Helpers ──
