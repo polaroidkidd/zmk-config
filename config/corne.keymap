@@ -152,6 +152,7 @@
                 compatible = "zmk,keymap";
 
                 base_layer {
+                        display-name = "DEFAULT";
                         bindings = <
         &ht ESC TAB       &kp DE_Q          &kp DE_W         &kp DE_E         &kp DE_R         &kp DE_T           &kp DE_Z       &kp DE_U          &kp DE_I       &kp DE_O         &kp DE_P            &del_sqt
         &kp LSHFT         &kp DE_A          &kp DE_S         &kp DE_D         &kp DE_F         &kp DE_G           &kp DE_H       &kp DE_J          &kp DE_K       &kp DE_L         &para               &bas_exl
@@ -161,6 +162,7 @@
                 };
 
                 nav_layer {
+                        display-name = "NAV";
                         bindings = <
         &ht ESC LG(TAB)   &kp LG(N1)        &kp LG(N2)       &kp LG(N3)       &kp LG(N4)       &kp LG(N5)         &kp LG(N6)     &kp LG(N7)        &kp LG(N8)     &kp LG(N9)        &kp LG(N0)         &del_sqt
         &kp LSHFT         &kp LG(LC(A))     &none            &kp LG(LC(S))    &none            &kp LG(DE_MINUS)   &kp LA(LEFT)   &kp LA(RIGHT)     &kp LG(UP)     &none             &brkt              &bas_exl
@@ -171,6 +173,7 @@
 
 
                 sym_layer {
+                        display-name = "SYM";
                         bindings = <
         &n1_btclr 0 TAB   &ht_bt 0 DE_N1    &ht_bt 1 DE_N2   &ht_bt 2 DE_N3   &ht_bt 3 DE_N4   &ht_bt 4 DE_N5     &kp DE_N6      &kp DE_N7         &kp DE_N8      &kp DE_N9         &kp DE_N0          &del_sqt
         &kp LSHFT         &none             &none            &none            &none            &kp DE_PLUS        &kp PG_UP      &kp HOME          &kp UP         &kp END           &brc               &bas_exl
@@ -181,6 +184,7 @@
 
 
                 ch_layer {
+                        display-name = "CH_DE";
                         bindings = <
         &kp TAB           &kp DE_EXCL       &kp DE_AT        &kp DE_HASH      &kp DE_DLLR      &kp DE_PRCNT       &kp DE_CARET   &kp DE_U_UMLAUT   &none          &kp DE_O_UMLAUT   &kp DE_QMARK       &bas_exl
         &kp LCTRL         &kp DE_A_UMLAUT   &none            &none            &none            &none              &none          &none             &none          &none             &kp DE_BSLH        &bas_exl
@@ -190,6 +194,7 @@
                 };
 
                 num_layer {
+                        display-name = "NUM";
                         bindings = <
         &kp TAB          &none              &none            &none            &none            &none              &none          &none             &kp DE_N7      &kp DE_N8         &kp DE_N9          &bas_exl
         &kp LSHFT        &none              &none            &none            &none            &none              &none          &none             &kp DE_N4      &kp DE_N5         &kp DE_N6          &bas_exl
@@ -199,6 +204,7 @@
                 };
 
                 function_layer {
+                        display-name = "FUNC";
                         bindings = <
         &kp F1           &kp F2             &kp F3           &kp F4           &kp F5           &kp F6             &kp F7         &kp F8            &kp F9            &kp F10           &kp F11         &kp F12
         &kp LSHFT        &none              &none            &none            &none            &none              &none          &none             &none             &none             &none           &none          
