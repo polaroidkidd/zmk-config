@@ -22,10 +22,10 @@ MODIFIER_KEYS = frozenset({
 # Which side of the keyboard activates each layer.
 # "left"/"right" = activated by that thumb key; "center" = default layer.
 LAYER_SIDES = {
-    "DEFAULT": "center",
-    "CH_DE":   "center",   # conditional (NAV+SYM)
+    "BASE": "center",
+    "SYMBL":   "center",   # conditional (NAV+SYM)
     "NAV":     "left",   # right thumb (mod_func)
-    "SYM":     "right",    # left thumb (mod_num)
+    "SYS":     "right",    # left thumb (mod_num)
     "NUM":     "left",    # derived from SYM
     "FUNC":    "right",   # derived from NAV (mod_func)
 }
