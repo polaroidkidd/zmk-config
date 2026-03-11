@@ -149,7 +149,7 @@
                         compatible = "zmk,behavior-hold-tap";
                         #binding-cells = <2>;
                         flavor = "tap-preferred";
-                        tapping-term-ms = <180>;
+                        tapping-term-ms = <170>;
                         bindings = <&kp_once>, <&kp>;
                 };
                 tdcl: tap_dance_caps_lock {
@@ -168,7 +168,7 @@
                         display-name = "BASE";
                         bindings = <
         &ht ESC TAB       &kp DE_Q          &kp DE_W         &kp DE_E         &kp DE_R         &kp DE_T           &kp DE_Z         &kp DE_U          &kp DE_I       &kp DE_O         &kp DE_P            &del_sqt
-        &tdcl             &kp DE_A          &kp DE_S         &kp DE_D         &kp DE_F         &kp DE_G           &kp DE_H         &kp DE_J          &kp DE_K       &kp DE_L         &para               &bas_exl
+        &kp LSHFT         &kp DE_A          &kp DE_S         &kp DE_D         &kp DE_F         &kp DE_G           &kp DE_H         &kp DE_J          &kp DE_K       &kp DE_L         &para               &bas_exl
         &kp LCTRL         &kp DE_Y          &kp DE_X         &kp DE_C         &kp DE_V         &kp DE_B           &kp DE_N         &kp DE_M          &kp DE_COMMA   &kp DE_DOT       &kp DE_MINUS        &kp RET
                                                              &kp LGUI         &nav_num         &kp SPACE          &kp SPACE        &sys_fnc          &kp LALT
                         >;
@@ -178,7 +178,7 @@
                         display-name = "NAV";
                         bindings = <
         &ht ESC LG(TAB)   &kp LG(N1)        &kp LG(N2)       &kp LG(N3)       &kp LG(N4)       &kp LG(N5)         &kp LG(N6)       &kp LG(N7)        &kp LG(N8)     &kp LG(N9)        &kp LG(N0)         &del_sqt
-        &tdcl             &kp LG(LC(A))     &none            &kp LG(LC(S))    &none            &kp LG(DE_MINUS)   &kp LA(LEFT)     &kp LA(RIGHT)     &kp LG(UP)     &none             &brkt              &bas_exl
+        &kp LSHFT         &kp LG(LC(A))     &none            &kp LG(LC(S))    &none            &kp LG(DE_MINUS)   &kp LA(LEFT)     &kp LA(RIGHT)     &kp LG(UP)     &none             &brkt              &bas_exl
         &kp LCTRL         &kp LG(DE_Y)      &none            &none            &kp LG(E)        &kp LG(V)          &none            &kp LG(LEFT)      &kp LG(DOWN)   &kp LG(RIGHT)     &none              &esc_grv
                                                              &ton NUM         &none            &kp LG(SPACE)      &kp SPACE        &mo SYS           &kp LALT
                         >;
