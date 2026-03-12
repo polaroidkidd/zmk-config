@@ -370,6 +370,10 @@ class KeymapParser:
         # Fallback
         return {"t": beh_info.get("compat", "macro")}
 
+    def _resolve_nested_behavior(self, behavior, param):
+        params = [param] if param else []
+        return self._resolve_binding((behavior, params))
+
     def _resolve_hold_tap(self, beh_info, params):
         raw = beh_info.get("bindings_raw", "")
         parts = re.findall(r"<([^>]+)>", raw)
@@ -381,39 +385,18 @@ class KeymapParser:
 
         # Resolve tap (second param -> tap behavior)
         tap_param = params[1] if len(params) > 1 else ""
-        if tap_beh_name == "kp":
-            tap_display = self._resolve_kp(tap_param)
-        else:
-            tap_display = {"t": tap_param}
+        tap_display = self._resolve_nested_behavior(tap_beh_name, tap_param)
 
         # Resolve hold (first param -> hold behavior)
         hold_param = params[0] if params else ""
-        if hold_beh_name == "kp":
-            hold_label = self._resolve_kp(hold_param).get("t", hold_param)
-            css_class = ""
-        else:
-            hold_beh_info = self.behaviors.get(hold_beh_name, {})
-            hold_raw = hold_beh_info.get("bindings_raw", "")
-
-            if "BT_CLR" in hold_raw:
-                hold_label = "BT CLR"
-                css_class = "bt-key"
-            elif "BT_SEL" in hold_raw:
-                hold_label = f"BT {hold_param}"
-                css_class = "bt-key"
-            elif "&macro_param_1to1" in hold_raw and re.search(r"&kp\s+MACRO_PLACEHOLDER\b", hold_raw):
-                hold_display = self._resolve_kp(hold_param)
-                hold_label = hold_display.get("t", hold_param)
-                css_class = hold_display.get("c", "")
-            else:
-                hold_label = hold_beh_name
-                css_class = ""
+        hold_display = self._resolve_nested_behavior(hold_beh_name, hold_param)
+        hold_label = hold_display.get("t", hold_param or hold_beh_name)
 
         result = dict(tap_display)
         if hold_label != result.get("t"):
             result["h"] = hold_label
-        if css_class:
-            result["c"] = css_class
+        if hold_beh_name != "kp" and hold_display.get("c") and "c" not in result:
+            result["c"] = hold_display["c"]
         return result
 
     def _resolve_tap_dance(self, beh_info):
