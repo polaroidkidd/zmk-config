@@ -27,15 +27,7 @@
         36 37 38 39 40 41
 
 / {
-        conditional_layers {
-                compatible = "zmk,conditional-layers";
-                tri_layer {
-                        if-layers = <NAV SYS>;
-                        then-layer = <SYMBL>;
-                };
-        };
-
-
+ 
         macros {
                 sys_fnc: mod_tap_function_layer {
                         compatible = "zmk,behavior-macro";
@@ -73,26 +65,6 @@
                         toggle-mode = "off";
                 };
 
-
-                /* ── Mod-morph helpers ─────────────────────────────────────── */
-                para: parentheses {
-                        compatible = "zmk,behavior-mod-morph";
-                        #binding-cells = <0>;
-                        bindings = <&kp DE_LPAR>, <&kp DE_RPAR>;
-                        mods = <(MOD_LSFT)>;
-                };
-                brkt: bracket {
-                        compatible = "zmk,behavior-mod-morph";
-                        #binding-cells = <0>;
-                        bindings = <&kp DE_LBKT>, <&kp DE_RBKT>;
-                        mods = <(MOD_LSFT)>;
-                };
-                brc: brace {
-                        compatible = "zmk,behavior-mod-morph";
-                        #binding-cells = <0>;
-                        bindings = <&kp DE_LBRC>, <&kp DE_RBRC>;
-                        mods = <(MOD_LSFT)>;
-                };
                 smi_grv: escape_grave {
                         compatible = "zmk,behavior-mod-morph";
                         #binding-cells = <0>;
@@ -230,66 +202,70 @@
 
                 base_layer {
                         display-name = "BASE";
-                        bindings = <
-        &kp TAB           &ht DE_PIPE DE_Q   &kp DE_W         &kp DE_E               &kp DE_R          &kp DE_T           &kp DE_Z         &kp DE_U              &kp DE_I               &kp DE_O           &ht DE_TILDE DE_P   &del_sqt
-        &brc              &kp DE_A           &hml LALT DE_S   &hml LSHFT DE_D        &hml LCTRL DE_F   &kp DE_G           &kp DE_H         &hmr RCTRL DE_J       &hmr RSHFT DE_K        &hmr RALT DE_L     &para               &qus_uml
-        &kp ESC           &kp DE_Y           &kp DE_X         &kp DE_C               &kp DE_V          &kp DE_B           &kp DE_N         &kp DE_M              &kp DE_COMMA           &kp DE_DOT         &kp DE_MINUS        &kp RET
-                                                              &kp LGUI               &nav_num          &kp SPACE          &kp BACKSPACE    &sys_fnc              &brkt
-                        >;
-                };
-
-                nav_layer {
-                        display-name = "NAV";
-                        bindings = <
-        &kp TAB           &kp LG(N1)         &kp LG(N2)       &kp LG(N3)             &kp LG(N4)        &kp LG(N5)         &kp LG(N6)       &kp LG(N7)            &kp LG(N8)             &kp LG(N9)         &kp LG(N0)          &del_sqt
-        &brc              &kp LG(LC(A))      &hmln LALT 0     &hml LSHFT LG(LC(S))   &hmln LCTRL 0     &kp LG(DE_MINUS)   &none            &hmr RCTRL LA(LEFT)   &hmr RSHFT LA(RIGHT)   &hmr RALT LG(UP)   &brkt               &qus_uml
-        &kp ESC           &kp LG(DE_Y)       &none            &none                  &kp LG(E)         &kp LG(V)          &none            &none                 &kp LG(LEFT)           &kp LG(DOWN)       &kp LG(RIGHT)       &smi_grv
-                                                              &ton NUM               &none             &kp LG(SPACE)      &kp BACKSPACE    &mo SYS               &brkt
-                        >;
-                };
-
-
-                sys_layer {
-                        display-name = "SYS";
-                        bindings = <
-        &n1_btclr 0 TAB   &ht_bt 0 DE_N1     &ht_bt 1 DE_N2   &ht_bt 2 DE_N3         &ht_bt 3 DE_N4    &ht_bt 4 DE_N5     &kp DE_N6        &kp DE_N7             &kp DE_N8              &kp DE_N9          &kp DE_N0           &del_sqt
-        &brc              &none              &hmln LALT 0     &hmln LSHFT 0          &hmln LCTRL 0     &kp DE_PLUS        &brc             &hmr RCTRL PG_UP      &hmr RSHFT HOME        &hmr RALT UP       &kp END             &qus_uml
-        &kp ESC           &kp DE_LT          &kp DE_GT        &none                  &none             &kp DE_MINUS       &kp PIPE         &kp PG_DN             &kp LEFT               &kp DOWN           &kp RIGHT           &smi_grv
-                                                              &none                  &none             &kp SPACE          &kp BACKSPACE    &none                 &ton FUNC
-                        >;
-                };
-
-
-                symbol_layer {
-                        display-name = "SYMBL";
-                        bindings = <
-        &kp TAB           &kp DE_EXCL        &kp DE_AT        &kp DE_HASH            &kp DE_DLLR       &kp DE_PRCNT       &kp DE_CARET     &none                 &none                  &none              &kp DE_QMARK        &del_sqt
-        &brc              &none              &hmln LALT 0     &hmln LSHFT 0          &hmln LCTRL 0     &none              &none            &hmrn RCTRL 0         &hmrn RSHFT 0          &hmrn RALT 0       &kp DE_BSLH         &qus_uml
-        &kp ESC           &studio_unlock     &none            &none                  &none             &none              &none            &none                 &none                  &none              &kp DE_PIPE         &smi_grv
-                                                              &kp LGUI               &none             &kp SPACE          &kp BACKSPACE    &none                 &brkt
-                        >;
-                };
-
-                num_layer {
-                        display-name = "NUM";
-                        bindings = <
-        &kp TAB           &none              &none            &none                 &none              &none              &none          &none                   &kp DE_N7              &kp DE_N8          &kp DE_N9           &del_sqt
-        &brc              &none              &hmln LALT 0     &hmln LSHFT 0         &hmln LCTRL 0      &none              &none          &hmrn RCTRL 0           &hmr RSHFT DE_N4       &hmr RALT DE_N5    &kp DE_N6           &qus_uml
-        &kp ESC           &none              &none            &none                 &none              &none              &none          &none                   &kp DE_N1              &kp DE_N2          &kp DE_N3           &smi_grv
-                                                              &none                 &none              &none              &none          &none                   &kp DE_N0       
-                        >;
-                };
-
-                function_layer {
-                        display-name = "FUNC";
-                        bindings = <
-        &kp F1            &kp F2             &kp F3           &kp F4                &kp F5             &kp F6             &kp F7         &kp F8                  &kp F9                 &kp F10            &kp F11             &kp F12
-        &kp ESC           &none              &hmln LALT 0     &hmln LSHFT 0         &hmln LCTRL 0      &none              &none          &hmrn RCTRL 0           &hmrn RSHFT 0          &hmrn RALT 0       &none               &none          
-        &kp ESC           &none              &none            &none                 &none              &none              &none          &none                   &none                  &none              &none               &none          
-                                                              &none                 &none              &none              &none          &none                   &none                  
+                                                                                                                               // XXX //                                       
+                        bindings = <                 
+        &ht ESC TAB          &ht DE_PIPE DE_Q   &kp DE_W         &kp DE_E               &kp DE_R          &kp DE_T                            &kp DE_Z         &kp DE_U              &kp DE_I               &kp DE_O          &ht DE_TILDE DE_P   &del_sqt
+        &kp LSHFT            &kp DE_A           &kp DE_S         &kp DE_D               &kp DE_F          &kp DE_G                            &kp DE_H         &kp DE_J              &kp DE_K               &kp DE_L          &kp DE_UMLAUT       &kp LALT
+        &kp LCTRL            &kp DE_Y           &kp DE_X         &kp DE_C               &kp DE_V          &kp DE_B                            &kp DE_N         &kp DE_M              &kp DE_COMMA           &kp DE_DOT        &kp DE_MINUS        &kp RET
+                                                                 &kp LGUI               &nav_num          &kp SPACE                           &kp BACKSPACE    &sys_fnc              &mo SYMBL
+                        >;                 
+                };                 
+                 
+                navigation_layer {                 
+                        display-name = "NAVI";                 
+                        bindings = <                 
+        &ht ESC TAB          &kp LG(N1)         &kp LG(N2)       &kp LG(N3)             &kp LG(N4)        &kp LG(N5)                          &kp LG(N6)       &kp LG(N7)            &kp LG(N8)             &kp LG(N9)        &kp LG(N0)          &del_sqt
+        &kp LSHFT            &kp LG(LC(A))      &none            &kp LG(LC(S))          &none             &kp LG(DE_MINUS)                    &none            &none                 &kp LG(UP)             &none             &none               &kp LALT
+        &kp LCTRL            &kp LG(DE_Y)       &kp LA(LEFT)     &kp LA(RIGHT)          &kp LG(E)         &kp LG(V)                           &none            &kp LG(LEFT)          &kp LG(DOWN)           &kp LG(RIGHT)     &none               &kp RET
+                                                                 &ton NUM               &none             &kp LG(SPACE)                       &kp BACKSPACE    &none                 &none
+                        >;                 
+                };                 
+                 
+                 
+                system_layer {                 
+                        display-name = "SYSTEM";                 
+                        bindings = <                 
+        &n1_btclr 0 TAB      &ht_bt 0 DE_N1     &ht_bt 1 DE_N2   &ht_bt 2 DE_N3         &ht_bt 3 DE_N4    &ht_bt 4 DE_N5                      &kp DE_N6        &kp DE_N7             &kp DE_N8              &kp DE_N9         &kp DE_N0           &del_sqt
+        &kp LSHFT            &none              &none            &none                  &none             &none                               &kp PG_UP        &kp HOME              &kp UP                 &kp END           &none               &kp LALT
+        &kp LCTRL            &none              &none            &none                  &none             &none                               &kp PG_DN        &kp LEFT              &kp DOWN               &kp RIGHT         &none               &kp RET
+                                                                 &none                  &none             &none                               &kp BACKSPACE    &none                 &ton FUNC
+                        >;                 
+                };                 
+                 
+                 
+                symbol_layer {                 
+                        display-name = "SYMBOL";                   
+                        bindings = <                 
+        &ht ESC TAB          &kp DE_EXCL        &kp DE_AT        &kp DE_HASH            &kp DE_DLLR       &kp DE_PRCNT                        &kp DE_CARET     &none                 &kp DE_LBRC            &kp DE_RBRC       &kp DE_QMARK        &del_sqt
+        &kp LSHFT            &kp DE_PLUS        &kp DE_MINUS     &none                  &none             &none                               &none            &none                 &kp DE_LBKT            &kp DE_RBKT       &kp DE_FSLH         &kp LALT
+        &kp LCTRL            &kp DE_LT          &kp DE_GT        &none                  &none             &none                               &none            &none                 &kp DE_LPAR            &kp DE_RPAR       &kp DE_PIPE         &kp RET
+                                                                 &kp LGUI               &none             &none                               &kp BACKSPACE    &none                 &none 
+                        >;                 
+                };                 
+                 
+                number_layer {                 
+                        display-name = "NUMBER";                 
+                        bindings = <                 
+        &ht ESC TAB         &none              &none            &none                   &none             &none                               &none            &none                 &kp DE_N7           &kp DE_N8            &kp DE_N9           &del_sqt
+        &kp LSHFT           &none              &none            &none                   &none             &none                               &none            &none                 &kp DE_N4           &kp DE_N5            &kp DE_N6           &kp LALT
+        &kp LCTRL           &none              &none            &none                   &none             &none                               &none            &none                 &kp DE_N1           &kp DE_N2            &kp DE_N3           &kp RET
+                                                                &none                   &none             &none                               &kp BACKSPACE    &none                 &kp DE_N0       
+                        >;                 
+                };                 
+                 
+                function_layer {                 
+                        display-name = "FUNCTION";                 
+                        bindings = <                 
+        &ht ESC TAB       &kp F2             &kp F3           &kp F4                    &kp F5            &kp F6                              &kp F7           &kp F8                &kp F9              &kp F10              &kp F11             &kp F12
+        &kp LSHFT         &none              &none            &none                     &none             &none                               &none            &none                 &none               &none                &none               &none          
+        &kp LCTRL         &studio_unlock     &none            &none                     &none             &none                               &none            &none                 &none               &none                &none               &none          
+                                                              &none                     &none             &none                               &kp BACKSPACE    &none                 &none                  
                                                                                          >;
                 };
-        };
+
+
+                
+                       };
 
 
 
