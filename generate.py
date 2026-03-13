@@ -14,76 +14,860 @@ OUTPUT_PATH = SCRIPT_DIR / "index.html"
 
 # ── Display label tables ────────────────────────────────────────────
 
+CH_DE_PATH = SCRIPT_DIR / "config" / "ch-de.h"
+
 MODIFIER_KEYS = frozenset({
-    "TAB", "LSHFT", "LCTRL", "LGUI", "LALT",
-    "RSHFT", "RCTRL", "RGUI", "RALT",
+    "TAB",
+    "LEFT_SHIFT", "LSHIFT", "LSHFT", "RIGHT_SHIFT", "RSHIFT", "RSHFT",
+    "LEFT_CONTROL", "LCTRL", "RIGHT_CONTROL", "RCTRL",
+    "LEFT_ALT", "LALT", "RIGHT_ALT", "RALT",
+    "LEFT_GUI", "LGUI", "LEFT_WIN", "LWIN", "LEFT_COMMAND", "LCMD", "LEFT_META", "LMETA",
+    "RIGHT_GUI", "RGUI", "RIGHT_WIN", "RWIN", "RIGHT_COMMAND", "RCMD", "RIGHT_META", "RMETA",
 })
 
-# Which side of the keyboard activates each layer.
-# "left"/"right" = activated by that thumb key; "center" = default layer.
-LAYER_SIDES = {
-    "BASE": "center",
-    "SYMBL":   "center",   # conditional (NAV+SYM)
-    "NAV":     "left",   # right thumb (mod_func)
-    "SYS":     "right",    # left thumb (mod_num)
-    "NUM":     "left",    # derived from SYM
-    "FUNC":    "right",   # derived from NAV (mod_func)
-}
-
-DE_LABELS = {
-    "DE_Q": "Q", "DE_W": "W", "DE_E": "E", "DE_R": "R", "DE_T": "T",
-    "DE_Z": "Z", "DE_U": "U", "DE_I": "I", "DE_O": "O", "DE_P": "P",
-    "DE_A": "A", "DE_S": "S", "DE_D": "D", "DE_F": "F", "DE_G": "G",
-    "DE_H": "H", "DE_J": "J", "DE_K": "K", "DE_L": "L",
-    "DE_Y": "Y", "DE_X": "X", "DE_C": "C", "DE_V": "V", "DE_B": "B",
-    "DE_N": "N", "DE_M": "M",
-    "DE_N0": "0", "DE_N1": "1", "DE_N2": "2", "DE_N3": "3", "DE_N4": "4",
-    "DE_N5": "5", "DE_N6": "6", "DE_N7": "7", "DE_N8": "8", "DE_N9": "9",
-    "DE_MINUS": "-", "DE_COMMA": ",", "DE_DOT": ".", "DE_PERIOD": ".",
-    "DE_EXCL": "!", "DE_EXCLAMATION": "!",
-    "DE_AT": "@", "DE_AT_SIGN": "@",
-    "DE_HASH": "#", "DE_POUND": "#",
-    "DE_DLLR": "$", "DE_DOLLAR": "$",
-    "DE_PRCNT": "%", "DE_PERCENT": "%",
-    "DE_CARET": "^",
-    "DE_AMPS": "&", "DE_AMPERSAND": "&",
-    "DE_LPAR": "(", "DE_RPAR": ")",
-    "DE_PLUS": "+", "DE_EQUAL": "=",
-    "DE_LBKT": "[", "DE_RBKT": "]",
-    "DE_LBRC": "{", "DE_RBRC": "}",
-    "DE_BSLH": "\\", "DE_BACKSLASH": "\\",
-    "DE_PIPE": "|", "DE_TILDE": "~", "DE_GRAVE": "`",
-    "DE_SQT": "'", "DE_SINGLE_QUOTE": "'",
-    "DE_DQT": '"', "DE_DOUBLE_QUOTES": '"',
-    "DE_FSLH": "/", "DE_SLASH": "/",
-    "DE_UNDER": "_", "DE_UNDERSCORE": "_",
-    "DE_QMARK": "?", "DE_QUESTION": "?",
-    "DE_A_UMLAUT": "\u00e4", "DE_O_UMLAUT": "\u00f6", "DE_U_UMLAUT": "\u00fc",
-    "DE_C_CEDILLA": "\u00e7",
-    "DE_COLON": ":", "DE_SEMI": ";", "DE_SEMICOLON": ";",
-    "DE_LT": "<", "DE_LESS_THAN": "<",
-    "DE_GT": ">", "DE_GREATER_THAN": ">",
-}
-
-STD_LABELS = {
-    "TAB": "TAB", "ESCAPE": "ESC", "ESC": "ESC",
-    "DEL": "DEL", "DELETE": "DEL",
+DIRECT_KEY_LABELS = {
+    "ESCAPE": "ESC", "ESC": "ESC",
+    "RETURN": "RET", "ENTER": "RET", "RET": "RET",
+    "RETURN2": "RET2", "RET2": "RET2",
     "BACKSPACE": "BS", "BSPC": "BS",
-    "SPACE": "SPACE", "RET": "RET", "ENTER": "RET",
-    "LSHFT": "LSHFT", "RSHFT": "RSHFT",
-    "LCTRL": "LCTRL", "RCTRL": "RCTRL",
-    "LGUI": "LGUI", "RGUI": "RGUI",
-    "LALT": "LALT", "RALT": "RALT",
-    "UP": "\u2191", "DOWN": "\u2193", "LEFT": "\u2190", "RIGHT": "\u2192",
-    "PG_UP": "PG UP", "PG_DN": "PG DN",
+    "DELETE": "DEL", "DEL": "DEL",
+    "INSERT": "INS", "INS": "INS",
+    "SPACE": "SPACE", "TAB": "TAB",
     "HOME": "HOME", "END": "END",
-    "F1": "F1", "F2": "F2", "F3": "F3", "F4": "F4",
-    "F5": "F5", "F6": "F6", "F7": "F7", "F8": "F8",
-    "F9": "F9", "F10": "F10", "F11": "F11", "F12": "F12",
-    "N0": "0", "N1": "1", "N2": "2", "N3": "3", "N4": "4",
-    "N5": "5", "N6": "6", "N7": "7", "N8": "8", "N9": "9",
-    "PIPE": "|", "LT": "<", "GT": ">",
+    "PAGE_UP": "PG UP", "PG_UP": "PG UP",
+    "PAGE_DOWN": "PG DN", "PG_DN": "PG DN",
+    "UP_ARROW": "↑", "UP": "↑",
+    "DOWN_ARROW": "↓", "DOWN": "↓",
+    "LEFT_ARROW": "←", "LEFT": "←",
+    "RIGHT_ARROW": "→", "RIGHT": "→",
+    "LEFT_SHIFT": "LSHFT", "LSHIFT": "LSHFT", "LSHFT": "LSHFT",
+    "RIGHT_SHIFT": "RSHFT", "RSHIFT": "RSHFT", "RSHFT": "RSHFT",
+    "LEFT_CONTROL": "LCTRL", "LCTRL": "LCTRL",
+    "RIGHT_CONTROL": "RCTRL", "RCTRL": "RCTRL",
+    "LEFT_ALT": "LALT", "LALT": "LALT",
+    "RIGHT_ALT": "RALT", "RALT": "RALT",
+    "LEFT_GUI": "LGUI", "LGUI": "LGUI", "LEFT_WIN": "LGUI", "LWIN": "LGUI",
+    "LEFT_COMMAND": "LGUI", "LCMD": "LGUI", "LEFT_META": "LGUI", "LMETA": "LGUI",
+    "RIGHT_GUI": "RGUI", "RGUI": "RGUI", "RIGHT_WIN": "RGUI", "RWIN": "RGUI",
+    "RIGHT_COMMAND": "RGUI", "RCMD": "RGUI", "RIGHT_META": "RGUI", "RMETA": "RGUI",
+    "CAPSLOCK": "CAPS", "CAPS": "CAPS", "CLCK": "CAPS",
+    "LOCKING_CAPS": "LCAPS", "LCAPS": "LCAPS",
+    "SCROLLLOCK": "SLCK", "SLCK": "SLCK",
+    "LOCKING_SCROLL": "LSLCK", "LSLCK": "LSLCK",
+    "LOCKING_NUM": "LNLCK", "LNLCK": "LNLCK",
+    "PRINTSCREEN": "PSCRN", "PSCRN": "PSCRN",
+    "PAUSE_BREAK": "PAUSE",
+    "ATTENTION": "ATTN",
+    "CLEAR_AGAIN": "AGAIN",
+    "SEPARATOR": "SEP",
+    "K_APPLICATION": "APP", "K_APP": "APP",
+    "K_CONTEXT_MENU": "MENU", "K_CMENU": "MENU",
+    "K_EXECUTE": "EXEC", "K_EXEC": "EXEC",
+    "K_CALCULATOR": "CALC", "K_CALC": "CALC",
+    "K_PLAY_PAUSE": "PLAY/PAUSE", "K_PP": "PLAY/PAUSE",
+    "C_PLAY_PAUSE": "PLAY/PAUSE", "C_PP": "PLAY/PAUSE",
+    "C_VOLUME_UP": "VOL+", "C_VOL_UP": "VOL+",
+    "K_VOLUME_UP": "VOL+", "K_VOL_UP": "VOL+",
+    "K_VOLUME_UP2": "VOL+", "K_VOL_UP2": "VOL+",
+    "C_VOLUME_DOWN": "VOL-", "C_VOL_DN": "VOL-",
+    "K_VOLUME_DOWN": "VOL-", "K_VOL_DN": "VOL-",
+    "K_VOLUME_DOWN2": "VOL-", "K_VOL_DN2": "VOL-",
+    "C_MUTE": "MUTE", "K_MUTE": "MUTE", "K_MUTE2": "MUTE",
+    "C_BRIGHTNESS_INC": "BRI+", "C_BRI_INC": "BRI+", "C_BRI_UP": "BRI+",
+    "C_BRIGHTNESS_DEC": "BRI-", "C_BRI_DEC": "BRI-", "C_BRI_DN": "BRI-",
+    "C_BRIGHTNESS_MINIMUM": "BRI MIN", "C_BRI_MIN": "BRI MIN",
+    "C_BRIGHTNESS_MAXIMUM": "BRI MAX", "C_BRI_MAX": "BRI MAX",
+    "C_BRIGHTNESS_AUTO": "BRI AUTO", "C_BRI_AUTO": "BRI AUTO",
+    "C_BACKLIGHT_TOGGLE": "BKLT TOG", "C_BKLT_TOG": "BKLT TOG",
+    "C_FAST_FORWARD": "FF", "C_FF": "FF",
+    "C_REWIND": "REW", "C_RW": "REW",
+    "C_RECORD": "REC", "C_REC": "REC",
+    "C_RANDOM_PLAY": "SHUFFLE", "C_SHUFFLE": "SHUFFLE",
+    "C_CAPTIONS": "SUBS", "C_SUBTITLES": "SUBS",
+    "C_POWER": "PWR", "C_PWR": "PWR", "K_POWER": "PWR", "K_PWR": "PWR",
+    "C_SLEEP": "SLEEP", "K_SLEEP": "SLEEP", "C_SLEEP_MODE": "SLEEP MODE",
+    "C_AC_NEXT_KEYBOARD_LAYOUT_SELECT": "GLOBE", "GLOBE": "GLOBE",
+    "KP_NUMLOCK": "KP NL", "KP_NUM": "KP NL", "KP_NLCK": "KP NL",
+    "KP_CLEAR": "KP CLR", "CLEAR2": "CLR",
+    "KP_ENTER": "KP RET",
+    "KP_PLUS": "KP +",
+    "KP_MINUS": "KP -", "KP_SUBTRACT": "KP -",
+    "KP_MULTIPLY": "KP *", "KP_ASTERISK": "KP *",
+    "KP_DIVIDE": "KP /", "KP_SLASH": "KP /",
+    "KP_EQUAL": "KP =", "KP_EQUAL_AS400": "KP =",
+    "KP_DOT": "KP .", "KP_COMMA": "KP ,",
+    "KP_LEFT_PARENTHESIS": "KP (", "KP_LPAR": "KP (",
+    "KP_RIGHT_PARENTHESIS": "KP )", "KP_RPAR": "KP )",
 }
+
+WORD_LABELS = {
+    "APPLICATION": "APP",
+    "APPLICATIONS": "APPS",
+    "AUDIO": "AUDIO",
+    "BACKLIGHT": "BKLT",
+    "BOOKMARKS": "BOOKMARKS",
+    "BRIGHTNESS": "BRI",
+    "CALCULATOR": "CALC",
+    "CALENDAR": "CAL",
+    "CHANNEL": "CHAN",
+    "COMMAND": "CMD",
+    "COMPUTER": "PC",
+    "CONTEXT": "CTX",
+    "CONTROL": "CTRL",
+    "COPY": "COPY",
+    "DECREASE": "DEC",
+    "DELETE": "DEL",
+    "DOCUMENTS": "DOCS",
+    "EDITOR": "EDIT",
+    "EXECUTE": "EXEC",
+    "FAVORITES": "BOOKMARKS",
+    "FAVOURITES": "BOOKMARKS",
+    "FORWARD": "FWD",
+    "INCREASE": "INC",
+    "INSERT": "INS",
+    "INSTANT": "INST",
+    "INTERNATIONAL": "INT",
+    "KEYBOARD": "KB",
+    "LANGUAGE": "LANG",
+    "MAXIMUM": "MAX",
+    "MESSAGING": "MSG",
+    "MINIMUM": "MIN",
+    "PREVIOUS": "PREV",
+    "PROPERTIES": "PROPS",
+    "SCREENSAVER": "SCREEN",
+    "SPREADSHEET": "SHEET",
+    "SUBTITLES": "SUBS",
+    "TOGGLE": "TOG",
+    "TUTORIAL": "GUIDE",
+    "VOLUME": "VOL",
+    "WINDOWS": "WINS",
+}
+
+DE_NAME_FALLBACKS = {
+    "ESCAPE_CHARACTER": "ESC",
+    "FILE_SEPARATOR": "FILE SEP",
+    "GROUP_SEPARATOR": "GROUP SEP",
+    "SPACE": "SPACE",
+}
+
+KNOWN_ZMK_KEYCODES = frozenset(['A',
+ 'ALT_ERASE',
+ 'AMPERSAND',
+ 'AMPS',
+ 'APOS',
+ 'APOSTROPHE',
+ 'ASTERISK',
+ 'ASTRK',
+ 'AT',
+ 'ATTENTION',
+ 'AT_SIGN',
+ 'B',
+ 'BACKSLASH',
+ 'BACKSPACE',
+ 'BSLH',
+ 'BSPC',
+ 'C',
+ 'CAPS',
+ 'CAPSLOCK',
+ 'CARET',
+ 'CLCK',
+ 'CLEAR',
+ 'CLEAR2',
+ 'CLEAR_AGAIN',
+ 'COLON',
+ 'COMMA',
+ 'CRSEL',
+ 'C_AC_BACK',
+ 'C_AC_BOOKMARKS',
+ 'C_AC_CANCEL',
+ 'C_AC_CLOSE',
+ 'C_AC_COPY',
+ 'C_AC_CUT',
+ 'C_AC_DEL',
+ 'C_AC_DESKTOP_SHOW_ALL_APPLICATIONS',
+ 'C_AC_DESKTOP_SHOW_ALL_WINDOWS',
+ 'C_AC_EDIT',
+ 'C_AC_EXIT',
+ 'C_AC_FAVORITES',
+ 'C_AC_FAVOURITES',
+ 'C_AC_FIND',
+ 'C_AC_FORWARD',
+ 'C_AC_FORWARD_MAIL',
+ 'C_AC_GOTO',
+ 'C_AC_HOME',
+ 'C_AC_INS',
+ 'C_AC_INSERT',
+ 'C_AC_NEW',
+ 'C_AC_NEXT_KEYBOARD_LAYOUT_SELECT',
+ 'C_AC_OPEN',
+ 'C_AC_PASTE',
+ 'C_AC_PRINT',
+ 'C_AC_PROPERTIES',
+ 'C_AC_PROPS',
+ 'C_AC_REDO',
+ 'C_AC_REFRESH',
+ 'C_AC_REPLY',
+ 'C_AC_SAVE',
+ 'C_AC_SCROLL_DOWN',
+ 'C_AC_SCROLL_UP',
+ 'C_AC_SEARCH',
+ 'C_AC_SEND',
+ 'C_AC_STOP',
+ 'C_AC_UNDO',
+ 'C_AC_VIEW_TOGGLE',
+ 'C_AC_ZOOM',
+ 'C_AC_ZOOM_IN',
+ 'C_AC_ZOOM_OUT',
+ 'C_ALTERNATE_AUDIO_INCREMENT',
+ 'C_ALT_AUDIO_INC',
+ 'C_AL_ADDRESS_BOOK',
+ 'C_AL_AUDIO',
+ 'C_AL_AUDIO_BROWSER',
+ 'C_AL_AV_CAPTURE_PLAYBACK',
+ 'C_AL_CAL',
+ 'C_AL_CALC',
+ 'C_AL_CALCULATOR',
+ 'C_AL_CALENDAR',
+ 'C_AL_CCC',
+ 'C_AL_CHAT',
+ 'C_AL_COFFEE',
+ 'C_AL_CONTACTS',
+ 'C_AL_CONTROL_PANEL',
+ 'C_AL_DATABASE',
+ 'C_AL_DB',
+ 'C_AL_DOCS',
+ 'C_AL_DOCUMENTS',
+ 'C_AL_EMAIL',
+ 'C_AL_FILES',
+ 'C_AL_FILE_BROWSER',
+ 'C_AL_FINANCE',
+ 'C_AL_GRAPHICS_EDITOR',
+ 'C_AL_HELP',
+ 'C_AL_IM',
+ 'C_AL_IMAGES',
+ 'C_AL_IMAGE_BROWSER',
+ 'C_AL_INSTANT_MESSAGING',
+ 'C_AL_JOURNAL',
+ 'C_AL_KEYBOARD_LAYOUT',
+ 'C_AL_LOCK',
+ 'C_AL_LOGOFF',
+ 'C_AL_MAIL',
+ 'C_AL_MOVIES',
+ 'C_AL_MOVIE_BROWSER',
+ 'C_AL_MUSIC',
+ 'C_AL_MY_COMPUTER',
+ 'C_AL_NETWORK_CHAT',
+ 'C_AL_NEWS',
+ 'C_AL_NEXT_TASK',
+ 'C_AL_OEM_FEATURES',
+ 'C_AL_PRESENTATION',
+ 'C_AL_PREVIOUS_TASK',
+ 'C_AL_PREV_TASK',
+ 'C_AL_SCREENSAVER',
+ 'C_AL_SCREEN_SAVER',
+ 'C_AL_SELECT_TASK',
+ 'C_AL_SHEET',
+ 'C_AL_SPELL',
+ 'C_AL_SPELLCHECK',
+ 'C_AL_SPREADSHEET',
+ 'C_AL_TASK_MANAGER',
+ 'C_AL_TEXT_EDITOR',
+ 'C_AL_TIPS',
+ 'C_AL_TUTORIAL',
+ 'C_AL_VOICEMAIL',
+ 'C_AL_WORD',
+ 'C_AL_WWW',
+ 'C_ASPECT',
+ 'C_BACKLIGHT_TOGGLE',
+ 'C_BASS_BOOST',
+ 'C_BKLT_TOG',
+ 'C_BLUE',
+ 'C_BLUE_BUTTON',
+ 'C_BRIGHTNESS_AUTO',
+ 'C_BRIGHTNESS_DEC',
+ 'C_BRIGHTNESS_INC',
+ 'C_BRIGHTNESS_MAXIMUM',
+ 'C_BRIGHTNESS_MINIMUM',
+ 'C_BRI_AUTO',
+ 'C_BRI_DEC',
+ 'C_BRI_DN',
+ 'C_BRI_INC',
+ 'C_BRI_MAX',
+ 'C_BRI_MIN',
+ 'C_BRI_UP',
+ 'C_CAPTIONS',
+ 'C_CHANNEL_DEC',
+ 'C_CHANNEL_INC',
+ 'C_CHAN_DEC',
+ 'C_CHAN_INC',
+ 'C_CHAN_LAST',
+ 'C_DATA_ON_SCREEN',
+ 'C_EJECT',
+ 'C_FAST_FORWARD',
+ 'C_FF',
+ 'C_GREEN',
+ 'C_GREEN_BUTTON',
+ 'C_HELP',
+ 'C_KBIA_ACCEPT',
+ 'C_KBIA_CANCEL',
+ 'C_KBIA_NEXT',
+ 'C_KBIA_NEXT_GRP',
+ 'C_KBIA_PREV',
+ 'C_KBIA_PREV_GRP',
+ 'C_KEYBOARD_INPUT_ASSIST_ACCEPT',
+ 'C_KEYBOARD_INPUT_ASSIST_CANCEL',
+ 'C_KEYBOARD_INPUT_ASSIST_NEXT',
+ 'C_KEYBOARD_INPUT_ASSIST_NEXT_GROUP',
+ 'C_KEYBOARD_INPUT_ASSIST_PREVIOUS',
+ 'C_KEYBOARD_INPUT_ASSIST_PREVIOUS_GROUP',
+ 'C_MEDIA_CABLE',
+ 'C_MEDIA_CD',
+ 'C_MEDIA_COMPUTER',
+ 'C_MEDIA_DVD',
+ 'C_MEDIA_GAMES',
+ 'C_MEDIA_GUIDE',
+ 'C_MEDIA_HOME',
+ 'C_MEDIA_MESSAGES',
+ 'C_MEDIA_PHONE',
+ 'C_MEDIA_SATELLITE',
+ 'C_MEDIA_STEP',
+ 'C_MEDIA_TAPE',
+ 'C_MEDIA_TUNER',
+ 'C_MEDIA_TV',
+ 'C_MEDIA_VCR',
+ 'C_MEDIA_VCR_PLUS',
+ 'C_MEDIA_VIDEOPHONE',
+ 'C_MEDIA_WWW',
+ 'C_MENU',
+ 'C_MENU_DEC',
+ 'C_MENU_DECREASE',
+ 'C_MENU_DOWN',
+ 'C_MENU_ESC',
+ 'C_MENU_ESCAPE',
+ 'C_MENU_INC',
+ 'C_MENU_INCREASE',
+ 'C_MENU_LEFT',
+ 'C_MENU_PICK',
+ 'C_MENU_RIGHT',
+ 'C_MENU_SELECT',
+ 'C_MENU_UP',
+ 'C_MODE_STEP',
+ 'C_MUTE',
+ 'C_NEXT',
+ 'C_PAUSE',
+ 'C_PIP',
+ 'C_PLAY',
+ 'C_PLAY_PAUSE',
+ 'C_POWER',
+ 'C_PP',
+ 'C_PREV',
+ 'C_PREVIOUS',
+ 'C_PWR',
+ 'C_QUIT',
+ 'C_RANDOM_PLAY',
+ 'C_REC',
+ 'C_RECALL_LAST',
+ 'C_RECORD',
+ 'C_RED',
+ 'C_RED_BUTTON',
+ 'C_REPEAT',
+ 'C_RESET',
+ 'C_REWIND',
+ 'C_RW',
+ 'C_SHUFFLE',
+ 'C_SLEEP',
+ 'C_SLEEP_MODE',
+ 'C_SLOW',
+ 'C_SLOW2',
+ 'C_SLOW_TRACKING',
+ 'C_SNAPSHOT',
+ 'C_STOP',
+ 'C_STOP_EJECT',
+ 'C_SUBTITLES',
+ 'C_VOICE_COMMAND',
+ 'C_VOLUME_DOWN',
+ 'C_VOLUME_UP',
+ 'C_VOL_DN',
+ 'C_VOL_UP',
+ 'C_YELLOW',
+ 'C_YELLOW_BUTTON',
+ 'D',
+ 'DEL',
+ 'DELETE',
+ 'DLLR',
+ 'DOLLAR',
+ 'DOT',
+ 'DOUBLE_QUOTES',
+ 'DOWN',
+ 'DOWN_ARROW',
+ 'DQT',
+ 'E',
+ 'END',
+ 'ENTER',
+ 'EQUAL',
+ 'ESC',
+ 'ESCAPE',
+ 'EXCL',
+ 'EXCLAMATION',
+ 'EXSEL',
+ 'F',
+ 'F1',
+ 'F10',
+ 'F11',
+ 'F12',
+ 'F13',
+ 'F14',
+ 'F15',
+ 'F16',
+ 'F17',
+ 'F18',
+ 'F19',
+ 'F2',
+ 'F20',
+ 'F21',
+ 'F22',
+ 'F23',
+ 'F24',
+ 'F3',
+ 'F4',
+ 'F5',
+ 'F6',
+ 'F7',
+ 'F8',
+ 'F9',
+ 'FSLH',
+ 'G',
+ 'GLOBE',
+ 'GRAVE',
+ 'GREATER_THAN',
+ 'GT',
+ 'H',
+ 'HASH',
+ 'HOME',
+ 'I',
+ 'INS',
+ 'INSERT',
+ 'INT1',
+ 'INT2',
+ 'INT3',
+ 'INT4',
+ 'INT5',
+ 'INT6',
+ 'INT7',
+ 'INT8',
+ 'INT9',
+ 'INTERNATIONAL_1',
+ 'INTERNATIONAL_2',
+ 'INTERNATIONAL_3',
+ 'INTERNATIONAL_4',
+ 'INTERNATIONAL_5',
+ 'INTERNATIONAL_6',
+ 'INTERNATIONAL_7',
+ 'INTERNATIONAL_8',
+ 'INTERNATIONAL_9',
+ 'INT_HENKAN',
+ 'INT_KANA',
+ 'INT_KATAKANAHIRAGANA',
+ 'INT_KPJPCOMMA',
+ 'INT_MUHENKAN',
+ 'INT_RO',
+ 'INT_YEN',
+ 'J',
+ 'K',
+ 'KP_ASTERISK',
+ 'KP_CLEAR',
+ 'KP_COMMA',
+ 'KP_DIVIDE',
+ 'KP_DOT',
+ 'KP_ENTER',
+ 'KP_EQUAL',
+ 'KP_EQUAL_AS400',
+ 'KP_LEFT_PARENTHESIS',
+ 'KP_LPAR',
+ 'KP_MINUS',
+ 'KP_MULTIPLY',
+ 'KP_N0',
+ 'KP_N1',
+ 'KP_N2',
+ 'KP_N3',
+ 'KP_N4',
+ 'KP_N5',
+ 'KP_N6',
+ 'KP_N7',
+ 'KP_N8',
+ 'KP_N9',
+ 'KP_NLCK',
+ 'KP_NUM',
+ 'KP_NUMBER_0',
+ 'KP_NUMBER_1',
+ 'KP_NUMBER_2',
+ 'KP_NUMBER_3',
+ 'KP_NUMBER_4',
+ 'KP_NUMBER_5',
+ 'KP_NUMBER_6',
+ 'KP_NUMBER_7',
+ 'KP_NUMBER_8',
+ 'KP_NUMBER_9',
+ 'KP_NUMLOCK',
+ 'KP_PLUS',
+ 'KP_RIGHT_PARENTHESIS',
+ 'KP_RPAR',
+ 'KP_SLASH',
+ 'KP_SUBTRACT',
+ 'K_AGAIN',
+ 'K_APP',
+ 'K_APPLICATION',
+ 'K_BACK',
+ 'K_CALC',
+ 'K_CALCULATOR',
+ 'K_CANCEL',
+ 'K_CMENU',
+ 'K_COFFEE',
+ 'K_CONTEXT_MENU',
+ 'K_COPY',
+ 'K_CUT',
+ 'K_EDIT',
+ 'K_EJECT',
+ 'K_EXEC',
+ 'K_EXECUTE',
+ 'K_FIND',
+ 'K_FIND2',
+ 'K_FORWARD',
+ 'K_HELP',
+ 'K_LOCK',
+ 'K_MENU',
+ 'K_MUTE',
+ 'K_MUTE2',
+ 'K_NEXT',
+ 'K_PASTE',
+ 'K_PLAY_PAUSE',
+ 'K_POWER',
+ 'K_PP',
+ 'K_PREV',
+ 'K_PREVIOUS',
+ 'K_PWR',
+ 'K_REDO',
+ 'K_REFRESH',
+ 'K_SCREENSAVER',
+ 'K_SCROLL_DOWN',
+ 'K_SCROLL_UP',
+ 'K_SELECT',
+ 'K_SLEEP',
+ 'K_STOP',
+ 'K_STOP2',
+ 'K_STOP3',
+ 'K_UNDO',
+ 'K_VOLUME_DOWN',
+ 'K_VOLUME_DOWN2',
+ 'K_VOLUME_UP',
+ 'K_VOLUME_UP2',
+ 'K_VOL_DN',
+ 'K_VOL_DN2',
+ 'K_VOL_UP',
+ 'K_VOL_UP2',
+ 'K_WWW',
+ 'L',
+ 'LALT',
+ 'LANG1',
+ 'LANG2',
+ 'LANG3',
+ 'LANG4',
+ 'LANG5',
+ 'LANG6',
+ 'LANG7',
+ 'LANG8',
+ 'LANG9',
+ 'LANGUAGE_1',
+ 'LANGUAGE_2',
+ 'LANGUAGE_3',
+ 'LANGUAGE_4',
+ 'LANGUAGE_5',
+ 'LANGUAGE_6',
+ 'LANGUAGE_7',
+ 'LANGUAGE_8',
+ 'LANGUAGE_9',
+ 'LANG_HANGEUL',
+ 'LANG_HANJA',
+ 'LANG_HIRAGANA',
+ 'LANG_KATAKANA',
+ 'LANG_ZENKAKUHANKAKU',
+ 'LBKT',
+ 'LBRC',
+ 'LCAPS',
+ 'LCMD',
+ 'LCTRL',
+ 'LEFT',
+ 'LEFT_ALT',
+ 'LEFT_ARROW',
+ 'LEFT_BRACE',
+ 'LEFT_BRACKET',
+ 'LEFT_COMMAND',
+ 'LEFT_CONTROL',
+ 'LEFT_GUI',
+ 'LEFT_META',
+ 'LEFT_PARENTHESIS',
+ 'LEFT_SHIFT',
+ 'LEFT_WIN',
+ 'LESS_THAN',
+ 'LGUI',
+ 'LMETA',
+ 'LNLCK',
+ 'LOCKING_CAPS',
+ 'LOCKING_NUM',
+ 'LOCKING_SCROLL',
+ 'LPAR',
+ 'LSHFT',
+ 'LSHIFT',
+ 'LSLCK',
+ 'LT',
+ 'LWIN',
+ 'M',
+ 'MINUS',
+ 'N',
+ 'N0',
+ 'N1',
+ 'N2',
+ 'N3',
+ 'N4',
+ 'N5',
+ 'N6',
+ 'N7',
+ 'N8',
+ 'N9',
+ 'NON_US_BACKSLASH',
+ 'NON_US_BSLH',
+ 'NON_US_HASH',
+ 'NUBS',
+ 'NUHS',
+ 'NUMBER_0',
+ 'NUMBER_1',
+ 'NUMBER_2',
+ 'NUMBER_3',
+ 'NUMBER_4',
+ 'NUMBER_5',
+ 'NUMBER_6',
+ 'NUMBER_7',
+ 'NUMBER_8',
+ 'NUMBER_9',
+ 'O',
+ 'OPER',
+ 'OUT',
+ 'P',
+ 'PAGE_DOWN',
+ 'PAGE_UP',
+ 'PAUSE_BREAK',
+ 'PERCENT',
+ 'PERIOD',
+ 'PG_DN',
+ 'PG_UP',
+ 'PIPE',
+ 'PIPE2',
+ 'PLUS',
+ 'POUND',
+ 'PRCNT',
+ 'PRINTSCREEN',
+ 'PRIOR',
+ 'PSCRN',
+ 'Q',
+ 'QMARK',
+ 'QUESTION',
+ 'R',
+ 'RALT',
+ 'RBKT',
+ 'RBRC',
+ 'RCMD',
+ 'RCTRL',
+ 'RET',
+ 'RET2',
+ 'RETURN',
+ 'RETURN2',
+ 'RGUI',
+ 'RIGHT',
+ 'RIGHT_ALT',
+ 'RIGHT_ARROW',
+ 'RIGHT_BRACE',
+ 'RIGHT_BRACKET',
+ 'RIGHT_COMMAND',
+ 'RIGHT_CONTROL',
+ 'RIGHT_GUI',
+ 'RIGHT_META',
+ 'RIGHT_PARENTHESIS',
+ 'RIGHT_SHIFT',
+ 'RIGHT_WIN',
+ 'RMETA',
+ 'RPAR',
+ 'RSHFT',
+ 'RSHIFT',
+ 'RWIN',
+ 'S',
+ 'SCROLLLOCK',
+ 'SEMI',
+ 'SEMICOLON',
+ 'SEPARATOR',
+ 'SINGLE_QUOTE',
+ 'SLASH',
+ 'SLCK',
+ 'SPACE',
+ 'SQT',
+ 'STAR',
+ 'SYSREQ',
+ 'T',
+ 'TAB',
+ 'TILDE',
+ 'TILDE2',
+ 'U',
+ 'UNDER',
+ 'UNDERSCORE',
+ 'UP',
+ 'UP_ARROW',
+ 'V',
+ 'W',
+ 'X',
+ 'Y',
+ 'Z'])
+
+
+def _label_from_comment(comment):
+    if comment is None:
+        return None
+    comment = comment.strip()
+    if not comment:
+        return None
+    if len(comment) == 1 and comment.isascii() and comment.isalpha():
+        return comment.upper()
+    if comment == " ":
+        return "SPACE"
+    return comment
+
+
+def _format_words(token):
+    words = []
+    for part in token.split("_"):
+        if not part:
+            continue
+        words.append(WORD_LABELS.get(part, part))
+    return " ".join(words)
+
+
+def _format_keypad_token(token):
+    number_match = re.fullmatch(r"(?:NUMBER_|N)(\d)", token)
+    if number_match:
+        return f"KP {number_match.group(1)}"
+    if token in DIRECT_KEY_LABELS:
+        return DIRECT_KEY_LABELS[token]
+    return f"KP {_format_words(token)}".strip()
+
+
+def _format_key_label(token):
+    if token in DIRECT_KEY_LABELS:
+        return DIRECT_KEY_LABELS[token]
+
+    if re.fullmatch(r"[A-Z]", token):
+        return token
+
+    if re.fullmatch(r"F\d+", token):
+        return token
+
+    number_match = re.fullmatch(r"(?:NUMBER_|N)(\d)", token)
+    if number_match:
+        return number_match.group(1)
+
+    symbol_labels = {
+        "EXCLAMATION": "!", "EXCL": "!",
+        "AT_SIGN": "@", "AT": "@",
+        "HASH": "#", "POUND": "#",
+        "DOLLAR": "$", "DLLR": "$",
+        "PERCENT": "%", "PRCNT": "%",
+        "CARET": "^",
+        "AMPERSAND": "&", "AMPS": "&",
+        "ASTERISK": "*", "ASTRK": "*", "STAR": "*",
+        "LEFT_PARENTHESIS": "(", "LPAR": "(",
+        "RIGHT_PARENTHESIS": ")", "RPAR": ")",
+        "MINUS": "-",
+        "UNDERSCORE": "_", "UNDER": "_",
+        "EQUAL": "=",
+        "PLUS": "+",
+        "LEFT_BRACKET": "[", "LBKT": "[",
+        "RIGHT_BRACKET": "]", "RBKT": "]",
+        "LEFT_BRACE": "{", "LBRC": "{",
+        "RIGHT_BRACE": "}", "RBRC": "}",
+        "BACKSLASH": "\\", "BSLH": "\\",
+        "NON_US_BACKSLASH": "\\", "NON_US_BSLH": "\\", "NUBS": "\\",
+        "PIPE": "|", "PIPE2": "|",
+        "SEMICOLON": ";", "SEMI": ";",
+        "COLON": ":",
+        "SINGLE_QUOTE": "'", "SQT": "'", "APOSTROPHE": "'", "APOS": "'",
+        "DOUBLE_QUOTES": '"', "DQT": '"',
+        "COMMA": ",",
+        "LESS_THAN": "<", "LT": "<",
+        "PERIOD": ".", "DOT": ".",
+        "GREATER_THAN": ">", "GT": ">",
+        "SLASH": "/", "FSLH": "/",
+        "QUESTION": "?", "QMARK": "?",
+        "GRAVE": "`",
+        "TILDE": "~", "TILDE2": "~",
+        "NON_US_HASH": "#", "NUHS": "#",
+    }
+    if token in symbol_labels:
+        return symbol_labels[token]
+
+    if token.startswith("KP_"):
+        return _format_keypad_token(token[3:])
+
+    for prefix in ("C_KEYBOARD_INPUT_ASSIST_", "C_MENU_", "C_AC_", "C_AL_", "C_", "K_"):
+        if token.startswith(prefix):
+            return _format_words(token[len(prefix):])
+
+    return _format_words(token)
+
+
+def _build_de_labels():
+    text = CH_DE_PATH.read_text(encoding="utf-8")
+    labels = {}
+    aliases = {}
+    comment = None
+
+    for line in text.splitlines():
+        comment_match = re.match(r"\s*/\*\s*(.*?)\s*\*/\s*$", line)
+        if comment_match:
+            comment = comment_match.group(1)
+            continue
+
+        define_match = re.match(r"\s*#define\s+(DE_[A-Z0-9_]+)\s+(.+?)\s*$", line)
+        if not define_match:
+            continue
+
+        name, expr = define_match.groups()
+        expr = expr.strip()
+        alias_match = re.fullmatch(r"\((DE_[A-Z0-9_]+)\)", expr)
+        if alias_match:
+            aliases[name] = alias_match.group(1)
+        else:
+            labels[name] = _label_from_comment(comment) or DE_NAME_FALLBACKS.get(name[3:], _format_words(name[3:]))
+        comment = None
+
+    def resolve(name):
+        if name in labels:
+            return labels[name]
+        target = aliases.get(name)
+        if not target:
+            labels[name] = DE_NAME_FALLBACKS.get(name[3:], _format_words(name[3:]))
+            return labels[name]
+        labels[name] = resolve(target)
+        return labels[name]
+
+    for name in aliases:
+        resolve(name)
+
+    return labels
+
+
+def _build_std_labels():
+    return {name: _format_key_label(name) for name in KNOWN_ZMK_KEYCODES}
+
+
+DE_LABELS = _build_de_labels()
+STD_LABELS = _build_std_labels()
 
 # Swiss German shifted values for number keys
 CH_NUM_SHIFTS = {
@@ -110,7 +894,9 @@ BRACKET_PAIRS = {
 class KeymapParser:
     def __init__(self, text):
         self.text = text
+        self.layer_tokens = {}    # index -> keymap token from #define
         self.layer_names = {}     # index -> display name
+        self.layer_name_by_token = {}
         self.behaviors = {}       # name -> behavior metadata
         self.binding_cells = {    # name -> number of params
             "kp": 1, "none": 0, "trans": 0,
@@ -129,21 +915,41 @@ class KeymapParser:
 
     def _parse_defines(self):
         for m in re.finditer(r"#define\s+(\w+)\s+(\d+)", self.text):
-            self.layer_names[int(m.group(2))] = m.group(1)
+            self.layer_tokens[int(m.group(2))] = m.group(1)
 
     # ── Step 2: parse behaviors { ... } block ──
 
     def _parse_behaviors(self):
-        m = re.search(r"behaviors\s*\{(.*?)\n\s{8}\};", self.text, re.DOTALL)
-        if not m:
+        block = self._extract_named_block("behaviors")
+        if block is None:
             return
-        self._parse_behavior_block(m.group(1))
+        self._parse_behavior_block(block)
 
     def _parse_macros(self):
-        m = re.search(r"macros\s*\{(.*?)\n\s{8}\};", self.text, re.DOTALL)
-        if not m:
+        block = self._extract_named_block("macros")
+        if block is None:
             return
-        self._parse_behavior_block(m.group(1))
+        self._parse_behavior_block(block)
+
+    def _extract_named_block(self, name):
+        match = re.search(rf"\b{name}\s*\{{", self.text)
+        if not match:
+            return None
+        open_brace = self.text.find("{", match.start())
+        close_brace = self._find_matching_brace(open_brace)
+        return self.text[open_brace + 1 : close_brace]
+
+    def _find_matching_brace(self, open_brace_idx):
+        depth = 0
+        for idx in range(open_brace_idx, len(self.text)):
+            char = self.text[idx]
+            if char == "{":
+                depth += 1
+            elif char == "}":
+                depth -= 1
+                if depth == 0:
+                    return idx
+        raise ValueError("Could not find matching brace")
 
     def _parse_behavior_block(self, block_text):
         for m in re.finditer(r"(\w+)\s*:\s*[\w\s]*\{(.*?)\};", block_text, re.DOTALL):
@@ -169,21 +975,30 @@ class KeymapParser:
     # ── Step 3: parse keymap layers ──
 
     def _parse_layers(self):
-        km = re.search(
-            r'keymap\s*\{[^}]*compatible\s*=\s*"zmk,keymap"\s*;(.*?)^\s{8}\};',
-            self.text, re.DOTALL | re.MULTILINE,
-        )
-        if not km:
+        keymap_block = self._extract_named_block("keymap")
+        if keymap_block is None:
             raise ValueError("Could not find keymap section")
 
         layers = []
-        layer_re = re.compile(r"(\w+)\s*\{[^<]*bindings\s*=\s*<(.*?)>", re.DOTALL)
-        for i, m in enumerate(layer_re.finditer(km.group(1))):
-            bindings_text = m.group(2)
-            display_name = self.layer_names.get(i, m.group(1).upper())
+        layer_defs = []
+        layer_re = re.compile(r"(\w+)\s*\{(.*?)\};", re.DOTALL)
+        for i, m in enumerate(layer_re.finditer(keymap_block)):
+            body = m.group(2)
+            display_name_match = re.search(r'display-name\s*=\s*"([^"]+)"', body)
+            display_name = display_name_match.group(1) if display_name_match else m.group(1).upper()
+            layer_token = self.layer_tokens.get(i, m.group(1).upper())
+            self.layer_names[i] = display_name
+            self.layer_name_by_token[layer_token] = display_name
+            layer_defs.append((layer_token, display_name, body))
+
+        for layer_token, display_name, body in layer_defs:
+            bindings_match = re.search(r"bindings\s*=\s*<(.*?)>", body, re.DOTALL)
+            if not bindings_match:
+                continue
+            bindings_text = bindings_match.group(1)
             bindings = self._tokenize_bindings(bindings_text)
             keys = [self._resolve_binding(b) for b in bindings]
-            layers.append({"name": display_name, "keys": keys})
+            layers.append({"token": layer_token, "name": display_name, "keys": keys})
         return layers
 
     # ── Binding tokenizer ──
@@ -430,9 +1245,43 @@ class KeymapParser:
     def _layer_label(self, name_or_idx):
         try:
             idx = int(name_or_idx)
-            return self.layer_names.get(idx, str(idx))
+            return self.layer_names.get(idx, self.layer_tokens.get(idx, str(idx)))
         except ValueError:
-            return name_or_idx
+            return self.layer_name_by_token.get(name_or_idx, name_or_idx)
+
+
+def infer_layer_sides(layers):
+    if not layers:
+        return layers
+
+    layer_names = {layer["name"] for layer in layers}
+    side_hits = {}
+
+    for layer in layers:
+        for index, key in enumerate(layer["keys"][36:42], start=36):
+            side = "left" if index < 39 else "right"
+            for field in ("t", "h"):
+                target = key.get(field)
+                if target in layer_names and target != layer["name"]:
+                    side_hits.setdefault(target, []).append(side)
+
+    resolved_layers = []
+    for index, layer in enumerate(layers):
+        resolved = dict(layer)
+        if index == 0:
+            resolved["side"] = "center"
+        else:
+            hits = side_hits.get(layer["name"], [])
+            if "left" in hits and "right" not in hits:
+                resolved["side"] = "left"
+            elif "right" in hits and "left" not in hits:
+                resolved["side"] = "right"
+            elif hits:
+                resolved["side"] = hits[0]
+            else:
+                resolved["side"] = "left"
+        resolved_layers.append(resolved)
+    return resolved_layers
 
 
 # ── JS generation ───────────────────────────────────────────────────
@@ -448,7 +1297,7 @@ def key_to_js(k):
 def layers_to_js(layers):
     lines = ["const LAYERS = ["]
     for layer in layers:
-        side = json.dumps(LAYER_SIDES.get(layer["name"], "left"))
+        side = json.dumps(layer.get("side", "left"))
         lines.append(f"  {{ name: {json.dumps(layer['name'])}, side: {side}, keys: [")
         keys = layer["keys"]
         for row in range(3):
@@ -1130,7 +1979,7 @@ def main():
     text = KEYMAP_PATH.read_text(encoding="utf-8")
 
     parser = KeymapParser(text)
-    layers = parser.parse()
+    layers = infer_layer_sides(parser.parse())
 
     layer_count = len(layers)
     layers_js = layers_to_js(layers)
