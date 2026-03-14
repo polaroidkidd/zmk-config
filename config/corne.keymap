@@ -214,9 +214,9 @@
                 i3_layer {                 
                         display-name = "I3";                 
                         bindings = <                 
-        &kp ESC              &kp LG(N1)         &kp LG(N2)       &kp LG(N3)             &kp LG(N4)        &kp LG(N5)                          &kp LG(N6)       &kp LG(N7)            &kp LG(N8)             &kp LG(N9)        &kp LG(N0)          &kp DEL
-        &kp LSHFT            &kp LG(LC(A))      &none            &kp LG(LC(S))          &none             &kp LG(DE_MINUS)                    &none            &none                 &kp LG(UP)             &none             &none               &kp LALT
-        &kp LCTRL            &kp LG(DE_Y)       &kp LA(LEFT)     &kp LA(RIGHT)          &kp LG(E)         &kp LG(V)                           &none            &kp LG(LEFT)          &kp LG(DOWN)           &kp LG(RIGHT)     &none               &kp RET
+        &kp ESC              &kp LG(N1)         &kp LG(N2)       &kp LG(N3)             &kp LG(N4)        &kp LG(N5)                          &kp LG(N6)       &kp LG(N7)            &kp LG(N8)             &kp LG(N9)        &kp LG(N0)          &trans
+        &kp LSHFT            &kp LG(LC(A))      &none            &kp LG(LC(S))          &none             &kp LG(DE_MINUS)                    &none            &none                 &kp LG(UP)             &none             &none               &trans
+        &kp LCTRL            &kp LG(DE_Y)       &kp LA(LEFT)     &kp LA(RIGHT)          &kp LG(E)         &kp LG(V)                           &none            &kp LG(LEFT)          &kp LG(DOWN)           &kp LG(RIGHT)     &none               &trans
                                                                  &ton NUM               &none             &kp LG(SPACE)                       &kp BACKSPACE    &none                 &none
                         >;                 
                 };                 
@@ -225,9 +225,9 @@
                 system_layer {                 
                         display-name = "SYSTEM";                 
                         bindings = <                 
-        &n1_btclr 0 TAB      &ht_bt 0 DE_N1     &ht_bt 1 DE_N2   &ht_bt 2 DE_N3         &ht_bt 3 DE_N4    &ht_bt 4 DE_N5                      &kp DE_N6        &kp DE_N7             &kp DE_N8              &kp DE_N9         &kp DE_N0           &kp DEL
-        &kp LSHFT            &none              &none            &none                  &kp PG_UP         &none                               &kp PG_UP        &kp HOME              &kp UP                 &kp END           &none               &kp LALT
-        &kp LCTRL            &none              &none            &none                  &kp PG_DN         &none                               &kp PG_DN        &kp LEFT              &kp DOWN               &kp RIGHT         &kp K_CMENU         &kp RET
+        &n1_btclr 0 TAB      &ht_bt 0 DE_N1     &ht_bt 1 DE_N2   &ht_bt 2 DE_N3         &ht_bt 3 DE_N4    &ht_bt 4 DE_N5                      &kp DE_N6        &kp DE_N7             &kp DE_N8              &kp DE_N9         &kp DE_N0           &trans
+        &kp LSHFT            &none              &none            &none                  &kp PG_UP         &none                               &kp PG_UP        &kp HOME              &kp UP                 &kp END           &none               &trans
+        &kp LCTRL            &none              &none            &none                  &kp PG_DN         &none                               &kp PG_DN        &kp LEFT              &kp DOWN               &kp RIGHT         &kp K_CMENU         &trans
                                                                  &none                  &none             &none                               &kp BACKSPACE    &none                 &ton FUNC
                         >;                 
                 };                 
@@ -236,9 +236,9 @@
                 symbol_layer {                 
                         display-name = "SYMBOL";                   
                         bindings = <                 
-        &kp ESC              &kp DE_EXCL        &kp DE_AT        &kp DE_HASH            &kp DE_LBRC       &kp DE_RBRC                        &kp DE_CARET       &kp DOLLAR           &kp PERCENT            &kp DE_QMARK      &kp DE_SQT          &kp DEL
-        &kp LSHFT            &kp DE_MINUS       &kp DE_PLUS      &kp DE_EQUAL           &kp DE_LBKT       &kp DE_RBKT                        &none              &none                &none                  &kp DE_PIPE       &kp DE_DQT          &kp LALT
-        &kp LCTRL            &kp DE_LT          &kp DE_GT        &none                  &kp DE_LPAR       &kp DE_RPAR                        &none              &none                &none                  &kp DE_FSLH       &kp DE_BSLH         &kp RET
+        &kp ESC              &kp DE_EXCL        &kp DE_AT        &kp DE_HASH            &kp DE_LBRC       &kp DE_RBRC                        &kp DE_CARET       &kp DOLLAR           &kp PERCENT            &kp DE_QMARK      &kp DE_SQT          &trans
+        &kp LSHFT            &kp DE_MINUS       &kp DE_PLUS      &kp DE_EQUAL           &kp DE_LBKT       &kp DE_RBKT                        &none              &none                &none                  &kp DE_PIPE       &kp DE_DQT          &trans
+        &kp LCTRL            &kp DE_LT          &kp DE_GT        &none                  &kp DE_LPAR       &kp DE_RPAR                        &none              &none                &none                  &kp DE_FSLH       &kp DE_BSLH         &trans
                                                                  &none                  &none             &none                              &kp BACKSPACE      &none                &none 
                         >;                 
                 };                 
@@ -246,9 +246,9 @@
                 number_layer {                 
                         display-name = "NUMBER";                 
                         bindings = <                 
-        &kp ESC             &none              &none            &none                   &none             &none                               &none            &none                 &kp DE_N7              &kp DE_N8         &kp DE_N9           &kp DEL
-        &kp LSHFT           &none              &none            &none                   &none             &none                               &none            &none                 &kp DE_N4              &kp DE_N5         &kp DE_N6           &kp LALT
-        &kp LCTRL           &none              &none            &none                   &none             &none                               &none            &none                 &kp DE_N1              &kp DE_N2         &kp DE_N3           &kp RET
+        &kp ESC             &none              &none            &none                   &none             &none                               &none            &none                 &kp DE_N7              &kp DE_N8         &kp DE_N9           &trans
+        &kp LSHFT           &none              &none            &none                   &none             &none                               &none            &none                 &kp DE_N4              &kp DE_N5         &kp DE_N6           &trans
+        &kp LCTRL           &none              &none            &none                   &none             &none                               &none            &none                 &kp DE_N1              &kp DE_N2         &kp DE_N3           &trans
                                                                 &none                   &none             &none                               &kp BACKSPACE    &none                 &kp DE_N0          
                         >;                 
                 };                 
@@ -257,8 +257,8 @@
                         display-name = "FUNCTION";                 
                         bindings = <                 
         &kp ESC           &kp F2             &kp F3           &kp F4                    &kp F5            &kp F6                              &kp F7           &kp F8                &kp F9                 &kp F10           &kp F11             &kp F12
-        &kp LSHFT         &none              &none            &none                     &none             &none                               &none            &none                 &none                  &none             &none               &none          
-        &kp LCTRL         &studio_unlock     &none            &none                     &none             &none                               &none            &none                 &none                  &none             &none               &none          
+        &kp LSHFT         &none              &none            &none                     &none             &none                               &none            &none                 &none                  &none             &none               &trans          
+        &kp LCTRL         &studio_unlock     &none            &none                     &none             &none                               &none            &none                 &none                  &none             &none               &trans          
                                                               &none                     &none             &none                               &kp BACKSPACE    &none                 &none                  
                                                                                          >;
                 };

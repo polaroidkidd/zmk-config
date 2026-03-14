@@ -897,6 +897,7 @@ class KeymapParser:
         self.layer_tokens = {}    # index -> keymap token from #define
         self.layer_names = {}     # index -> display name
         self.layer_name_by_token = {}
+        self.layer_bindings = []  # parsed bindings per layer, preserving positions
         self.behaviors = {}       # name -> behavior metadata
         self.binding_cells = {    # name -> number of params
             "kp": 1, "none": 0, "trans": 0,
@@ -989,16 +990,27 @@ class KeymapParser:
             layer_token = self.layer_tokens.get(i, m.group(1).upper())
             self.layer_names[i] = display_name
             self.layer_name_by_token[layer_token] = display_name
-            layer_defs.append((layer_token, display_name, body))
+            layer_defs.append({"token": layer_token, "name": display_name, "body": body})
 
-        for layer_token, display_name, body in layer_defs:
+        for layer_def in layer_defs:
+            body = layer_def["body"]
             bindings_match = re.search(r"bindings\s*=\s*<(.*?)>", body, re.DOTALL)
             if not bindings_match:
                 continue
             bindings_text = bindings_match.group(1)
             bindings = self._tokenize_bindings(bindings_text)
-            keys = [self._resolve_binding(b) for b in bindings]
-            layers.append({"token": layer_token, "name": display_name, "keys": keys})
+            layer_def["bindings"] = bindings
+            self.layer_bindings.append(bindings)
+
+        for layer_index, layer_def in enumerate(layer_defs):
+            bindings = layer_def.get("bindings")
+            if not bindings:
+                continue
+            keys = [
+                self._resolve_binding(binding, layer_index=layer_index, key_index=key_index)
+                for key_index, binding in enumerate(bindings)
+            ]
+            layers.append({"token": layer_def["token"], "name": layer_def["name"], "keys": keys})
         return layers
 
     # ── Binding tokenizer ──
@@ -1052,14 +1064,14 @@ class KeymapParser:
 
     # ── Binding resolver ──
 
-    def _resolve_binding(self, binding):
+    def _resolve_binding(self, binding, layer_index=None, key_index=None):
         behavior, params = binding
 
         if behavior == "none":
             return {"c": "none-key"}
 
         if behavior == "trans":
-            return {"t": "\u25bd", "c": "none-key"}
+            return self._resolve_transparent_binding(layer_index, key_index)
 
         if behavior == "kp":
             return self._resolve_kp(params[0] if params else "")
@@ -1097,10 +1109,10 @@ class KeymapParser:
             return self._resolve_macro(beh_info, params)
 
         if compat == "zmk,behavior-hold-tap":
-            return self._resolve_hold_tap(beh_info, params)
+            return self._resolve_hold_tap(beh_info, params, layer_index, key_index)
 
         if compat == "zmk,behavior-tap-dance":
-            return self._resolve_tap_dance(beh_info)
+            return self._resolve_tap_dance(beh_info, layer_index, key_index)
 
         # Fallback: show behavior name + params
         label = behavior
@@ -1185,11 +1197,11 @@ class KeymapParser:
         # Fallback
         return {"t": beh_info.get("compat", "macro")}
 
-    def _resolve_nested_behavior(self, behavior, param):
+    def _resolve_nested_behavior(self, behavior, param, layer_index=None, key_index=None):
         params = [param] if param else []
-        return self._resolve_binding((behavior, params))
+        return self._resolve_binding((behavior, params), layer_index=layer_index, key_index=key_index)
 
-    def _resolve_hold_tap(self, beh_info, params):
+    def _resolve_hold_tap(self, beh_info, params, layer_index=None, key_index=None):
         raw = beh_info.get("bindings_raw", "")
         parts = re.findall(r"<([^>]+)>", raw)
         if len(parts) < 2:
@@ -1200,11 +1212,15 @@ class KeymapParser:
 
         # Resolve tap (second param -> tap behavior)
         tap_param = params[1] if len(params) > 1 else ""
-        tap_display = self._resolve_nested_behavior(tap_beh_name, tap_param)
+        tap_display = self._resolve_nested_behavior(
+            tap_beh_name, tap_param, layer_index=layer_index, key_index=key_index
+        )
 
         # Resolve hold (first param -> hold behavior)
         hold_param = params[0] if params else ""
-        hold_display = self._resolve_nested_behavior(hold_beh_name, hold_param)
+        hold_display = self._resolve_nested_behavior(
+            hold_beh_name, hold_param, layer_index=layer_index, key_index=key_index
+        )
         hold_label = hold_display.get("t", hold_param or hold_beh_name)
 
         result = dict(tap_display)
@@ -1214,7 +1230,7 @@ class KeymapParser:
             result["c"] = hold_display["c"]
         return result
 
-    def _resolve_tap_dance(self, beh_info):
+    def _resolve_tap_dance(self, beh_info, layer_index=None, key_index=None):
         raw = beh_info.get("bindings_raw", "")
         parts = re.findall(r"<([^>]+)>", raw)
         if not parts:
@@ -1224,14 +1240,38 @@ class KeymapParser:
         if not bindings:
             return {"t": "??"}
 
-        result = dict(self._resolve_binding(bindings[0]))
+        result = dict(self._resolve_binding(bindings[0], layer_index=layer_index, key_index=key_index))
         if len(bindings) > 1:
-            second = self._resolve_binding(bindings[1]).get("t")
+            second = self._resolve_binding(
+                bindings[1], layer_index=layer_index, key_index=key_index
+            ).get("t")
             if second and "s" not in result:
                 result["s"] = second
         return result
 
     # ── Helpers ──
+
+    def _resolve_transparent_binding(self, layer_index, key_index):
+        if layer_index is None or key_index is None:
+            return {"t": "\u25bd", "c": "none-key"}
+
+        for lower_layer_index in range(layer_index - 1, -1, -1):
+            if lower_layer_index >= len(self.layer_bindings):
+                continue
+
+            lower_bindings = self.layer_bindings[lower_layer_index]
+            if key_index >= len(lower_bindings):
+                continue
+
+            return dict(
+                self._resolve_binding(
+                    lower_bindings[key_index],
+                    layer_index=lower_layer_index,
+                    key_index=key_index,
+                )
+            )
+
+        return {"c": "none-key"}
 
     def _key_label(self, key):
         if key in DE_LABELS:
