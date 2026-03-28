@@ -215,8 +215,8 @@
                         display-name = "I3";                 
                         bindings = <                 
         &kp ESC              &kp LG(N1)         &kp LG(N2)       &kp LG(N3)             &kp LG(N4)        &kp LG(N5)                          &kp LG(N6)       &kp LG(N7)            &kp LG(N8)             &kp LG(N9)        &kp LG(N0)          &trans
-        &kp LSHFT            &none              &none            &none                  &none             &kp LG(DE_MINUS)                    &none            &kp LG(LC(A))         &kp LG(UP)             &kp LG(LC(S))     &none               &trans
-        &kp LCTRL            &kp LG(DE_Y)       &none            &none                  &kp LG(E)         &kp LG(V)                           &none            &kp LG(LEFT)          &kp LG(DOWN)           &kp LG(RIGHT)     &none               &trans
+        &kp LSHFT            &kp LG(LC(A))      &none            &kp LG(LC(S))          &none             &kp LG(DE_MINUS)                    &none            &none                 &kp LG(UP)             &none             &none               &trans
+        &kp LCTRL            &kp LG(DE_Y)       &none            &none          &kp LG(E)         &kp LG(V)                           &none            &kp LG(LEFT)          &kp LG(DOWN)           &kp LG(RIGHT)     &none               &trans
                                                                  &ton NUM               &none             &kp LG(SPACE)                       &kp BACKSPACE    &none                 &none
                         >;                 
                 };                 
