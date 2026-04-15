@@ -1651,6 +1651,7 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
   @media print {
     body { padding: 0; background: #fff; color: #333; }
     .header, .layer-tabs, .theme-toggle, .print-btn, .subtitle, .info-box { display: none !important; }
+    #print-view .info-box { display: block !important; color: #555; border-color: #ccc; background: #fff; font-size: 9px; margin-top: 10px; padding: 8px 12px; text-align: center; margin-left: auto; margin-right: auto; }
     #print-view { display: block !important; }
     .keyboard-container, #legend { display: none !important; }
   }
@@ -1929,6 +1930,8 @@ function printAll() {
   rightLayers.forEach(layer => { html += pvLayer(layer); });
   html += '</div>';
   html += '</div>';
+  const infoBox = document.querySelector('.info-box');
+  if (infoBox) html += infoBox.outerHTML;
   pv.innerHTML = html;
   window.print();
 }
@@ -1976,9 +1979,85 @@ def generate_info_box(text):
     ):
         name, hold, tap = m.group(1), m.group(2), m.group(3)
         macro_descs.append(f"{name} = hold {hold} + toggle {tap}")
+    # Keypress sequence macros (like arrow_fn)
+    for m in re.finditer(
+        r"(\w+)\s*:\s*[\w\s]*\{[^}]*"
+        r'compatible\s*=\s*"zmk,behavior-macro"[^}]*'
+        r"bindings\s*=\s*([^;]+);[^}]*\}",
+        text,
+        re.DOTALL,
+    ):
+        name = m.group(1)
+        raw_bindings = m.group(2).strip()
+        # Skip hold+toggle macros (already handled above) and bt macros
+        if "&macro_press" in raw_bindings or "BT_CLR" in raw_bindings or "BT_SEL" in raw_bindings:
+            continue
+        # Extract typed keys from &kp sequences
+        keys = re.findall(r"&kp\s+([\w]+)", raw_bindings)
+        if keys:
+            key_labels = []
+            for k in keys:
+                label = DE_LABELS.get(k, STD_LABELS.get(k, k))
+                if label in ("SPACE", "SPC"):
+                    label = "␣"
+                elif label in ("RET", "RET2"):
+                    label = "⏎"
+                key_labels.append(label)
+            macro_descs.append(f"{name} = types {''.join(key_labels)}")
+
     if macro_descs:
         parts.append(
             "<strong>Macros:</strong> " + " &middot; ".join(macro_descs)
+        )
+
+    # Combos
+    combo_descs = []
+    combos_start = re.search(r"\bcombos\s*\{", text)
+    if combos_start:
+        open_idx = text.index("{", combos_start.start())
+        depth, close_idx = 0, open_idx
+        for ci in range(open_idx, len(text)):
+            if text[ci] == "{":
+                depth += 1
+            elif text[ci] == "}":
+                depth -= 1
+                if depth == 0:
+                    close_idx = ci
+                    break
+        combos_block = text[open_idx + 1 : close_idx]
+        for cm in re.finditer(
+            r"(\w+)\s*\{[^}]*"
+            r"key-positions\s*=\s*<([^>]+)>[^}]*"
+            r"bindings\s*=\s*<([^>]+)>[^}]*\}",
+            combos_block,
+            re.DOTALL,
+        ):
+            name = cm.group(1)
+            positions = cm.group(2).strip()
+            binding = cm.group(3).strip().lstrip("&")
+            # Check for layers restriction
+            layers_m = re.search(r"layers\s*=\s*<([^>]+)>", cm.group(0))
+            layer_info = ""
+            if layers_m:
+                layer_names = []
+                for tok in layers_m.group(1).strip().split():
+                    try:
+                        idx = int(tok)
+                        for define_m in re.finditer(r"#define\s+(\w+)\s+(\d+)", text):
+                            if int(define_m.group(2)) == idx:
+                                layer_names.append(define_m.group(1))
+                                break
+                        else:
+                            layer_names.append(tok)
+                    except ValueError:
+                        layer_names.append(tok)
+                layer_info = f" on {'+'.join(layer_names)}"
+            combo_descs.append(
+                f"pos {positions}{layer_info} &rarr; {binding}"
+            )
+    if combo_descs:
+        parts.append(
+            "<strong>Combos:</strong> " + " &middot; ".join(combo_descs)
         )
 
     # Mod-morphs
