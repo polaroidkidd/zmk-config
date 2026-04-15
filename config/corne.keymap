@@ -59,7 +59,7 @@
                 };
 
                 /* ── arrow_fn ──────────────────────────────────────────────
-                 *  Types: () => {\n}  (JS/TS arrow function skeleton)
+                 *  Types: = () => { \n  (JS/TS arrow function skeleton)
                  *  Editor auto-indent places cursor inside the braces
                  *  Activation: press ( and ) simultaneously on SYMBL layer
                  *              (combo on positions 25+26, 50ms window)
@@ -69,9 +69,10 @@
                         #binding-cells = <0>;
                         wait-ms = <30>;
                         tap-ms = <30>;
-                        bindings = <&kp DE_LPAR &kp DE_RPAR &kp SPACE
+                        bindings = <&kp DE_EQUAL &kp SPACE
+                                    &kp DE_LPAR &kp DE_RPAR &kp SPACE
                                     &kp DE_EQUAL &kp DE_GT &kp SPACE
-                                    &kp DE_LBRC &kp RET &kp DE_RBRC>;
+                                    &kp DE_LBRC &kp SPACE &kp RET>;
                 };
 
                 /* ── kp_once ───────────────────────────────────────────────
@@ -206,28 +207,28 @@
         &kp LSHFT            &kp DE_N6          &kp DE_N7        &kp DE_N8              &kp DE_N9         &kp DE_N0                           &none            &kp HOME              &kp UP                 &kp END           &kp DE_LBKT         &kp DE_RBKT
 
         &kp LCTRL            &none              &none            &none                  &none             &none                               &kp K_CMENU      &kp LEFT              &kp DOWN               &kp RIGHT         &kp DE_LBRC         &kp DE_RBRC
-                                                                 &none                  &none             &none                               &kp BACKSPACE    &none                 &ton FUNC
-                        >;                 
-                };                 
-                 
-                 
+                                                                 &none                  &none             &kp SPACE                           &kp BACKSPACE    &none                 &ton FUNC
+                        >;
+                };
+
+
                 symbol_layer {                 
                         display-name = "SYMBOL";                   
                         bindings = <                 
         &kp ESC              &kp DE_EXCL        &kp DE_AT        &kp DE_HASH            &none             &none                              &kp DE_CARET       &kp DE_DLLR          &kp DE_PRCNT           &kp DE_QMARK      &kp DE_SQT          &kp DEL
         &kp LSHFT            &kp DE_PLUS        &kp DE_MINUS     &kp DE_EQUAL           &kp DE_LT         &kp DE_GT                          &none              &none                &none                  &kp DE_PIPE       &kp DE_DQT          &kp LALT
-        &kp LCTRL            &kp DE_LPAR        &kp DE_RPAR      &kp DE_EQUAL           &kp DE_GT         &none                              &none              &none                &none                  &kp DE_FSLH       &kp DE_BSLH         &kp RET
-                                                                 &none                  &none             &none                              &kp BACKSPACE      &none                &none 
-                        >;                 
-                };                 
-                 
+        &kp LCTRL            &kp DE_LPAR        &kp DE_RPAR      &kp DE_EQUAL           &kp DE_GT         &kp DE_LBRC                        &none              &none                &none                  &kp DE_FSLH       &kp DE_BSLH         &kp RET
+                                                                 &none                  &none             &kp SPACE                          &kp BACKSPACE      &none                &none
+                        >;
+                };
+
                 number_layer {                 
                         display-name = "NUMBER";                 
                         bindings = <                 
         &kp ESC             &none              &none            &none                   &none             &none                               &none            &kp DE_FSLH           &kp DE_N7              &kp DE_N8         &kp DE_N9           &kp DEL
         &kp LSHFT           &none              &none            &none                   &none             &none                               &none            &kp DE_MINUS          &kp DE_N4              &kp DE_N5         &kp DE_N6           &kp LALT
         &kp LCTRL           &none              &none            &none                   &none             &none                               &none            &kp DE_DOT            &kp DE_N1              &kp DE_N2         &kp DE_N3           &kp RET
-                                                                &none                   &none             &none                               &kp BACKSPACE    &none                 &kp DE_N0          
+                                                                &none                   &none             &kp SPACE                           &kp BACKSPACE    &none                 &kp DE_N0          
                         >;                 
                 };                 
                  
@@ -237,7 +238,7 @@
         &kp ESC           &kp F2             &kp F3           &kp F4                    &kp F5            &kp F6                              &kp F7           &kp F8                &kp F9                 &kp F10           &kp F11             &kp F12
         &kp LSHFT         &none              &none            &none                     &none             &none                               &none            &none                 &none                  &none             &none               &kp LALT
         &kp LCTRL         &studio_unlock     &none            &none                     &none             &none                               &none            &none                 &none                  &none             &none               &kp RET          
-                                                              &none                     &none             &none                               &kp BACKSPACE    &none                 &none                  
+                                                              &none                     &none             &kp SPACE                           &kp BACKSPACE    &none                 &none                  
                                                                                          >;
                 };
 
