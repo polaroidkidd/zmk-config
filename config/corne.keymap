@@ -19,6 +19,9 @@
 #define FUNC           5
 
 
+/* Key position groups used by hold-trigger-key-positions
+ * in the BT hold-taps (n1_btclr, ht_bt) and ht behavior.
+ * LEFT_HAND_KEYS is kept for symmetry / future use. */
 #define LEFT_HAND_KEYS \
         0 1 2 3 4 5 12 13 14 15 16 17 24 25 26 27 28 29
 #define RIGHT_HAND_KEYS \
@@ -29,6 +32,11 @@
 / {
  
         macros {
+                /* ── sys_fnc ───────────────────────────────────────────────
+                 *  Hold → activate SYS (system) layer
+                 *  Release → turn off FUNC layer if it was toggled on
+                 *  Activation: right thumb middle key (BASE layer, pos 40)
+                 * ─────────────────────────────────────────────────────────── */
                 sys_fnc: mod_tap_function_layer {
                         compatible = "zmk,behavior-macro";
                         #binding-cells = <0>;
@@ -37,6 +45,11 @@
                         bindings = <&macro_press &mo SYS>, <&macro_pause_for_release>, <&macro_tap &toff FUNC>, <&macro_release &mo SYS>;
                 };
 
+                /* ── nav_num ───────────────────────────────────────────────
+                 *  Hold → activate I3 (navigation) layer
+                 *  Release → turn off NUM layer if it was toggled on
+                 *  Activation: left thumb middle key (BASE layer, pos 37)
+                 * ─────────────────────────────────────────────────────────── */
                 nav_num: mod_tap_number_layer {
                         compatible = "zmk,behavior-macro";
                         #binding-cells = <0>;
@@ -44,6 +57,29 @@
                         tap-ms = <0>;
                         bindings = <&macro_press &mo I3>, <&macro_pause_for_release>, <&macro_tap &toff NUM>, <&macro_release &mo I3>;
                 };
+
+                /* ── arrow_fn ──────────────────────────────────────────────
+                 *  Types: () => {\n}  (JS/TS arrow function skeleton)
+                 *  Editor auto-indent places cursor inside the braces
+                 *  Activation: press ( and ) simultaneously on SYMBL layer
+                 *              (combo on positions 25+26, 50ms window)
+                 * ─────────────────────────────────────────────────────────── */
+                arrow_fn: arrow_function {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        wait-ms = <30>;
+                        tap-ms = <30>;
+                        bindings = <&kp DE_LPAR &kp DE_RPAR &kp SPACE
+                                    &kp DE_EQUAL &kp DE_GT &kp SPACE
+                                    &kp DE_LBRC &kp RET &kp DE_RBRC>;
+                };
+
+                /* ── kp_once ───────────────────────────────────────────────
+                 *  Parameterised helper: taps a single keycode passed as
+                 *  its argument. Used as the hold binding in the &ht
+                 *  hold-tap behavior so that hold produces a keypress
+                 *  rather than a modifier.
+                 * ─────────────────────────────────────────────────────────── */
                 kp_once: key_press_once {
                         compatible = "zmk,behavior-macro-one-param";
                         #binding-cells = <1>;
@@ -65,31 +101,13 @@
                         toggle-mode = "off";
                 };
 
-                smi_grv: escape_grave {
-                        compatible = "zmk,behavior-mod-morph";
-                        #binding-cells = <0>;
-                        bindings = <&kp SEMICOLON>, <&kp DE_GRAVE>;
-                        mods = <(MOD_LSFT)>;
-                };
-                del_sqt: delete_single_quote {
-                        compatible = "zmk,behavior-mod-morph";
-                        #binding-cells = <0>;
-                        bindings = <&kp DEL>, <&kp DE_SQT>;
-                        mods = <(MOD_LSFT)>;
-                };
-                qus_uml: backspace_exclamation {
-                        compatible = "zmk,behavior-mod-morph";
-                        #binding-cells = <0>;
-                        bindings = <&kp DE_QMARK>, <&kp DE_UMLAUT>;
-                        mods = <(MOD_LSFT)>;
-                };
 
-
-                /* ── BT_CLR hold-tap ────────────────────────────────────────
-                 *  Tap  → the key passed as 2nd param (e.g. DE_N1)
-                 *  Hold → BT_CLR
-                 *  Uses the same beginner-friendly hold-tap tuning as the
-                 *  new HRMs, but with a Bluetooth action on hold.
+                /* ── bt_clr_macro / n1_btclr ───────────────────────────────
+                 *  bt_clr_macro: helper that sends BT_CLR
+                 *  n1_btclr: hold-tap wrapping bt_clr_macro
+                 *    Tap  → keypress (e.g. TAB)
+                 *    Hold → clear current BT profile
+                 *  Activation: SYS layer, top-left key (pos 0)
                  * ─────────────────────────────────────────────────────────── */
                 bt_clr_macro: bt_clr_macro {
                         compatible = "zmk,behavior-macro";
@@ -108,14 +126,12 @@
                         hold-trigger-on-release;
                 };
 
-                /* ── Parameterised BT-profile hold-tap ──────────────────────
-                 *  Tap  → &kp <2nd param>
-                 *  Hold → &bt BT_SEL <1st param>
-                 *
-                 *  bt_sel is a one-param macro that forwards its single
-                 *  argument into the second slot of BT_SEL via
-                 *  macro_param_1to2, which is required because BT_SEL
-                 *  encodes both a command and a profile index.
+                /* ── bt_sel / ht_bt ────────────────────────────────────────
+                 *  bt_sel: one-param macro that selects a BT profile
+                 *  ht_bt: hold-tap wrapping bt_sel
+                 *    Tap  → keypress (e.g. DE_N1 through DE_N5)
+                 *    Hold → select the BT profile passed as 1st param
+                 *  Activation: SYS layer, top row keys 1-5 (pos 1-5)
                  * ─────────────────────────────────────────────────────────── */
                 bt_sel: bt_select {
                         compatible = "zmk,behavior-macro-one-param";
@@ -144,58 +160,19 @@
                         hold-trigger-key-positions = <RIGHT_HAND_KEYS THUMB_KEYS>;
                         hold-trigger-on-release;
                 };
-                /* Beginner-friendly timeless HRMs:
-                 * balanced flavor keeps cross-hand shortcuts snappy,
-                 * require-prior-idle-ms removes most tap delay,
-                 * and positional hold-tap tames same-hand rolls.
-                 * LALT is mirrored to avoid AltGr surprises.
-                 */
-                hml: home_row_mod_left {
-                        compatible = "zmk,behavior-hold-tap";
-                        #binding-cells = <2>;
-                        flavor = "balanced";
-                        tapping-term-ms = <280>;
-                        quick-tap-ms = <175>;
-                        require-prior-idle-ms = <150>;
-                        bindings = <&kp>, <&kp>;
-                        hold-trigger-key-positions = <RIGHT_HAND_KEYS THUMB_KEYS>;
-                        hold-trigger-on-release;
-                };
-                hmln: home_row_mod_left_none {
-                        compatible = "zmk,behavior-hold-tap";
-                        #binding-cells = <2>;
-                        flavor = "balanced";
-                        tapping-term-ms = <280>;
-                        quick-tap-ms = <175>;
-                        require-prior-idle-ms = <150>;
-                        bindings = <&kp>, <&none>;
-                        hold-trigger-key-positions = <RIGHT_HAND_KEYS THUMB_KEYS>;
-                        hold-trigger-on-release;
-                };
-                hmr: home_row_mod_right {
-                        compatible = "zmk,behavior-hold-tap";
-                        #binding-cells = <2>;
-                        flavor = "balanced";
-                        tapping-term-ms = <280>;
-                        quick-tap-ms = <175>;
-                        require-prior-idle-ms = <150>;
-                        bindings = <&kp>, <&kp>;
-                        hold-trigger-key-positions = <LEFT_HAND_KEYS THUMB_KEYS>;
-                        hold-trigger-on-release;
-                };
-                hmrn: home_row_mod_right_none {
-                        compatible = "zmk,behavior-hold-tap";
-                        #binding-cells = <2>;
-                        flavor = "balanced";
-                        tapping-term-ms = <280>;
-                        quick-tap-ms = <175>;
-                        require-prior-idle-ms = <150>;
-                        bindings = <&kp>, <&none>;
-                        hold-trigger-key-positions = <LEFT_HAND_KEYS THUMB_KEYS>;
-                        hold-trigger-on-release;
-                };
         };
 
+
+        combos {
+                compatible = "zmk,combos";
+                /* Press ( + ) at the same time on SYMBL layer → arrow_fn macro */
+                combo_arrow_fn {
+                        timeout-ms = <50>;
+                        key-positions = <25 26>;
+                        bindings = <&arrow_fn>;
+                        layers = <SYMBL>;
+                };
+        };
 
         keymap {
                 compatible = "zmk,keymap";
@@ -216,18 +193,19 @@
                         bindings = <                 
         &kp ESC              &kp LG(N1)         &kp LG(N2)       &kp LG(N3)             &kp LG(N4)        &kp LG(N5)                          &kp LG(N6)       &kp LG(N7)            &kp LG(N8)             &kp LG(N9)        &kp LG(N0)          &trans
         &kp LSHFT            &kp LG(LC(A))      &none            &kp LG(LC(S))          &none             &kp LG(DE_MINUS)                    &none            &none                 &kp LG(UP)             &none             &none               &trans
-        &kp LCTRL            &kp LG(DE_Y)       &none            &none          &kp LG(E)         &kp LG(V)                           &none            &kp LG(LEFT)          &kp LG(DOWN)           &kp LG(RIGHT)     &none               &trans
+        &kp LCTRL            &kp LG(DE_Y)       &none            &none                  &kp LG(E)         &kp LG(V)                           &none            &kp LG(LEFT)          &kp LG(DOWN)           &kp LG(RIGHT)     &none               &trans
                                                                  &ton NUM               &none             &kp LG(SPACE)                       &kp BACKSPACE    &none                 &none
                         >;                 
                 };                 
                  
                  
-                system_layer {                 
-                        display-name = "SYSTEM";                 
-                        bindings = <                 
-        &n1_btclr 0 TAB      &ht_bt 0 DE_N1     &ht_bt 1 DE_N2   &ht_bt 2 DE_N3         &ht_bt 3 DE_N4    &ht_bt 4 DE_N5                      &kp DE_N6        &kp DE_N7             &kp DE_N8              &kp DE_N9         &kp DE_N0           &trans
-        &kp LSHFT            &none              &none            &none                  &kp PG_UP         &none                               &kp PG_UP        &kp HOME              &kp UP                 &kp END           &none               &trans
-        &kp LCTRL            &none              &none            &none                  &kp PG_DN         &none                               &kp PG_DN        &kp LEFT              &kp DOWN               &kp RIGHT         &kp K_CMENU         &trans
+                system_layer {
+                        display-name = "SYSTEM";
+                        bindings = <
+        &n1_btclr 0 TAB      &ht_bt 0 DE_N1     &ht_bt 1 DE_N2   &ht_bt 2 DE_N3         &ht_bt 3 DE_N4    &ht_bt 4 DE_N5                      &none            &none                 &kp PG_UP              &kp PG_DN         &kp DE_LPAR         &kp DE_RPAR
+        &kp LSHFT            &kp DE_N6          &kp DE_N7        &kp DE_N8              &kp DE_N9         &kp DE_N0                           &none            &kp HOME              &kp UP                 &kp END           &kp DE_LBKT         &kp DE_RBKT
+
+        &kp LCTRL            &none              &none            &none                  &none             &none                               &kp K_CMENU      &kp LEFT              &kp DOWN               &kp RIGHT         &kp DE_LBRC         &kp DE_RBRC
                                                                  &none                  &none             &none                               &kp BACKSPACE    &none                 &ton FUNC
                         >;                 
                 };                 
@@ -236,9 +214,9 @@
                 symbol_layer {                 
                         display-name = "SYMBOL";                   
                         bindings = <                 
-        &kp ESC              &kp DE_EXCL        &kp DE_AT        &kp DE_HASH            &kp DE_LBRC       &kp DE_RBRC                        &kp DE_CARET       &kp DE_DLLR          &kp DE_PRCNT           &kp DE_QMARK      &kp DE_SQT          &trans
-        &kp LSHFT            &kp DE_MINUS       &kp DE_PLUS      &kp DE_EQUAL           &kp DE_LBKT       &kp DE_RBKT                        &none              &none                &none                  &kp DE_PIPE       &kp DE_DQT          &trans
-        &kp LCTRL            &kp DE_LT          &kp DE_GT        &none                  &kp DE_LPAR       &kp DE_RPAR                        &none              &none                &none                  &kp DE_FSLH       &kp DE_BSLH         &trans
+        &kp ESC              &kp DE_EXCL        &kp DE_AT        &kp DE_HASH            &none             &none                              &kp DE_CARET       &kp DE_DLLR          &kp DE_PRCNT           &kp DE_QMARK      &kp DE_SQT          &kp DEL
+        &kp LSHFT            &kp DE_PLUS        &kp DE_MINUS     &kp DE_EQUAL           &kp DE_LT         &kp DE_GT                          &none              &none                &none                  &kp DE_PIPE       &kp DE_DQT          &kp LALT
+        &kp LCTRL            &kp DE_LPAR        &kp DE_RPAR      &kp DE_EQUAL           &kp DE_GT         &none                              &none              &none                &none                  &kp DE_FSLH       &kp DE_BSLH         &kp RET
                                                                  &none                  &none             &none                              &kp BACKSPACE      &none                &none 
                         >;                 
                 };                 
@@ -246,9 +224,9 @@
                 number_layer {                 
                         display-name = "NUMBER";                 
                         bindings = <                 
-        &kp ESC             &none              &none            &none                   &none             &none                               &none            &none                 &kp DE_N7              &kp DE_N8         &kp DE_N9           &trans
-        &kp LSHFT           &none              &none            &none                   &none             &none                               &none            &none                 &kp DE_N4              &kp DE_N5         &kp DE_N6           &trans
-        &kp LCTRL           &none              &none            &none                   &none             &none                               &none            &none                 &kp DE_N1              &kp DE_N2         &kp DE_N3           &trans
+        &kp ESC             &none              &none            &none                   &none             &none                               &none            &kp DE_FSLH           &kp DE_N7              &kp DE_N8         &kp DE_N9           &kp DEL
+        &kp LSHFT           &none              &none            &none                   &none             &none                               &none            &kp DE_MINUS          &kp DE_N4              &kp DE_N5         &kp DE_N6           &kp LALT
+        &kp LCTRL           &none              &none            &none                   &none             &none                               &none            &kp DE_DOT            &kp DE_N1              &kp DE_N2         &kp DE_N3           &kp RET
                                                                 &none                   &none             &none                               &kp BACKSPACE    &none                 &kp DE_N0          
                         >;                 
                 };                 
@@ -257,8 +235,8 @@
                         display-name = "FUNCTION";                 
                         bindings = <                 
         &kp ESC           &kp F2             &kp F3           &kp F4                    &kp F5            &kp F6                              &kp F7           &kp F8                &kp F9                 &kp F10           &kp F11             &kp F12
-        &kp LSHFT         &none              &none            &none                     &none             &none                               &none            &none                 &none                  &none             &none               &trans          
-        &kp LCTRL         &studio_unlock     &none            &none                     &none             &none                               &none            &none                 &none                  &none             &none               &trans          
+        &kp LSHFT         &none              &none            &none                     &none             &none                               &none            &none                 &none                  &none             &none               &kp LALT
+        &kp LCTRL         &studio_unlock     &none            &none                     &none             &none                               &none            &none                 &none                  &none             &none               &kp RET          
                                                               &none                     &none             &none                               &kp BACKSPACE    &none                 &none                  
                                                                                          >;
                 };
