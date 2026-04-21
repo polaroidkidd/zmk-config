@@ -182,9 +182,9 @@
                         display-name = "BASE";
                                                                                                                                // XXX //                                       
                         bindings = <                 
-        &ht ESC TAB          &ht DE_PIPE DE_Q   &kp DE_W         &kp DE_E               &kp DE_R          &kp DE_T                            &kp DE_Z         &kp DE_U              &kp DE_I               &kp DE_O          &ht DE_TILDE DE_P   &kp DEL
+        &kp TAB              &ht DE_PIPE DE_Q   &kp DE_W         &kp DE_E               &kp DE_R          &kp DE_T                            &kp DE_Z         &kp DE_U              &kp DE_I               &kp DE_O          &ht DE_TILDE DE_P   &kp DEL
         &kp LSHFT            &kp DE_A           &kp DE_S         &kp DE_D               &kp DE_F          &kp DE_G                            &kp DE_H         &kp DE_J              &kp DE_K               &kp DE_L          &kp DE_UMLAUT       &kp LALT
-        &kp LCTRL            &kp DE_Y           &kp DE_X         &kp DE_C               &kp DE_V          &kp DE_B                            &kp DE_N         &kp DE_M              &kp DE_COMMA           &kp DE_DOT        &kp DE_MINUS        &kp RET
+        &kp LCTRL            &kp DE_Y           &kp DE_X         &kp DE_C               &kp DE_V          &kp DE_B                            &kp DE_N         &kp DE_M              &kp K_CMENU            &kp DE_COMMA      &kp DE_DOT          &kp RET
                                                                  &kp LGUI               &nav_num          &kp SPACE                           &kp BACKSPACE    &sys_fnc              &mo SYMBL
                         >;                 
                 };                 
@@ -203,10 +203,9 @@
                 system_layer {
                         display-name = "SYSTEM";
                         bindings = <
-        &n1_btclr 0 TAB      &ht_bt 0 DE_N1     &ht_bt 1 DE_N2   &ht_bt 2 DE_N3         &ht_bt 3 DE_N4    &ht_bt 4 DE_N5                      &none            &none                 &kp PG_UP              &kp PG_DN         &kp DE_LPAR         &kp DE_RPAR
-        &kp LSHFT            &kp DE_N6          &kp DE_N7        &kp DE_N8              &kp DE_N9         &kp DE_N0                           &none            &kp HOME              &kp UP                 &kp END           &kp DE_LBKT         &kp DE_RBKT
-
-        &kp LCTRL            &none              &none            &none                  &none             &none                               &kp K_CMENU      &kp LEFT              &kp DOWN               &kp RIGHT         &kp DE_LBRC         &kp DE_RBRC
+        &n1_btclr 0 TAB      &ht_bt 0 DE_N1     &ht_bt 1 DE_N2   &ht_bt 2 DE_N3         &ht_bt 3 DE_N4    &ht_bt 4 DE_N5                      &kp DE_PLUS      &kp DE_EQUAL          &kp PG_UP              &kp PG_DN         &kp DE_LBRC         &kp DE_RBRC
+        &kp LSHFT            &kp DE_N6          &kp DE_N7        &kp DE_N8              &kp DE_N9         &kp DE_N0                           &kp DE_MINUS     &kp HOME              &kp UP                 &kp END           &kp DE_LPAR         &kp DE_RPAR
+        &kp LCTRL            &none              &none            &none                  &none             &none                               &kp K_CMENU      &kp LEFT              &kp DOWN               &kp RIGHT         &kp DE_LBKT         &kp DE_RBKT
                                                                  &none                  &none             &kp SPACE                           &kp BACKSPACE    &none                 &ton FUNC
                         >;
                 };
