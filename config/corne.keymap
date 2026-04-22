@@ -193,8 +193,8 @@
                         display-name = "I3";                 
                         bindings = <                 
         &kp ESC              &kp LG(N1)         &kp LG(N2)       &kp LG(N3)             &kp LG(N4)        &kp LG(N5)                          &kp LG(N6)       &kp LG(N7)            &kp LG(N8)             &kp LG(N9)        &kp LG(N0)          &trans
-        &kp LSHFT            &kp LG(LC(A))      &none            &kp LG(LC(S))          &none             &kp LG(DE_MINUS)                    &kp DE_PLUS      &kp DE_EQUAL          &kp LG(UP)             &none             &none               &trans
-        &kp LCTRL            &kp LG(DE_Y)       &none            &none                  &kp LG(E)         &kp LG(V)                           &kp DE_MINUS     &kp LG(LEFT)          &kp LG(DOWN)           &kp LG(RIGHT)     &none               &trans
+        &kp LSHFT            &kp LG(LC(A))      &none            &kp LG(LC(S))          &none             &kp LG(DE_MINUS)                    &none            &none                 &kp LG(UP)             &none             &none               &trans
+        &kp LCTRL            &kp LG(DE_Y)       &none            &none                  &kp LG(E)         &kp LG(V)                           &none            &kp LG(LEFT)          &kp LG(DOWN)           &kp LG(RIGHT)     &none               &trans
                                                                  &ton NUM               &none             &kp LG(SPACE)                       &kp BACKSPACE    &none                 &none
                         >;                 
                 };                 
@@ -203,9 +203,9 @@
                 system_layer {
                         display-name = "SYSTEM";
                         bindings = <
-        &n1_btclr 0 TAB      &ht_bt 0 DE_N1     &ht_bt 1 DE_N2   &ht_bt 2 DE_N3         &ht_bt 3 DE_N4    &ht_bt 4 DE_N5                      &kp DE_N6        &kp DE_N7             &kp DE_N8              &kp DE_N9         &kp DE_N0           &trans                
-        &kp LSHFT            &kp DE_LBRC        &kp DE_RBRC      &none                  &kp DE_LPAR       &kp DE_RPAR                         &kp DE_PLUS      &kp HOME              &kp UP                 &kp END           &kp DE_SQT          &trans                
-        &kp LCTRL            &kp DE_LBKT        &kp DE_RBKT      &kp DE_EQUAL           &kp DE_GT         &kp DE_COMMA                        &kp DE_MINUS     &kp LEFT              &kp DOWN               &kp RIGHT         &kp DE_DQT          &trans                
+        &n1_btclr 0 TAB      &ht_bt 0 DE_N1     &ht_bt 1 DE_N2   &ht_bt 2 DE_N3         &ht_bt 3 DE_N4    &ht_bt 4 DE_N5                      &kp DE_N6        &kp DE_N7             &kp DE_N8              &kp DE_N9         &kp DE_N0           &kp PG_UP                
+        &kp LSHFT            &kp DE_LBRC        &kp DE_RBRC      &none                  &kp DE_LBKT       &kp DE_RBKT                         &kp DE_PLUS      &kp HOME              &kp UP                 &kp END           &kp DE_SQT          &kp PG_DN             
+        &kp LCTRL            &kp DE_LPAR        &kp DE_RPAR      &kp DE_EQUAL           &kp DE_GT         &kp DE_COMMA                        &kp DE_MINUS     &kp LEFT              &kp DOWN               &kp RIGHT         &kp DE_DQT          &trans                
                                                                  &none                  &none             &kp SPACE                           &kp BACKSPACE    &none                 &ton FUNC
                         >;
                 };
@@ -214,9 +214,9 @@
                 symbol_layer {                 
                         display-name = "SYMBOL";                   
                         bindings = <                 
-        &kp ESC              &kp DE_EXCL        &kp DE_AT        &kp DE_HASH            &none             &kp DE_ACUTE                       &kp DE_CARET       &kp DE_DLLR          &kp DE_PRCNT           &kp DE_QMARK      &kp DE_SQT          &kp DEL
-        &kp LSHFT            &trans             &trans           &trans                 &trans            &trans                             &none              &none                &none                  &kp DE_PIPE       &kp DE_DQT          &kp LALT
-        &kp LCTRL            &trans             &trans           &trans                 &trans            &trans                             &none              &none                &kp DE_COMMA           &kp DE_FSLH       &kp DE_BSLH         &kp RET
+        &kp ESC              &kp DE_EXCL        &kp DE_AT        &kp DE_HASH            &kp DE_TILDE      &kp DE_A_GRAVE                     &kp DE_CARET       &kp DE_DLLR          &kp DE_PRCNT           &kp DE_SQT        &kp DE_QMARK        &kp DEL
+        &kp LSHFT            &trans             &trans           &trans                 &trans            &trans                             &none              &none                &none                  &kp DE_DOT        &kp DE_PIPE         &kp LALT
+        &kp LCTRL            &trans             &trans           &trans                 &trans            &trans                             &none              &none                &none                  &kp DE_FSLH       &kp DE_FSLH         &kp DE_BSLH
                                                                  &none                  &none             &kp SPACE                          &kp BACKSPACE      &none                &none
                         >;
                 };
