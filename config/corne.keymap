@@ -205,7 +205,7 @@
                         bindings = <
         &n1_btclr 0 TAB      &ht_bt 0 DE_N1     &ht_bt 1 DE_N2   &ht_bt 2 DE_N3         &ht_bt 3 DE_N4    &ht_bt 4 DE_N5                      &kp DE_N6        &kp DE_N7             &kp DE_N8              &kp DE_N9         &kp DE_N0           &kp PG_UP                
         &kp LSHFT            &kp DE_LBRC        &kp DE_RBRC      &none                  &kp DE_LBKT       &kp DE_RBKT                         &kp DE_PLUS      &kp HOME              &kp UP                 &kp END           &kp DE_SQT          &kp PG_DN             
-        &kp LCTRL            &kp DE_LPAR        &kp DE_RPAR      &kp DE_EQUAL           &kp DE_GT         &kp DE_COMMA                        &kp DE_MINUS     &kp LEFT              &kp DOWN               &kp RIGHT         &kp DE_DQT          &trans                
+        &kp LCTRL            &kp DE_LPAR        &kp DE_RPAR      &kp DE_EQUAL           &kp DE_GT         &kp DE_COMMA                        &kp DE_MINUS     &kp LEFT              &kp DOWN               &kp RIGHT         &kp DE_DQT          &kp K_APP
                                                                  &none                  &none             &kp SPACE                           &kp BACKSPACE    &none                 &ton FUNC
                         >;
                 };
