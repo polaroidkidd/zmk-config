@@ -224,9 +224,9 @@
                 symbol_layer {                 
                         display-name = "SYMBOL";                   
                         bindings = <                 
-        &kp ESC              &kp DE_EXCL        &kp DE_AT        &kp DE_HASH            &kp DE_TILDE      &kp DE_A_GRAVE                     &kp DE_CARET       &kp DE_DLLR          &kp DE_PRCNT           &kp DE_SQT        &kp DE_QMARK        &kp DEL
-        &kp LSHFT            &kp DE_LBRC        &kp DE_RBRC      &kp DE_LBKT            &kp DE_RBKT       &none                              &none              &none                &none                  &kp DE_DOT        &kp DE_PIPE         &kp LALT
-        &kp LCTRL            &kp DE_LPAR        &kp DE_RPAR      &kp DE_EQUAL           &gt_lt            &kp DE_COMMA                       &none              &kp DE_GT            &kp DE_LT              &kp DE_FSLH       &kp DE_BSLH         &trans 
+        &kp ESC              &kp DE_EXCL        &kp DE_AT        &kp DE_HASH            &none             &kp DE_GRAVE                       &kp DE_CARET       &kp DE_DLLR          &kp DE_PRCNT           &kp DE_TILDE      &kp DE_SQT          &kp DE_QMARK
+        &kp LSHFT            &kp DE_LBRC        &kp DE_RBRC      &kp DE_LBKT            &kp DE_RBKT       &none                              &none              &none                &none                  &kp DE_PIPE       &kp DE_DOT          &kp LALT
+        &kp LCTRL            &kp DE_LPAR        &kp DE_RPAR      &kp DE_EQUAL           &gt_lt            &kp DE_COMMA                       &none              &none                &kp DE_BSLH            &kp DE_LT         &kp DE_FSLH         &kp DE_GT
                                                                  &none                  &none             &kp SPACE                          &kp BACKSPACE      &none                &none
                         >;
                 };
