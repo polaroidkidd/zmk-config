@@ -69,7 +69,7 @@
         &kp TAB      &kp DE_Q          &kp DE_W          &kp DE_E          &kp DE_R          &kp DE_T                                            &kp DE_Z         &kp DE_U        &kp DE_I          &kp DE_O           &p_lbkt             &ue_rbkt
         &kp LSHFT    &kp DE_A          &kp DE_S          &kp DE_D          &kp DE_F          &kp DE_G                                            &kp DE_H         &kp DE_J        &kp DE_K          &kp DE_L           &oe_lbrc            &ae_rbrc
         &kp LCTRL    &kp DE_Y          &kp DE_X          &kp DE_C          &kp DE_V          &kp DE_B         &kp DE_SQT         &lt_gt          &kp DE_N         &kp DE_M        &kp DE_COMMA      &kp DE_DOT         &kp DE_MINUS        &kp RET
-                                       &kp LALT          &kp LGUI          &mo SYS           &mo I3           &kp SPACE          &kp BACKSPACE   &mo SYMBL        &mo NUM         &kp RALT          &kp DE_CARET
+                                       &kp LALT          &kp LGUI          &mo I3            &mo SYS          &kp SPACE          &kp BACKSPACE   &mo SYMBL        &mo NUM         &kp RALT          &kp DE_CARET
                         >;
                 };
 
