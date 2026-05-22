@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Parse config/corne.keymap and generate index.html keymap visualizer.
+"""Parse config/sofle.keymap and generate index.html keymap visualizer.
 
 Usage: python3 generate.py
 """
@@ -9,8 +9,10 @@ import re
 from pathlib import Path
 
 SCRIPT_DIR = Path(__file__).parent
-KEYMAP_PATH = SCRIPT_DIR / "config" / "corne.keymap"
+KEYMAP_PATH = SCRIPT_DIR / "config" / "sofle.keymap"
 OUTPUT_PATH = SCRIPT_DIR / "index.html"
+KEYBOARD_NAME = "Sofle"
+KEY_COUNT = 60
 
 # ── Display label tables ────────────────────────────────────────────
 
@@ -875,6 +877,11 @@ CH_NUM_SHIFTS = {
     "6": "&", "7": "/", "8": "(", "9": ")", "0": "=",
 }
 
+LAYER_KEY_LABELS = {
+    "NUM": "↗",
+    "SYMBL": "↘",
+}
+
 MOD_PREFIXES = {
     "LG": "\u2318", "RG": "\u2318",
     "LA": "Alt", "RA": "Alt",
@@ -1077,7 +1084,7 @@ class KeymapParser:
             return self._resolve_kp(params[0] if params else "")
 
         if behavior == "mo":
-            return {"t": self._layer_label(params[0] if params else ""), "c": "layer-key"}
+            return {"t": self._layer_key_label(params[0] if params else ""), "c": "layer-key"}
 
         if behavior == "mt":
             tap_display = self._resolve_kp(params[1] if len(params) > 1 else "")
@@ -1089,7 +1096,7 @@ class KeymapParser:
 
         if behavior in ("ton", "toff"):
             action = "tog ON" if behavior == "ton" else "tog OFF"
-            return {"t": self._layer_label(params[0] if params else ""), "h": action, "c": "layer-key"}
+            return {"t": self._layer_key_label(params[0] if params else ""), "h": action, "c": "layer-key"}
 
         if behavior == "studio_unlock":
             return {"t": "\U0001f513", "h": "studio", "c": "special"}
@@ -1289,6 +1296,19 @@ class KeymapParser:
         except ValueError:
             return self.layer_name_by_token.get(name_or_idx, name_or_idx)
 
+    def _layer_key_label(self, name_or_idx):
+        label = self._layer_label(name_or_idx)
+        if isinstance(name_or_idx, str) and name_or_idx in LAYER_KEY_LABELS:
+            return LAYER_KEY_LABELS[name_or_idx]
+
+        try:
+            idx = int(name_or_idx)
+        except ValueError:
+            return LAYER_KEY_LABELS.get(label, label)
+
+        token = self.layer_tokens.get(idx, str(idx))
+        return LAYER_KEY_LABELS.get(token, LAYER_KEY_LABELS.get(label, label))
+
 
 def infer_layer_sides(layers):
     if not layers:
@@ -1298,8 +1318,11 @@ def infer_layer_sides(layers):
     side_hits = {}
 
     for layer in layers:
-        for index, key in enumerate(layer["keys"][36:42], start=36):
-            side = "left" if index < 39 else "right"
+        thumb_keys = layer["keys"][-10:]
+        thumb_start = len(layer["keys"]) - len(thumb_keys)
+        split_index = thumb_start + (len(thumb_keys) // 2)
+        for index, key in enumerate(thumb_keys, start=thumb_start):
+            side = "left" if index < split_index else "right"
             for field in ("t", "h"):
                 target = key.get(field)
                 if target in layer_names and target != layer["name"]:
@@ -1319,7 +1342,7 @@ def infer_layer_sides(layers):
             elif hits:
                 resolved["side"] = hits[0]
             else:
-                resolved["side"] = "left"
+                resolved["side"] = "right"
         resolved_layers.append(resolved)
     return resolved_layers
 
@@ -1338,16 +1361,12 @@ def layers_to_js(layers):
     lines = ["const LAYERS = ["]
     for layer in layers:
         side = json.dumps(layer.get("side", "left"))
-        lines.append(f"  {{ name: {json.dumps(layer['name'])}, side: {side}, keys: [")
-        keys = layer["keys"]
-        for row in range(3):
-            start = row * 12
-            row_strs = [key_to_js(k) for k in keys[start : start + 12]]
-            lines.append(f"    // Row {row}")
-            lines.append(f"    {', '.join(row_strs)},")
-        thumb_strs = [key_to_js(k) for k in keys[36:42]]
-        lines.append("    // Thumb")
-        lines.append(f"    {', '.join(thumb_strs)},")
+        lines.append(f"  {{ name: {json.dumps(layer['name'])}, side: {side}, rows: [")
+        row_ranges = ((0, 12), (12, 24), (24, 36), (36, 50), (50, 60))
+        for row_index, (start, end) in enumerate(row_ranges):
+            row_strs = [key_to_js(k) for k in layer["keys"][start:end]]
+            lines.append(f"    // Row {row_index}")
+            lines.append(f"    [{', '.join(row_strs)}],")
         lines.append("  ]},")
     lines.append("];")
     return "\n".join(lines)
@@ -1360,7 +1379,7 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Corne Keymap Visualizer</title>
+<title>%%KEYBOARD_NAME%% Keymap Visualizer</title>
 <style>
   :root {
     --bg: #1a1a2e;
@@ -1514,7 +1533,7 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
   .keyboard-container {
     position: relative;
     width: 100%;
-    max-width: 900px;
+    max-width: 1200px;
   }
   .keyboard {
     display: none;
@@ -1594,9 +1613,10 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
     display: flex;
     gap: 4px;
     justify-content: center;
-    margin-top: -8px;
+    margin-top: 14px;
   }
-  .thumb-spacer { width: 204px; }
+  .inner-key-gap { width: 38px; }
+  .thumb-gap { width: 56px; }
   .legend {
     display: flex;
     gap: 16px;
@@ -1625,7 +1645,7 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
     border-radius: 8px;
     font-size: 0.72rem;
     color: var(--key-sub);
-    max-width: 900px;
+    max-width: 1200px;
     line-height: 1.6;
     transition: all 0.3s;
   }
@@ -1646,7 +1666,8 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
     .key { width: 48px; height: 44px; }
     .key .label { font-size: 0.6rem; }
     .split-gap { width: 16px; }
-    .thumb-spacer { width: 152px; }
+    .inner-key-gap { width: 20px; }
+    .thumb-gap { width: 28px; }
   }
   @media print {
     body { padding: 0; background: #fff; color: #333; }
@@ -1713,7 +1734,8 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
     justify-content: center;
   }
   #print-view .pv-gap { width: 12px; }
-  #print-view .pv-thumb-spacer { width: 80px; }
+  #print-view .pv-inner-gap { width: 18px; }
+  #print-view .pv-thumb-gap { width: 24px; }
   #print-view .pv-thumb { margin-top: -2px; }
   #print-view .pv-key {
     width: 38px;
@@ -1741,14 +1763,14 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
 <body>
 
 <div class="header">
-  <h1>Corne CH-DE Keymap</h1>
+  <h1>%%KEYBOARD_NAME%% CH-DE Keymap</h1>
   <button class="theme-toggle" id="themeToggle" title="Toggle light/dark mode">
     <span class="theme-icon moon">&#9790;</span>
     <span class="theme-icon sun">&#9788;</span>
   </button>
   <button class="print-btn" onclick="printAll()">Print</button>
 </div>
-<p class="subtitle">Swiss German layout &middot; %%LAYER_COUNT%% layers &middot; 42 keys</p>
+<p class="subtitle">Swiss German layout &middot; %%LAYER_COUNT%% layers &middot; %%KEY_COUNT%% keys</p>
 
 <div class="layer-tabs" id="tabs"></div>
 <div class="keyboard-container" id="keyboards"></div>
@@ -1821,30 +1843,46 @@ LAYERS.forEach((layer, li) => {
         gap.className = 'split-gap';
         row.appendChild(gap);
       }
-      const ki = r * 12 + c;
-      row.appendChild(makeKey(layer.keys[ki]));
+      row.appendChild(makeKey(layer.rows[r][c]));
     }
     kb.appendChild(row);
   }
 
-  // Thumb row: 3 left + gap + 3 right
-  const thumb = document.createElement('div');
-  thumb.className = 'thumb-row';
-  const spacerL = document.createElement('div');
-  spacerL.className = 'thumb-spacer';
-  thumb.appendChild(spacerL);
-  for (let c = 0; c < 6; c++) {
-    if (c === 3) {
+  // Row 3: 6 left + 2 center + gap + 6 right
+  const middle = document.createElement('div');
+  middle.className = 'row';
+  layer.rows[3].forEach((key, idx) => {
+    if (idx === 6) {
+      middle.appendChild(makeKey(key));
+      const innerGap = document.createElement('div');
+      innerGap.className = 'inner-key-gap';
+      middle.appendChild(innerGap);
+      return;
+    }
+    if (idx === 7) {
+      middle.appendChild(makeKey(key));
+      return;
+    }
+    if (idx === 8) {
       const gap = document.createElement('div');
       gap.className = 'split-gap';
+      middle.appendChild(gap);
+    }
+    middle.appendChild(makeKey(key));
+  });
+  kb.appendChild(middle);
+
+  // Thumb row: 5 left + gap + 5 right
+  const thumb = document.createElement('div');
+  thumb.className = 'thumb-row';
+  for (let c = 0; c < 10; c++) {
+    if (c === 5) {
+      const gap = document.createElement('div');
+      gap.className = 'thumb-gap';
       thumb.appendChild(gap);
     }
-    const ki = 36 + c;
-    thumb.appendChild(makeKey(layer.keys[ki]));
+    thumb.appendChild(makeKey(layer.rows[4][c]));
   }
-  const spacerR = document.createElement('div');
-  spacerR.className = 'thumb-spacer';
-  thumb.appendChild(spacerR);
   kb.appendChild(thumb);
 
   kbsEl.appendChild(kb);
@@ -1881,7 +1919,7 @@ function printAll() {
     document.body.appendChild(pv);
   }
 
-  let html = '<div class="pv-title">Corne CH-DE Keymap</div>';
+  let html = '<div class="pv-title">%%KEYBOARD_NAME%% CH-DE Keymap</div>';
   html += '<div class="pv-legend">';
   html += '<div class="pv-legend-item"><div class="pv-legend-swatch" style="background:#fff;border-color:#bbb;"></div> Normal</div>';
   html += '<div class="pv-legend-item"><div class="pv-legend-swatch" style="background:#ede0f8;border-color:#b09ad0;"></div> Mod</div>';
@@ -1897,17 +1935,30 @@ function printAll() {
       h += '<div class="pv-row">';
       for (let c = 0; c < 12; c++) {
         if (c === 6) h += '<div class="pv-gap"></div>';
-        h += pvKey(layer.keys[r * 12 + c]);
+        h += pvKey(layer.rows[r][c]);
       }
       h += '</div>';
     }
+    h += '<div class="pv-row">';
+    layer.rows[3].forEach((key, idx) => {
+      if (idx === 6) {
+        h += pvKey(key);
+        h += '<div class="pv-inner-gap"></div>';
+        return;
+      }
+      if (idx === 7) {
+        h += pvKey(key);
+        return;
+      }
+      if (idx === 8) h += '<div class="pv-gap"></div>';
+      h += pvKey(key);
+    });
+    h += '</div>';
     h += '<div class="pv-row pv-thumb">';
-    h += '<div class="pv-thumb-spacer"></div>';
-    for (let c = 0; c < 6; c++) {
-      if (c === 3) h += '<div class="pv-gap"></div>';
-      h += pvKey(layer.keys[36 + c]);
+    for (let c = 0; c < 10; c++) {
+      if (c === 5) h += '<div class="pv-thumb-gap"></div>';
+      h += pvKey(layer.rows[4][c]);
     }
-    h += '<div class="pv-thumb-spacer"></div>';
     h += '</div>';
     h += '</div>';
     return h;
@@ -2107,10 +2158,12 @@ def main():
     html = HTML_TEMPLATE
     html = html.replace("%%LAYERS_JS%%", layers_js)
     html = html.replace("%%LAYER_COUNT%%", str(layer_count))
+    html = html.replace("%%KEYBOARD_NAME%%", KEYBOARD_NAME)
+    html = html.replace("%%KEY_COUNT%%", str(KEY_COUNT))
     html = html.replace("%%INFO_BOX%%", info_box)
 
     OUTPUT_PATH.write_text(html, encoding="utf-8")
-    print(f"Generated {OUTPUT_PATH} ({layer_count} layers, {sum(len(l['keys']) for l in layers)} keys)")
+    print(f"Generated {OUTPUT_PATH} ({layer_count} layers, {KEY_COUNT} keys)")
 
 
 if __name__ == "__main__":
