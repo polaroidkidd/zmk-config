@@ -13,21 +13,13 @@
 
 #include "ch-de.h"
 
-#define BASE  0
+#define ROOT  0
 #define NUM   1
 #define SYMBL 2
 #define SYS   3
 #define I3    4
 
 / {
-        conditional_layers {
-                compatible = "zmk,conditional-layers";
-
-                system_layer {
-                        if-layers = <NUM SYMBL>;
-                        then-layer = <SYS>;
-                };
-        };
 
         behaviors {
                 lt_gt: less_greater {
@@ -70,8 +62,8 @@
         keymap {
                 compatible = "zmk,keymap";
 
-                base_layer {
-                        display-name = "BASE";
+                root_layer {
+                        display-name = "ROOT";
                         bindings = <
         &kp ESC      &kp DE_N1         &kp DE_N2         &kp DE_N3         &kp DE_N4         &kp DE_N5                                           &kp DE_N6        &kp DE_N7       &kp DE_N8         &kp DE_N9          &kp DE_N0           &kp DEL
         &kp TAB      &kp DE_Q          &kp DE_W          &kp DE_E          &kp DE_R          &kp DE_T                                            &kp DE_Z         &kp DE_U        &kp DE_I          &kp DE_O           &p_lbkt             &ue_rbkt
@@ -84,7 +76,7 @@
                 number_layer {
                         display-name = "NUM";
                         bindings = <
-        &trans    &trans            &trans            &trans            &trans            &trans                                               &trans           &trans          &trans            &trans             &kp DE_GRAVE         &kp DE_DLLR
+        &trans       &trans            &trans            &trans            &trans            &trans                                               &trans           &trans          &trans            &trans             &kp DE_GRAVE         &kp DE_DLLR
         &trans       &trans            &trans            &trans            &trans            &trans                                               &trans           &trans          &trans            &kp DE_N7          &kp DE_N8            &kp DE_N9
         &trans       &trans            &trans            &trans            &trans            &trans                                               &trans           &trans          &trans            &kp DE_N4          &kp DE_N5            &kp DE_N6
         &trans       &trans            &trans            &trans            &trans            &trans            &kp DE_CARET       &trans          &trans           &trans          &trans            &kp DE_N1          &kp DE_N2            &kp DE_N3
@@ -107,6 +99,7 @@
                 i3_layer {
                         display-name = "I3";
                         bindings = <
+
         &trans       &kp LG(N1)        &kp LG(N2)        &kp LG(N3)        &kp LG(N4)        &kp LG(N5)                                           &kp LG(N6)       &kp LG(N7)      &kp LG(N8)        &kp LG(N9)         &kp LG(N0)           &trans
         &trans       &trans            &trans            &trans            &trans            &trans                                               &trans           &trans          &trans            &trans             &trans               &trans
         &trans       &kp LG(LC(A))     &none             &kp LG(LC(S))     &none             &kp LG(DE_MINUS)                                     &none            &none           &kp LG(UP)        &none              &none                &trans
@@ -118,6 +111,7 @@
                 system_layer {
                         display-name = "SYS";
                         bindings = <
+
         &kp F1       &kp F2            &kp F3            &kp F4            &kp F5            &kp F6                                               &kp F7           &kp F8          &kp F9            &kp F10            &kp F11              &kp F12
         &bt BT_CLR   &bt BT_SEL 0      &bt BT_SEL 1      &bt BT_SEL 2      &bt BT_SEL 3      &bt BT_SEL 4                                         &trans           &trans          &trans            &trans             &trans               &trans
         &trans       &rgb_ug RGB_HUD   &rgb_ug RGB_HUI   &rgb_ug RGB_SAD   &rgb_ug RGB_SAI   &rgb_ug RGB_EFF                                      &trans           &trans          &trans            &trans             &trans               &trans
