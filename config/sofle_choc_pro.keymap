@@ -16,8 +16,8 @@
 #define BASE  0
 #define NUM   1
 #define SYMBL 2
-#define SYS   3
-#define I3    4
+#define I3    3
+#define SYS   4
 
 / {
         conditional_layers {
@@ -104,6 +104,17 @@
                         >;
                 };
 
+                system_layer {
+                        display-name = "SYS";
+                        bindings = <
+        &kp F1       &kp F2            &kp F3            &kp F4            &kp F5            &kp F6                                               &kp F7           &kp F8          &kp F9            &kp F10            &kp F11              &kp F12
+        &bt BT_CLR   &bt BT_SEL 0      &bt BT_SEL 1      &bt BT_SEL 2      &bt BT_SEL 3      &bt BT_SEL 4                                         &trans           &trans          &trans            &trans             &trans               &trans
+        &trans       &rgb_ug RGB_HUD   &rgb_ug RGB_HUI   &rgb_ug RGB_SAD   &rgb_ug RGB_SAI   &rgb_ug RGB_EFF                                      &trans           &trans          &trans            &trans             &trans               &trans
+        &trans       &rgb_ug RGB_BRD   &rgb_ug RGB_BRI   &none             &none             &studio_unlock    &none              &none           &trans           &trans          &trans            &trans             &trans               &trans
+                                       &trans            &trans            &none             &none             &trans             &trans          &trans           &trans          &trans            &trans
+                        >;
+                };
+                
                 i3_layer {
                         display-name = "I3";
                         bindings = <
@@ -115,15 +126,5 @@
                         >;
                 };
 
-                system_layer {
-                        display-name = "SYS";
-                        bindings = <
-        &kp F1       &kp F2            &kp F3            &kp F4            &kp F5            &kp F6                                               &kp F7           &kp F8          &kp F9            &kp F10            &kp F11              &kp F12
-        &bt BT_CLR   &bt BT_SEL 0      &bt BT_SEL 1      &bt BT_SEL 2      &bt BT_SEL 3      &bt BT_SEL 4                                         &trans           &trans          &trans            &trans             &trans               &trans
-        &trans       &rgb_ug RGB_HUD   &rgb_ug RGB_HUI   &rgb_ug RGB_SAD   &rgb_ug RGB_SAI   &rgb_ug RGB_EFF                                      &trans           &trans          &trans            &trans             &trans               &trans
-        &trans       &rgb_ug RGB_BRD   &rgb_ug RGB_BRI   &none             &none             &studio_unlock    &none              &none           &trans           &trans          &trans            &trans             &trans               &trans
-                                       &trans            &trans            &none             &none             &trans             &trans          &trans           &trans          &trans            &trans
-                        >;
-                };
         };
 };
