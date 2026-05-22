@@ -13,7 +13,7 @@
 
 #include "ch-de.h"
 
-#define BASE  0
+#define ROOT  0
 #define NUM   1
 #define SYMBL 2
 #define I3    3
@@ -70,8 +70,8 @@
         keymap {
                 compatible = "zmk,keymap";
 
-                base_layer {
-                        display-name = "BASE";
+                root_layer {
+                        display-name = "ROOT";
                         bindings = <
         &kp ESC      &kp DE_N1         &kp DE_N2         &kp DE_N3         &kp DE_N4         &kp DE_N5                                           &kp DE_N6        &kp DE_N7       &kp DE_N8         &kp DE_N9          &kp DE_N0           &kp DEL
         &kp TAB      &kp DE_Q          &kp DE_W          &kp DE_E          &kp DE_R          &kp DE_T                                            &kp DE_Z         &kp DE_U        &kp DE_I          &kp DE_O           &p_lbkt             &ue_rbkt
@@ -114,7 +114,7 @@
                                        &trans            &trans            &none             &none             &trans             &trans          &trans           &trans          &trans            &trans
                         >;
                 };
-                
+
                 i3_layer {
                         display-name = "I3";
                         bindings = <
