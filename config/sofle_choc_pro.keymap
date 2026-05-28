@@ -101,7 +101,7 @@
         &trans       &trans            &trans            &trans            &trans            &trans                                               &trans           &kp DE_BSLH     &trans            &trans             &kp DE_QMARK         &kp DE_EXCL
         &trans       &trans            &trans            &trans            &trans            &trans                                               &trans           &trans          &trans            &trans             &trans               &kp PG_UP
         &trans       &trans            &trans            &trans            &trans            &trans                                               &trans           &kp HOME        &kp UP            &kp END            &trans               &kp PG_DN
-        &trans       &trans            &trans            &trans            &trans            &trans            &trans             &kp DE_CARET    &trans           &kp LEFT        &kp DOWN          &kp RIGHT          &kp DE_UNDER         &trans
+        &trans       &trans            &trans            &trans            &trans            &trans            &trans             &kp DE_CARET    &trans           &kp LEFT        &kp DOWN          &kp RIGHT          &kp DE_UNDER         &kp K_APP
                                        &trans            &trans            &none             &none             &trans             &trans          &trans           &trans          &trans            &trans
                         >;
                 };
