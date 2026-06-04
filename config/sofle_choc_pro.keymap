@@ -35,27 +35,71 @@
                         mods = <(MOD_RALT)>;
                 };
 
+                // Shift produces a capital umlaut. CH-DE has no direct Shift
+                // capital umlaut, so toggle Caps Lock around the umlaut key.
+                // (mod-morph masks the triggering Shift, so the macro is clean.)
+                ue_cap: ue_capital {
+                        compatible = "zmk,behavior-mod-morph";
+                        #binding-cells = <0>;
+                        bindings = <&kp DE_U_UMLAUT>, <&ue_cap_macro>;
+                        mods = <(MOD_LSFT|MOD_RSFT)>;
+                };
+
                 ue_rbkt: ue_right_bracket {
                         compatible = "zmk,behavior-mod-morph";
                         #binding-cells = <0>;
-                        bindings = <&kp DE_U_UMLAUT>, <&kp DE_RBKT>;
+                        bindings = <&ue_cap>, <&kp DE_RBKT>;
                         mods = <(MOD_RALT)>;
+                };
+
+                oe_cap: oe_capital {
+                        compatible = "zmk,behavior-mod-morph";
+                        #binding-cells = <0>;
+                        bindings = <&kp DE_O_UMLAUT>, <&oe_cap_macro>;
+                        mods = <(MOD_LSFT|MOD_RSFT)>;
                 };
 
                 oe_lbrc: oe_left_brace {
                         compatible = "zmk,behavior-mod-morph";
                         #binding-cells = <0>;
-                        bindings = <&kp DE_O_UMLAUT>, <&kp DE_LBRC>;
+                        bindings = <&oe_cap>, <&kp DE_LBRC>;
                         mods = <(MOD_RALT)>;
+                };
+
+                ae_cap: ae_capital {
+                        compatible = "zmk,behavior-mod-morph";
+                        #binding-cells = <0>;
+                        bindings = <&kp DE_A_UMLAUT>, <&ae_cap_macro>;
+                        mods = <(MOD_LSFT|MOD_RSFT)>;
                 };
 
                 ae_rbrc: ae_right_brace {
                         compatible = "zmk,behavior-mod-morph";
                         #binding-cells = <0>;
-                        bindings = <&kp DE_A_UMLAUT>, <&kp DE_RBRC>;
+                        bindings = <&ae_cap>, <&kp DE_RBRC>;
                         mods = <(MOD_RALT)>;
                 };
 
+        };
+
+        macros {
+                ue_cap_macro: ue_cap_macro {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        bindings = <&kp CAPS>, <&kp DE_U_UMLAUT>, <&kp CAPS>;
+                };
+
+                oe_cap_macro: oe_cap_macro {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        bindings = <&kp CAPS>, <&kp DE_O_UMLAUT>, <&kp CAPS>;
+                };
+
+                ae_cap_macro: ae_cap_macro {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        bindings = <&kp CAPS>, <&kp DE_A_UMLAUT>, <&kp CAPS>;
+                };
         };
 
         keymap {
@@ -98,7 +142,7 @@
                         display-name = "SYMBL";
                         bindings = <
                 
-        &trans       &kp RA(DE_N1)     &kp RA(DE_N2)     &kp RA(DE_N3)   &trans            &trans                                               &trans           &kp DE_BSLH     &trans            &trans             &kp DE_QMARK         &kp DE_EXCL
+        &trans       &kp RA(DE_N1)     &kp RA(DE_N2)     &kp RA(DE_N3)     &trans            &trans                                               &trans           &kp DE_BSLH     &trans            &trans             &kp DE_QMARK         &kp DE_EXCL
         &trans       &trans            &trans            &trans            &trans            &trans                                               &trans           &trans          &trans            &trans             &trans               &kp PG_UP
         &trans       &trans            &trans            &trans            &trans            &trans                                               &trans           &kp HOME        &kp UP            &kp END            &trans               &kp PG_DN
         &trans       &trans            &trans            &trans            &trans            &trans            &trans             &kp DE_CARET    &trans           &kp LEFT        &kp DOWN          &kp RIGHT          &kp DE_UNDER         &kp K_APP
