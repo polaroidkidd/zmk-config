@@ -119,11 +119,11 @@
                 i3_layer {
                         display-name = "I3";
                         bindings = <
-        &trans       &kp LG(N1)        &kp LG(N2)        &kp LG(N3)        &kp LG(N4)        &kp LG(N5)                                           &kp LG(N6)       &kp LG(N7)      &kp LG(N8)        &kp LG(N9)         &kp LG(N0)           &trans
-        &kp LG(TAB)  &kp LG(Q)         &trans            &trans            &trans            &trans                                               &trans           &trans          &trans            &trans             &trans               &trans
-        &trans       &kp LG(LC(A))     &none             &kp LG(LC(S))     &none             &kp LG(DE_MINUS)                                     &none            &none           &kp LG(UP)        &none              &none                &trans
-        &trans       &kp LG(DE_Y)      &none             &kp LG(DE_C)      &kp LG(E)         &kp LG(V)         &trans             &trans          &none            &kp LG(LEFT)    &kp LG(DOWN)      &kp LG(RIGHT)      &none                &trans
-                                       &trans            &trans            &none             &none             &trans             &kp BACKSPACE   &none            &none           &trans            &trans
+        &kp LG(ESC)  &kp LG(N1)        &kp LG(N2)        &kp LG(N3)        &kp LG(N4)        &kp LG(N5)                                           &kp LG(N6)       &kp LG(N7)      &kp LG(N8)        &kp LG(N9)         &kp LG(N0)           &trans
+        &kp LG(TAB)  &kp LG(Q)         &kp LG(W)         &kp LG(E)         &kp LG(R)         &kp LG(T)                                            &kp LG(DE_Z)     &trans          &kp LG(I)         &trans             &kp LG(P)            &trans
+        &trans       &kp LG(LC(A))     &kp LG(S)         &kp LG(LC(S))     &kp LG(F)         &kp LG(DE_MINUS)                                     &kp LG(H)        &kp LG(J)       &kp LG(UP)        &kp LG(L)          &kp LG(A)            &kp LG(D)
+        &trans       &kp LG(DE_Y)      &kp LG(DE_DOT)    &kp LG(DE_C)      &kp LG(E)         &kp LG(V)         &kp LG(DE_COMMA)   &kp LG(M)       &kp LG(N)        &kp LG(LEFT)    &kp LG(DOWN)      &kp LG(RIGHT)      &kp LG(DE_MINUS)     &kp LG(RET)
+                                       &trans            &trans            &kp LG(BACKSPACE) &none             &kp LG(SPACE)      &kp BACKSPACE   &kp LG(B)        &kp LG(G)       &trans            &trans
                         >;
                 };
 
