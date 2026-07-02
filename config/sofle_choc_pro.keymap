@@ -130,33 +130,33 @@
                 root_layer {
                         display-name = "ROOT";
                         bindings = <
-        &kp ESC      &kp DE_N1         &kp DE_N2         &kp DE_N3         &kp DE_N4         &kp DE_N5                                           &kp DE_N6        &kp DE_N7       &kp DE_N8         &kp DE_N9          &kp DE_N0           &kp DEL
-        &kp TAB      &kp DE_Q          &kp DE_W          &kp DE_E          &kp DE_R          &kp DE_T                                            &kp DE_Z         &kp DE_U        &kp DE_I          &kp DE_O           &p_lbkt             &ue_rbkt
-        &kp LSHFT    &kp DE_A          &kp DE_S          &kp DE_D          &kp DE_F          &kp DE_G                                            &kp DE_H         &kp DE_J        &kp DE_K          &kp DE_L           &oe_lbrc            &ae_rbrc
-        &kp LCTRL    &kp DE_Y          &kp DE_X          &kp DE_C          &kp DE_V          &kp DE_B         &lt_gt             &sqt_shift_caret &kp DE_N        &kp DE_M        &kp DE_COMMA      &kp DE_DOT         &kp DE_MINUS        &kp RET
-                                       &kp LALT          &mo SYS           &kp RALT          &i3_gui          &kp SPACE          &kp BACKSPACE   &mo SYMBL        &mo NUM         &kp RALT          &kp RCTRL
+        &kp ESC      &kp DE_N1         &kp DE_N2         &kp DE_N3         &kp DE_N4         &kp DE_N5                                            &kp DE_N6        &kp DE_N7       &kp DE_N8         &kp DE_N9          &kp DE_N0           &kp DEL
+        &kp TAB      &kp DE_Q          &kp DE_W          &kp DE_E          &kp DE_R          &kp DE_T                                             &kp DE_Z         &kp DE_U        &kp DE_I          &kp DE_O           &p_lbkt             &ue_rbkt
+        &kp LSHFT    &kp DE_A          &kp DE_S          &kp DE_D          &kp DE_F          &kp DE_G                                             &kp DE_H         &kp DE_J        &kp DE_K          &kp DE_L           &oe_lbrc            &ae_rbrc
+        &kp LCTRL    &kp DE_Y          &kp DE_X          &kp DE_C          &kp DE_V          &kp DE_B         &lt_gt             &sqt_shift_caret &kp DE_N         &kp DE_M        &kp DE_COMMA      &kp DE_DOT         &kp DE_MINUS        &kp RET
+                                       &kp LALT          &mo SYS           &kp RALT          &i3_gui          &kp SPACE          &kp BACKSPACE    &mo SYMBL        &mo NUM         &kp RALT          &kp RCTRL
                         >;
                 };
 
                 i3_layer {
                         display-name = "I3";
                         bindings = <
-        &kp LG(ESC)  &kp LG(N1)        &kp LG(N2)        &kp LG(N3)        &kp LG(N4)        &kp LG(N5)                                           &kp LG(N6)       &kp LG(N7)      &kp LG(N8)        &kp LG(N9)         &kp LG(N0)           &trans
-        &kp LG(TAB)  &kp LG(Q)         &kp LG(W)         &kp LG(E)         &kp LG(R)         &kp LG(T)                                            &kp LG(DE_Z)     &trans          &kp LG(I)         &trans             &kp LG(P)            &trans
-        &trans       &kp LG(LC(A))     &kp LG(S)         &kp LG(LC(S))     &kp LG(F)         &kp LG(DE_MINUS)                                     &kp LG(H)        &kp LG(J)       &kp LG(UP)        &kp LG(L)          &kp LG(A)            &kp LG(D)
-        &trans       &kp LG(DE_Y)      &kp LG(DE_DOT)    &kp LG(DE_C)      &kp LG(E)         &kp LG(V)         &kp LG(DE_COMMA)   &kp LG(M)       &kp LG(N)        &kp LG(LEFT)    &kp LG(DOWN)      &kp LG(RIGHT)      &kp LG(DE_MINUS)     &kp LG(RET)
-                                       &trans            &trans            &kp LG(BACKSPACE) &none             &kp LG(SPACE)      &kp BACKSPACE   &kp LG(B)        &kp LG(G)       &trans            &trans
+        &kp LG(ESC)  &kp LG(N1)        &kp LG(N2)        &kp LG(N3)        &kp LG(N4)        &kp LG(N5)                                            &kp LG(N6)       &kp LG(N7)      &kp LG(N8)        &kp LG(N9)         &kp LG(N0)           &trans
+        &kp LG(TAB)  &kp LG(Q)         &kp LG(W)         &kp LG(E)         &kp LG(R)         &kp LG(T)                                             &kp LG(DE_Z)     &trans          &kp LG(I)         &trans             &kp LG(P)            &trans
+        &trans       &kp LG(LC(A))     &kp LG(S)         &kp LG(LC(S))     &kp LG(F)         &kp LG(DE_MINUS)                                      &kp LG(H)        &kp LG(J)       &kp LG(UP)        &kp LG(L)          &kp LG(A)            &kp LG(D)
+        &trans       &kp LG(DE_Y)      &kp LG(DE_DOT)    &kp LG(DE_C)      &kp LG(E)         &kp LG(V)         &kp LG(DE_COMMA)   &kp LG(M)        &kp LG(N)        &kp LG(LEFT)    &kp LG(DOWN)      &kp LG(RIGHT)      &kp LG(DE_MINUS)     &kp LG(RET)
+                                       &trans            &trans            &kp LG(BACKSPACE) &none             &kp LG(SPACE)      &kp BACKSPACE    &none            &none           &trans            &trans
                         >;
                 };
 
                 system_layer {
                         display-name = "SYSTEM";
                         bindings = <
-        &kp F1       &kp F2            &kp F3            &kp F4            &kp F5            &kp F6                                               &kp F7           &kp F8          &kp F9            &kp F10            &kp F11              &kp F12
-        &bt BT_CLR   &bt BT_SEL 0      &bt BT_SEL 1      &bt BT_SEL 2      &bt BT_SEL 3      &bt BT_SEL 4                                         &trans           &trans          &trans            &trans             &trans               &trans
-        &trans       &rgb_ug RGB_HUD   &rgb_ug RGB_HUI   &rgb_ug RGB_SAD   &rgb_ug RGB_SAI   &rgb_ug RGB_EFF                                      &trans           &trans          &trans            &trans             &trans               &trans
-        &trans       &rgb_ug RGB_BRD   &rgb_ug RGB_BRI   &none             &none             &studio_unlock    &none              &none           &trans           &trans          &trans            &trans             &trans               &trans
-                                       &trans            &trans            &kp RALT          &none             &trans             &trans          &trans           &trans          &trans            &trans
+        &kp F1       &kp F2            &kp F3            &kp F4            &kp F5            &kp F6                                                &kp F7           &kp F8          &kp F9            &kp F10            &kp F11              &kp F12
+        &bt BT_CLR   &bt BT_SEL 0      &bt BT_SEL 1      &bt BT_SEL 2      &bt BT_SEL 3      &bt BT_SEL 4                                          &trans           &trans          &trans            &trans             &trans               &trans
+        &trans       &rgb_ug RGB_HUD   &rgb_ug RGB_HUI   &rgb_ug RGB_SAD   &rgb_ug RGB_SAI   &rgb_ug RGB_EFF                                       &trans           &trans          &trans            &trans             &trans               &trans
+        &trans       &rgb_ug RGB_BRD   &rgb_ug RGB_BRI   &none             &none             &studio_unlock    &none              &none            &trans           &trans          &trans            &trans             &trans               &trans
+                                       &trans            &trans            &kp RALT          &none             &trans             &trans           &trans           &trans          &trans            &trans
                         >;
                 };
 
@@ -164,22 +164,22 @@
                         display-name = "SYMBL";
                         bindings = <
                 
-        &trans       &kp RA(DE_N1)     &kp RA(DE_N2)     &kp RA(DE_N3)     &trans            &trans                                               &trans           &kp DE_BSLH     &trans            &trans             &kp DE_QMARK         &kp DE_EXCL
-        &trans       &trans            &trans            &trans            &trans            &trans                                               &trans           &trans          &trans            &trans             &trans               &kp PG_UP
-        &trans       &trans            &trans            &trans            &trans            &trans                                               &trans           &kp HOME        &kp UP            &kp END            &trans               &kp PG_DN
-        &trans       &trans            &trans            &trans            &trans            &trans            &trans             &kp DE_CARET    &trans           &kp LEFT        &kp DOWN          &kp RIGHT          &kp DE_UNDER         &kp K_APP
-                                       &trans            &trans            &kp RALT          &none             &trans             &trans          &trans           &trans          &trans            &trans
+        &trans       &kp RA(DE_N1)     &kp RA(DE_N2)     &kp RA(DE_N3)     &trans            &trans                                                &trans           &kp DE_BSLH     &trans            &trans             &kp DE_QMARK         &kp DE_EXCL
+        &trans       &trans            &trans            &trans            &trans            &trans                                                &trans           &trans          &trans            &trans             &trans               &kp PG_UP
+        &trans       &trans            &trans            &trans            &trans            &trans                                                &trans           &kp HOME        &kp UP            &kp END            &trans               &kp PG_DN
+        &trans       &trans            &trans            &trans            &trans            &trans            &trans             &kp DE_CARET     &trans           &kp LEFT        &kp DOWN          &kp RIGHT          &kp DE_UNDER         &kp K_APP
+                                       &trans            &trans            &kp LALT          &none             &trans             &trans           &trans           &trans          &trans            &trans
                         >;
                 };
 
                 number_layer {
                         display-name = "NUM";
                         bindings = <
-        &trans       &trans            &trans            &trans            &trans            &trans                                               &trans           &trans          &trans            &trans             &kp DE_GRAVE         &kp DE_DLLR
-        &trans       &trans            &trans            &trans            &trans            &trans                                               &trans           &trans          &trans            &kp DE_N7          &kp DE_N8            &kp DE_N9
-        &trans       &trans            &trans            &trans            &trans            &trans                                               &trans           &trans          &trans            &kp DE_N4          &kp DE_N5            &kp DE_N6
-        &trans       &trans            &trans            &trans            &trans            &trans            &trans             &trans          &trans           &trans          &trans            &kp DE_N1          &kp DE_N2            &kp DE_N3
-                                       &trans            &trans            &kp RALT          &none             &trans             &trans          &trans           &trans          &trans            &kp DE_N0
+        &trans       &trans            &trans            &trans            &trans            &trans                                                &trans           &trans          &trans            &trans             &kp DE_GRAVE         &kp DE_DLLR
+        &trans       &trans            &trans            &trans            &trans            &trans                                                &trans           &trans          &trans            &kp DE_N7          &kp DE_N8            &kp DE_N9
+        &trans       &trans            &trans            &trans            &trans            &trans                                                &trans           &trans          &trans            &kp DE_N4          &kp DE_N5            &kp DE_N6
+        &trans       &trans            &trans            &trans            &trans            &trans            &trans             &trans           &trans           &trans          &trans            &kp DE_N1          &kp DE_N2            &kp DE_N3
+                                       &trans            &trans            &kp RALT          &none             &trans             &trans           &trans           &trans          &trans            &kp DE_N0
                         >;
                 };
 
