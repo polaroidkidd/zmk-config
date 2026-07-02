@@ -156,7 +156,7 @@
         &bt BT_CLR   &bt BT_SEL 0      &bt BT_SEL 1      &bt BT_SEL 2      &bt BT_SEL 3      &bt BT_SEL 4                                         &trans           &trans          &trans            &trans             &trans               &trans
         &trans       &rgb_ug RGB_HUD   &rgb_ug RGB_HUI   &rgb_ug RGB_SAD   &rgb_ug RGB_SAI   &rgb_ug RGB_EFF                                      &trans           &trans          &trans            &trans             &trans               &trans
         &trans       &rgb_ug RGB_BRD   &rgb_ug RGB_BRI   &none             &none             &studio_unlock    &none              &none           &trans           &trans          &trans            &trans             &trans               &trans
-                                       &trans            &trans            &none             &none             &trans             &trans          &trans           &trans          &trans            &trans
+                                       &trans            &trans            &kp RALT          &none             &trans             &trans          &trans           &trans          &trans            &trans
                         >;
                 };
 
@@ -168,7 +168,7 @@
         &trans       &trans            &trans            &trans            &trans            &trans                                               &trans           &trans          &trans            &trans             &trans               &kp PG_UP
         &trans       &trans            &trans            &trans            &trans            &trans                                               &trans           &kp HOME        &kp UP            &kp END            &trans               &kp PG_DN
         &trans       &trans            &trans            &trans            &trans            &trans            &trans             &kp DE_CARET    &trans           &kp LEFT        &kp DOWN          &kp RIGHT          &kp DE_UNDER         &kp K_APP
-                                       &trans            &trans            &none             &none             &trans             &trans          &trans           &trans          &trans            &trans
+                                       &trans            &trans            &kp RALT          &none             &trans             &trans          &trans           &trans          &trans            &trans
                         >;
                 };
 
@@ -179,7 +179,7 @@
         &trans       &trans            &trans            &trans            &trans            &trans                                               &trans           &trans          &trans            &kp DE_N7          &kp DE_N8            &kp DE_N9
         &trans       &trans            &trans            &trans            &trans            &trans                                               &trans           &trans          &trans            &kp DE_N4          &kp DE_N5            &kp DE_N6
         &trans       &trans            &trans            &trans            &trans            &trans            &trans             &trans          &trans           &trans          &trans            &kp DE_N1          &kp DE_N2            &kp DE_N3
-                                       &trans            &trans            &none             &none             &trans             &trans          &trans           &trans          &trans            &kp DE_N0
+                                       &trans            &trans            &kp RALT          &none             &trans             &trans          &trans           &trans          &trans            &kp DE_N0
                         >;
                 };
 
