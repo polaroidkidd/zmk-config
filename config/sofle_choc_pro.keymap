@@ -145,7 +145,7 @@
         &kp LG(TAB)  &kp LG(Q)         &kp LG(W)         &kp LG(E)         &kp LG(R)         &kp LG(T)                                             &kp LG(DE_Z)     &trans          &kp LG(I)         &trans             &kp LG(P)            &trans
         &trans       &kp LG(LC(A))     &kp LG(S)         &kp LG(LC(S))     &kp LG(F)         &kp LG(DE_MINUS)                                      &kp LG(H)        &kp LG(J)       &kp LG(UP)        &kp LG(L)          &kp LG(A)            &kp LG(D)
         &trans       &kp LG(DE_Y)      &kp LG(DE_DOT)    &kp LG(DE_C)      &kp LG(E)         &kp LG(V)         &kp LG(DE_COMMA)   &kp LG(M)        &kp LG(N)        &kp LG(LEFT)    &kp LG(DOWN)      &kp LG(RIGHT)      &kp LG(DE_MINUS)     &kp LG(RET)
-                                       &trans            &trans            &kp LG(BACKSPACE) &none             &kp LG(SPACE)      &kp BACKSPACE    &none            &none           &trans            &trans
+                                       &trans            &trans            &kp LG(BACKSPACE) &none             &kp LG(LS(SPACE))  &kp BACKSPACE    &none            &none           &trans            &trans
                         >;
                 };
 
