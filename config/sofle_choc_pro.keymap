@@ -21,12 +21,6 @@
 / {
 
         behaviors {
-                lt_gt: less_greater {
-                        compatible = "zmk,behavior-mod-morph";
-                        #binding-cells = <0>;
-                        bindings = <&kp DE_LT>, <&kp DE_GT>;
-                        mods = <(MOD_LSFT|MOD_RSFT)>;
-                };
 
                 n1_plus: number_1_plus {
                         compatible = "zmk,behavior-mod-morph";
@@ -126,7 +120,7 @@
         &kp ESC      &n1_plus          &kp DE_N2         &kp DE_N3         &kp DE_N4         &kp DE_N5                                            &kp DE_N6        &kp DE_N7       &kp DE_N8         &kp DE_N9          &kp DE_N0           &kp DEL
         &kp TAB      &kp DE_Q          &kp DE_W          &kp DE_E          &kp DE_R          &kp DE_T                                             &kp DE_Z         &kp DE_U        &kp DE_I          &kp DE_O           &p_lbrc             &ue_rbrc
         &kp LSHFT    &kp DE_A          &kp DE_S          &kp DE_D          &kp DE_F          &kp DE_G                                             &kp DE_H         &kp DE_J        &kp DE_K          &kp DE_L           &oe_lbkt            &ae_rbkt
-        &kp LCTRL    &kp DE_Y          &kp DE_X          &kp DE_C          &kp DE_V          &kp DE_B         &lt_gt             &kp DE_SQT       &kp DE_N         &kp DE_M        &kp DE_COMMA      &kp DE_DOT         &kp DE_MINUS        &kp RET
+        &kp LCTRL    &kp DE_Y          &kp DE_X          &kp DE_C          &kp DE_V          &kp DE_B         &kp DE_LT          &kp DE_SQT       &kp DE_N         &kp DE_M        &kp DE_COMMA      &kp DE_DOT         &kp DE_MINUS        &kp RET
                                        &mo NUM           &kp LALT          &mo SYS           &i3_gui          &kp SPACE          &kp BACKSPACE    &mo SYMBL        &mo NUM         &kp RALT          &kp RCTRL
                         >;
                 };
@@ -160,7 +154,7 @@
         &trans       &kp RA(DE_N1)     &kp RA(DE_N2)     &kp RA(DE_N3)     &trans            &trans                                                &trans           &kp DE_BSLH     &trans            &trans             &kp DE_QMARK         &kp DE_EXCL
         &trans       &trans            &trans            &trans            &trans            &trans                                                &trans           &trans          &trans            &trans             &trans               &kp PG_UP
         &trans       &trans            &trans            &trans            &trans            &trans                                                &trans           &kp HOME        &kp UP            &kp END            &trans               &kp PG_DN
-        &trans       &trans            &trans            &trans            &trans            &trans            &trans             &kp DE_CARET     &trans           &kp LEFT        &kp DOWN          &kp RIGHT          &kp DE_UNDER         &kp K_APP
+        &trans       &trans            &trans            &trans            &trans            &trans            &kp DE_GT          &kp DE_CARET     &trans           &kp LEFT        &kp DOWN          &kp RIGHT          &kp DE_UNDER         &kp K_APP
                                        &trans            &trans            &kp LALT          &none             &trans             &trans           &trans           &trans          &trans            &trans
                         >;
                 };
