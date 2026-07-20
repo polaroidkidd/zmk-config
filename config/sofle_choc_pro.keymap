@@ -125,8 +125,8 @@
                         bindings = <
         &kp ESC      &n1_plus          &kp DE_N2         &kp DE_N3         &kp DE_N4         &kp DE_N5                                            &kp DE_N6        &kp DE_N7       &kp DE_N8         &kp DE_N9          &kp DE_N0           &kp DEL
         &kp TAB      &kp DE_Q          &kp DE_W          &kp DE_E          &kp DE_R          &kp DE_T                                             &kp DE_Z         &kp DE_U        &kp DE_I          &kp DE_O           &p_lbrc             &ue_rbrc
-        e LSe    &kp DE_A          &kp DE_S          &kp DE_D          &kp DE_F          &kp DE_G                                             &kp DE_H         &kp DE_J        &kp DE_K          &kp DE_L           &oe_lbkt            &ae_rbkt
-        acket LCTRL    &kp DE_Y          &kp DE_X          &kp DE_C          &kp DE_V          &kp DE_B         &lt_gt             &kp DE_SQT       &kp DE_N         &kp DE_M        &kp DE_COMMA      &kp DE_DOT         &kp DE_MINUS        &kp RET
+        &kp LSHFT    &kp DE_A          &kp DE_S          &kp DE_D          &kp DE_F          &kp DE_G                                             &kp DE_H         &kp DE_J        &kp DE_K          &kp DE_L           &oe_lbkt            &ae_rbkt
+        &kp LCTRL    &kp DE_Y          &kp DE_X          &kp DE_C          &kp DE_V          &kp DE_B         &lt_gt             &kp DE_SQT       &kp DE_N         &kp DE_M        &kp DE_COMMA      &kp DE_DOT         &kp DE_MINUS        &kp RET
                                        &mo NUM           &kp LALT          &mo SYS           &i3_gui          &kp SPACE          &kp BACKSPACE    &mo SYMBL        &mo NUM         &kp RALT          &kp RCTRL
                         >;
                 };
