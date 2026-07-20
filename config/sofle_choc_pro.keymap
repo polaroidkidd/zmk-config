@@ -34,20 +34,6 @@
                         bindings = <&kp DE_N1>, <&kp KP_PLUS>;
                         mods = <(MOD_LSFT|MOD_RSFT)>;
                 };
-
-                sqt_tilde: single_quote_tilde {
-                        compatible = "zmk,behavior-mod-morph";
-                        #binding-cells = <0>;
-                        bindings = <&kp DE_SQT>, <&kp DE_TILDE>;
-                        mods = <(MOD_RALT)>;
-                };
-
-                sqt_shift_caret: single_quote_shift_caret {
-                        compatible = "zmk,behavior-mod-morph";
-                        #binding-cells = <0>;
-                        bindings = <&sqt_tilde>, <&kp DE_CARET>;
-                        mods = <(MOD_LSFT)>;
-                };
                 
                 p_lbkt: p_left_bracket {
                         compatible = "zmk,behavior-mod-morph";
@@ -140,8 +126,8 @@
         &kp ESC      &n1_plus          &kp DE_N2         &kp DE_N3         &kp DE_N4         &kp DE_N5                                            &kp DE_N6        &kp DE_N7       &kp DE_N8         &kp DE_N9          &kp DE_N0           &kp DEL
         &kp TAB      &kp DE_Q          &kp DE_W          &kp DE_E          &kp DE_R          &kp DE_T                                             &kp DE_Z         &kp DE_U        &kp DE_I          &kp DE_O           &p_lbkt             &ue_rbkt
         &kp LSHFT    &kp DE_A          &kp DE_S          &kp DE_D          &kp DE_F          &kp DE_G                                             &kp DE_H         &kp DE_J        &kp DE_K          &kp DE_L           &oe_lbrc            &ae_rbrc
-        &kp LCTRL    &kp DE_Y          &kp DE_X          &kp DE_C          &kp DE_V          &kp DE_B         &lt_gt             &sqt_shift_caret &kp DE_N         &kp DE_M        &kp DE_COMMA      &kp DE_DOT         &kp DE_MINUS        &kp RET
-                                       &kp LALT          &mo SYS           &kp RALT          &i3_gui          &kp SPACE          &kp BACKSPACE    &mo SYMBL        &mo NUM         &kp RALT          &kp RCTRL
+        &kp LCTRL    &kp DE_Y          &kp DE_X          &kp DE_C          &kp DE_V          &kp DE_B         &lt_gt             &kp DE_SQT       &kp DE_N         &kp DE_M        &kp DE_COMMA      &kp DE_DOT         &kp DE_MINUS        &kp RET
+                                       &mo NUM           &kp LALT          &mo SYS           &i3_gui          &kp SPACE          &kp BACKSPACE    &mo SYMBL        &mo NUM         &kp RALT          &kp RCTRL
                         >;
                 };
 
@@ -151,7 +137,7 @@
         &kp LG(ESC)  &kp LG(N1)        &kp LG(N2)        &kp LG(N3)        &kp LG(N4)        &kp LG(N5)                                            &kp LG(N6)       &kp LG(N7)      &kp LG(N8)        &kp LG(N9)         &kp LG(N0)           &trans
         &kp LG(TAB)  &kp LG(Q)         &kp LG(W)         &kp LG(E)         &kp LG(R)         &kp LG(T)                                             &kp LG(DE_Z)     &trans          &kp LG(I)         &trans             &kp LG(P)            &trans
         &trans       &kp LG(LC(A))     &kp LG(S)         &kp LG(LC(S))     &kp LG(F)         &kp LG(DE_MINUS)                                      &kp LG(H)        &kp LG(J)       &kp LG(UP)        &kp LG(L)          &kp LG(A)            &kp LG(D)
-        &trans       &kp LG(DE_Y)      &kp LG(DE_DOT)    &kp LG(DE_C)      &kp LG(E)         &kp LG(V)         &kp LG(DE_COMMA)   &kp LG(M)        &kp LG(N)        &kp LG(LEFT)    &kp LG(DOWN)      &kp LG(RIGHT)      &kp LG(DE_MINUS)     &kp LG(RET)
+        &trans       &kp LG(DE_Y)      &kp LG(DE_DOT)    &kp LG(DE_C)      &kp LG(E)         &kp LG(V)         &kp LG(DE_COMMA)   &kp DE_CARET     &kp LG(N)        &kp LG(LEFT)    &kp LG(DOWN)      &kp LG(RIGHT)      &kp LG(DE_MINUS)     &kp LG(RET)
                                        &trans            &trans            &kp LG(BACKSPACE) &none             &kp LG(LS(SPACE))  &kp BACKSPACE    &none            &none           &trans            &trans
                         >;
                 };
@@ -160,9 +146,9 @@
                         display-name = "SYSTEM";
                         bindings = <
         &kp ESC      &kp F1            &kp F2            &kp F3            &kp F4            &kp F5                                                &kp F6           &kp F7          &kp F8            &kp F9             &kp F10              &kp F12
-        &bt BT_CLR   &bt BT_SEL 0      &bt BT_SEL 1      &bt BT_SEL 2      &bt BT_SEL 3      &bt BT_SEL 4                                          &trans           &trans          &trans            &trans             &trans               &trans
-        &trans       &rgb_ug RGB_HUD   &rgb_ug RGB_HUI   &rgb_ug RGB_SAD   &rgb_ug RGB_SAI   &rgb_ug RGB_EFF                                       &trans           &trans          &trans            &trans             &trans               &trans
-        &trans       &rgb_ug RGB_BRD   &rgb_ug RGB_BRI   &none             &none             &studio_unlock    &none              &none            &trans           &trans          &trans            &trans             &trans               &trans
+        &bt BT_CLR   &bt BT_SEL 0      &bt BT_SEL 1      &bt BT_SEL 2      &bt BT_SEL 3      &bt BT_SEL 4                                          &trans           &trans          &trans            &trans             &kp DE_LBKT          &kp DE_RBKT
+        &trans       &rgb_ug RGB_HUD   &rgb_ug RGB_HUI   &rgb_ug RGB_SAD   &rgb_ug RGB_SAI   &rgb_ug RGB_EFF                                       &trans           &trans          &trans            &trans             &kp DE_LBRC          &kp DE_RBRC
+        &trans       &rgb_ug RGB_BRD   &rgb_ug RGB_BRI   &none             &none             &studio_unlock    &none              &kp DE_TILDE     &trans           &trans          &trans            &trans             &trans               &trans
                                        &trans            &trans            &kp RALT          &none             &trans             &trans           &trans           &trans          &trans            &trans
                         >;
                 };
@@ -186,7 +172,7 @@
         &trans       &trans            &trans            &trans            &trans            &trans                                                &trans           &trans          &trans            &kp DE_N7          &kp DE_N8            &kp DE_N9
         &trans       &trans            &trans            &trans            &trans            &trans                                                &trans           &trans          &trans            &kp DE_N4          &kp DE_N5            &kp DE_N6
         &trans       &trans            &trans            &trans            &trans            &trans            &trans             &trans           &trans           &trans          &trans            &kp DE_N1          &kp DE_N2            &kp DE_N3
-                                       &trans            &trans            &kp RALT          &none             &trans             &trans           &trans           &trans          &trans            &kp DE_N0
+                                       &trans            &trans            &kp RALT          &none             &trans             &trans           &trans           &trans          &kp DE_N0         &trans
                         >;
                 };
 
