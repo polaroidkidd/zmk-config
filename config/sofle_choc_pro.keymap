@@ -35,10 +35,10 @@
                         mods = <(MOD_LSFT|MOD_RSFT)>;
                 };
                 
-                p_lbkt: p_left_bracket {
+                p_lbrc: p_left_brace {
                         compatible = "zmk,behavior-mod-morph";
                         #binding-cells = <0>;
-                        bindings = <&kp DE_P>, <&kp DE_LBKT>;
+                        bindings = <&kp DE_P>, <&kp DE_LBRC>;
                         mods = <(MOD_RALT)>;
                 };
 
@@ -52,10 +52,10 @@
                         mods = <(MOD_LSFT|MOD_RSFT)>;
                 };
 
-                ue_rbkt: ue_right_bracket {
+                ue_rbrc: ue_right_brace {
                         compatible = "zmk,behavior-mod-morph";
                         #binding-cells = <0>;
-                        bindings = <&ue_cap>, <&kp DE_RBKT>;
+                        bindings = <&ue_cap>, <&kp DE_RBRC>;
                         mods = <(MOD_RALT)>;
                 };
 
@@ -66,10 +66,10 @@
                         mods = <(MOD_LSFT|MOD_RSFT)>;
                 };
 
-                oe_lbrc: oe_left_brace {
+                oe_lbkt: oe_left_bracket {
                         compatible = "zmk,behavior-mod-morph";
                         #binding-cells = <0>;
-                        bindings = <&oe_cap>, <&kp DE_LBRC>;
+                        bindings = <&oe_cap>, <&kp DE_LBKT>;
                         mods = <(MOD_RALT)>;
                 };
 
@@ -80,10 +80,10 @@
                         mods = <(MOD_LSFT|MOD_RSFT)>;
                 };
 
-                ae_rbrc: ae_right_brace {
+                ae_rbkt: ae_right_bracket {
                         compatible = "zmk,behavior-mod-morph";
                         #binding-cells = <0>;
-                        bindings = <&ae_cap>, <&kp DE_RBRC>;
+                        bindings = <&ae_cap>, <&kp DE_RBKT>;
                         mods = <(MOD_RALT)>;
                 };
 
@@ -124,9 +124,9 @@
                         display-name = "ROOT";
                         bindings = <
         &kp ESC      &n1_plus          &kp DE_N2         &kp DE_N3         &kp DE_N4         &kp DE_N5                                            &kp DE_N6        &kp DE_N7       &kp DE_N8         &kp DE_N9          &kp DE_N0           &kp DEL
-        &kp TAB      &kp DE_Q          &kp DE_W          &kp DE_E          &kp DE_R          &kp DE_T                                             &kp DE_Z         &kp DE_U        &kp DE_I          &kp DE_O           &p_lbkt             &ue_rbkt
-        &kp LSHFT    &kp DE_A          &kp DE_S          &kp DE_D          &kp DE_F          &kp DE_G                                             &kp DE_H         &kp DE_J        &kp DE_K          &kp DE_L           &oe_lbrc            &ae_rbrc
-        &kp LCTRL    &kp DE_Y          &kp DE_X          &kp DE_C          &kp DE_V          &kp DE_B         &lt_gt             &kp DE_SQT       &kp DE_N         &kp DE_M        &kp DE_COMMA      &kp DE_DOT         &kp DE_MINUS        &kp RET
+        &kp TAB      &kp DE_Q          &kp DE_W          &kp DE_E          &kp DE_R          &kp DE_T                                             &kp DE_Z         &kp DE_U        &kp DE_I          &kp DE_O           &p_lbrc             &ue_rbrc
+        e LSe    &kp DE_A          &kp DE_S          &kp DE_D          &kp DE_F          &kp DE_G                                             &kp DE_H         &kp DE_J        &kp DE_K          &kp DE_L           &oe_lbkt            &ae_rbkt
+        acket LCTRL    &kp DE_Y          &kp DE_X          &kp DE_C          &kp DE_V          &kp DE_B         &lt_gt             &kp DE_SQT       &kp DE_N         &kp DE_M        &kp DE_COMMA      &kp DE_DOT         &kp DE_MINUS        &kp RET
                                        &mo NUM           &kp LALT          &mo SYS           &i3_gui          &kp SPACE          &kp BACKSPACE    &mo SYMBL        &mo NUM         &kp RALT          &kp RCTRL
                         >;
                 };
