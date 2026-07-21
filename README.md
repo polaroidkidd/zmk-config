@@ -1,24 +1,23 @@
-# ZMK Config — Corne (42-key split)
+# ZMK Config — Sofle Choc Pro (60-key split)
 
-Personal [ZMK](https://zmk.dev) firmware configuration for a split Corne keyboard with Swiss German (CH-DE) layout.
+Personal [ZMK](https://zmk.dev) firmware configuration for a split Sofle Choc Pro keyboard with Swiss German (CH-DE) layout.
 
 ## Hardware
 
-- **Keyboard:** Corne (3x6 + 3 thumb keys per half)
-- **Controllers:** nice!nano v2
-- **Displays:** nice!view Gem
-- **Firmware:** ZMK v0.3 with ZMK Studio enabled (left half)
+- **Keyboard:** Sofle Choc Pro (4x6 + 5 thumb keys per half)
+- **Build targets:** `sofle_choc_pro_left` and `sofle_choc_pro_right`
+- **Displays:** `nice_view_disp`
+- **Firmware:** ZMK v0.3
 
 ## Layers
 
 | # | Name     | Description                                      |
 |---|----------|--------------------------------------------------|
-| 0 | BASE     | QWERTZ with home-row hold-taps                   |
-| 1 | I3       | i3 window manager navigation and workspace keys  |
-| 2 | SYSTEM   | Numbers, arrow keys, BT profile management       |
-| 3 | SYMBOL   | Programming symbols and punctuation               |
-| 4 | NUMBER   | Numpad-style number entry                         |
-| 5 | FUNCTION | F-keys and ZMK Studio unlock                     |
+| 0 | ROOT     | QWERTZ base layer                                |
+| 1 | I3       | i3 window manager shortcuts                      |
+| 2 | SYSTEM   | F-keys, Bluetooth, lighting, and Studio unlock   |
+| 3 | SYMBL    | Symbols and navigation                           |
+| 4 | NUM      | Right-hand number overlay                        |
 
 ## Keymap Visualizer
 
@@ -26,7 +25,7 @@ An interactive HTML visualizer is auto-generated from the keymap source.
 
 **Live version:** https://polaroidkidd.github.io/zmk-config/
 
-To regenerate locally after editing `config/corne.keymap`:
+To regenerate locally after editing `config/sofle_choc_pro.keymap`:
 
 ```sh
 python3 generate.py
@@ -40,10 +39,10 @@ Firmware is built automatically via GitHub Actions on push. The workflow produce
 
 ```
 config/
-  corne.keymap   # Keymap source of truth (layers, behaviors, macros)
-  ch-de.h        # Swiss German HID keycode definitions
-  corne.conf     # Runtime flags (BLE, display, animation)
-  west.yml       # ZMK and nice-view-gem dependency pins
-build.yaml       # GitHub Actions build matrix
-generate.py      # Keymap → HTML visualizer generator
+  sofle_choc_pro.keymap   # Keymap source of truth
+  sofle_choc_pro.conf     # Runtime flags
+  ch-de.h                 # Swiss German HID keycode definitions
+  west.yml                # ZMK and module dependency pins
+build.yaml                # GitHub Actions build matrix
+generate.py               # Keymap → HTML visualizer generator
 ```
