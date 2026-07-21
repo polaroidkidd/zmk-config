@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Parse config/sofle.keymap and generate index.html keymap visualizer.
+"""Parse config/sofle_choc_pro.keymap and generate index.html keymap visualizer.
 
 Usage: python3 generate.py
 """
@@ -9,9 +9,9 @@ import re
 from pathlib import Path
 
 SCRIPT_DIR = Path(__file__).parent
-KEYMAP_PATH = SCRIPT_DIR / "config" / "sofle.keymap"
+KEYMAP_PATH = SCRIPT_DIR / "config" / "sofle_choc_pro.keymap"
 OUTPUT_PATH = SCRIPT_DIR / "index.html"
-KEYBOARD_NAME = "Sofle"
+KEYBOARD_NAME = "Sofle Choc Pro"
 KEY_COUNT = 60
 
 # ── Display label tables ────────────────────────────────────────────
@@ -878,8 +878,12 @@ CH_NUM_SHIFTS = {
 }
 
 LAYER_KEY_LABELS = {
-    "NUM": "↗",
-    "SYMBL": "↘",
+    "NUM": "↙",
+    "SYMBL": "↗",
+}
+
+CUSTOM_BEHAVIOR_LABELS = {
+    "i3_gui": {"t": "I3", "c": "layer-key"},
 }
 
 MOD_PREFIXES = {
@@ -1104,6 +1108,9 @@ class KeymapParser:
         if behavior == "bt":
             cmd = params[0] if params else ""
             return {"t": cmd.replace("BT_", "BT "), "c": "bt-key"}
+
+        if behavior in CUSTOM_BEHAVIOR_LABELS:
+            return dict(CUSTOM_BEHAVIOR_LABELS[behavior])
 
         # Look up parsed behavior metadata
         beh_info = self.behaviors.get(behavior, {})
@@ -1534,21 +1541,81 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
     position: relative;
     width: 100%;
     max-width: 1200px;
+    overflow-x: auto;
+    padding: 10px 0 22px;
   }
   .keyboard {
     display: none;
-    gap: 40px;
+    --key-width: 64px;
+    --key-height: 54px;
+    --key-gap: 4px;
+    --matrix-height: 264px;
   }
-  .keyboard.active { display: flex; flex-direction: column; align-items: center; }
-  .row {
+  .keyboard.active { display: block; }
+  .split-board {
     display: flex;
-    gap: 4px;
+    gap: 64px;
     justify-content: center;
+    align-items: flex-start;
+    min-width: max-content;
+    margin: 0 auto;
+    padding: 14px 18px 30px;
   }
-  .split-gap { width: 30px; }
+  .keyboard-half {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(7, var(--key-width));
+    grid-template-rows: var(--matrix-height) var(--key-height);
+    column-gap: var(--key-gap);
+    padding: 12px;
+    isolation: isolate;
+  }
+  .keyboard-half::before {
+    content: '';
+    position: absolute;
+    inset: -4px -4px -18px;
+    z-index: -1;
+    background: var(--surface);
+    opacity: 0.72;
+    filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.15));
+  }
+  .left-half::before {
+    clip-path: polygon(0 9%, 74% 0, 93% 5%, 100% 20%, 100% 79%, 91% 100%, 26% 94%, 0 78%);
+  }
+  .right-half::before {
+    clip-path: polygon(7% 5%, 26% 0, 100% 9%, 100% 78%, 74% 94%, 9% 100%, 0 79%, 0 20%);
+  }
+  .key-matrix {
+    grid-row: 1;
+    display: grid;
+    grid-template-columns: repeat(6, var(--key-width));
+    column-gap: var(--key-gap);
+    align-items: start;
+    z-index: 1;
+  }
+  .left-half .key-matrix { grid-column: 1 / span 6; }
+  .right-half .key-matrix { grid-column: 2 / span 6; }
+  .key-column {
+    display: flex;
+    flex-direction: column;
+    gap: var(--key-gap);
+    transform: translateY(var(--stagger));
+  }
+  .left-half .key-column:nth-child(1) { --stagger: 36px; }
+  .left-half .key-column:nth-child(2) { --stagger: 28px; }
+  .left-half .key-column:nth-child(3) { --stagger: 8px; }
+  .left-half .key-column:nth-child(4) { --stagger: 0; }
+  .left-half .key-column:nth-child(5) { --stagger: 10px; }
+  .left-half .key-column:nth-child(6) { --stagger: 20px; }
+  .right-half .key-column:nth-child(1) { --stagger: 20px; }
+  .right-half .key-column:nth-child(2) { --stagger: 10px; }
+  .right-half .key-column:nth-child(3) { --stagger: 0; }
+  .right-half .key-column:nth-child(4) { --stagger: 8px; }
+  .right-half .key-column:nth-child(5) { --stagger: 28px; }
+  .right-half .key-column:nth-child(6) { --stagger: 36px; }
   .key {
-    width: 64px;
-    height: 54px;
+    width: var(--key-width);
+    height: var(--key-height);
     background: var(--key-bg);
     border: 1px solid var(--key-border);
     border-radius: 6px;
@@ -1564,7 +1631,7 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
   .key:hover {
     background: var(--key-hover);
     border-color: var(--accent);
-    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.18);
   }
   .key .label {
     font-size: 0.72rem;
@@ -1609,14 +1676,74 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
     background: var(--special-bg);
     border-color: var(--special-border);
   }
-  .thumb-row {
+  .controls {
+    grid-row: 1;
     display: flex;
-    gap: 4px;
-    justify-content: center;
-    margin-top: 14px;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    padding-top: 54px;
+    z-index: 1;
   }
-  .inner-key-gap { width: 38px; }
-  .thumb-gap { width: 56px; }
+  .left-half .controls { grid-column: 7; }
+  .right-half .controls { grid-column: 1; }
+  .display-module {
+    width: 56px;
+    height: 122px;
+    padding: 8px 4px;
+    border: 2px solid var(--key-border);
+    border-radius: 5px;
+    background: var(--none-bg);
+    color: var(--key-sub);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+    overflow: hidden;
+  }
+  .display-module::before {
+    content: '';
+    width: 28px;
+    height: 4px;
+    border: 1px solid currentColor;
+    border-radius: 2px;
+    opacity: 0.7;
+  }
+  .display-side {
+    font-size: 0.55rem;
+    letter-spacing: 0.12em;
+    opacity: 0.7;
+  }
+  .display-layer {
+    max-width: 100%;
+    font-size: 0.57rem;
+    font-weight: 700;
+    line-height: 1.1;
+    overflow-wrap: anywhere;
+  }
+  .controls .control-key { flex-shrink: 0; }
+  .thumb-cluster {
+    grid-row: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    z-index: 1;
+  }
+  .left-half .thumb-cluster { grid-column: 2 / span 6; }
+  .right-half .thumb-cluster { grid-column: 1 / span 6; }
+  .left-half .thumb-key:nth-child(2) { transform: translateY(-2px); }
+  .left-half .thumb-key:nth-child(3) { transform: translateY(-4px); }
+  .left-half .thumb-key:nth-child(4) { transform: translateY(3px) rotate(10deg); }
+  .left-half .thumb-key:nth-child(5) { transform: translateY(8px) rotate(22deg); }
+  .right-half .thumb-key:nth-child(1) { transform: translateY(8px) rotate(-22deg); }
+  .right-half .thumb-key:nth-child(2) { transform: translateY(3px) rotate(-10deg); }
+  .right-half .thumb-key:nth-child(3) { transform: translateY(-4px); }
+  .right-half .thumb-key:nth-child(4) { transform: translateY(-2px); }
+  .thumb-key {
+    flex-shrink: 0;
+    transform-origin: top center;
+  }
   .legend {
     display: flex;
     gap: 16px;
@@ -1663,11 +1790,32 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
   }
   .print-btn:hover { border-color: var(--accent); color: var(--accent); }
   @media (max-width: 700px) {
-    .key { width: 48px; height: 44px; }
+    body { padding: 16px 10px; }
+    .keyboard {
+      --key-width: 42px;
+      --key-height: 40px;
+      --key-gap: 3px;
+      --matrix-height: 194px;
+    }
+    .split-board { gap: 18px; padding-left: 8px; padding-right: 8px; }
+    .keyboard-half { padding: 8px; }
     .key .label { font-size: 0.6rem; }
-    .split-gap { width: 16px; }
-    .inner-key-gap { width: 20px; }
-    .thumb-gap { width: 28px; }
+    .key .hold-label { font-size: 0.48rem; }
+    .left-half .key-column:nth-child(1) { --stagger: 27px; }
+    .left-half .key-column:nth-child(2) { --stagger: 21px; }
+    .left-half .key-column:nth-child(3) { --stagger: 6px; }
+    .left-half .key-column:nth-child(5) { --stagger: 8px; }
+    .left-half .key-column:nth-child(6) { --stagger: 15px; }
+    .right-half .key-column:nth-child(1) { --stagger: 15px; }
+    .right-half .key-column:nth-child(2) { --stagger: 8px; }
+    .right-half .key-column:nth-child(4) { --stagger: 6px; }
+    .right-half .key-column:nth-child(5) { --stagger: 21px; }
+    .right-half .key-column:nth-child(6) { --stagger: 27px; }
+    .controls { gap: 14px; padding-top: 40px; }
+    .display-module { width: 37px; height: 90px; padding: 5px 2px; }
+    .display-module::before { width: 20px; height: 3px; }
+    .display-side { font-size: 0.45rem; }
+    .display-layer { font-size: 0.46rem; }
   }
   @media print {
     body { padding: 0; background: #fff; color: #333; }
@@ -1728,36 +1876,67 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
     margin-bottom: 2px;
     text-align: center;
   }
-  #print-view .pv-row {
-    display: flex;
-    gap: 2px;
-    justify-content: center;
+  #print-view .split-board {
+    --key-width: 18px;
+    --key-height: 16px;
+    --key-gap: 1px;
+    --matrix-height: 78px;
+    gap: 10px;
+    padding: 3px 4px 7px;
   }
-  #print-view .pv-gap { width: 12px; }
-  #print-view .pv-inner-gap { width: 18px; }
-  #print-view .pv-thumb-gap { width: 24px; }
-  #print-view .pv-thumb { margin-top: -2px; }
-  #print-view .pv-key {
-    width: 38px;
-    height: 28px;
+  #print-view .keyboard-half { padding: 3px; }
+  #print-view .keyboard-half::before {
+    inset: -1px -1px -4px;
+    background: #f6f6f6;
+    filter: none;
+    opacity: 1;
+  }
+  #print-view .key {
     border: 1px solid #bbb;
-    border-radius: 3px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 1px 2px;
+    border-radius: 2px;
+    padding: 1px;
     background: #fff;
-    position: relative;
+    box-shadow: none;
   }
-  #print-view .pv-key.none-key { background: #f0f0f0; border-color: #ddd; opacity: 0.4; }
-  #print-view .pv-key.modifier { background: #ede0f8; border-color: #b09ad0; }
-  #print-view .pv-key.layer-key { background: #e0f5ea; border-color: #8bc9a0; }
-  #print-view .pv-key.bt-key { background: #dde8f8; border-color: #90b0d0; }
-  #print-view .pv-key.special { background: #fce8ea; border-color: #d09098; }
-  #print-view .pv-key .pv-label { font-size: 7px; font-weight: 600; color: #222; text-align: center; line-height: 1.1; }
-  #print-view .pv-key .pv-hold { font-size: 5.5px; color: #1a7a42; text-align: center; line-height: 1; }
-  #print-view .pv-key .pv-shift { font-size: 5px; color: #c06020; position: absolute; top: 1px; right: 2px; }
+  #print-view .key.none-key { background: #f0f0f0; border-color: #ddd; opacity: 0.4; }
+  #print-view .key.modifier { background: #ede0f8; border-color: #b09ad0; }
+  #print-view .key.layer-key { background: #e0f5ea; border-color: #8bc9a0; }
+  #print-view .key.bt-key { background: #dde8f8; border-color: #90b0d0; }
+  #print-view .key.special { background: #fce8ea; border-color: #d09098; }
+  #print-view .key .label { font-size: 4px; color: #222; line-height: 1; }
+  #print-view .key .hold-label { font-size: 3px; line-height: 1; }
+  #print-view .key .shift-label { font-size: 3px; top: 0; right: 1px; }
+  #print-view .controls { gap: 5px; padding-top: 15px; }
+  #print-view .display-module {
+    width: 16px;
+    height: 37px;
+    padding: 2px 1px;
+    border-width: 1px;
+    border-radius: 2px;
+    background: #eee;
+    color: #777;
+  }
+  #print-view .display-module::before { width: 8px; height: 1px; }
+  #print-view .display-side { font-size: 3px; }
+  #print-view .display-layer { font-size: 3px; }
+  #print-view .left-half .key-column:nth-child(1) { --stagger: 10px; }
+  #print-view .left-half .key-column:nth-child(2) { --stagger: 8px; }
+  #print-view .left-half .key-column:nth-child(3) { --stagger: 2px; }
+  #print-view .left-half .key-column:nth-child(5) { --stagger: 3px; }
+  #print-view .left-half .key-column:nth-child(6) { --stagger: 6px; }
+  #print-view .right-half .key-column:nth-child(1) { --stagger: 6px; }
+  #print-view .right-half .key-column:nth-child(2) { --stagger: 3px; }
+  #print-view .right-half .key-column:nth-child(4) { --stagger: 2px; }
+  #print-view .right-half .key-column:nth-child(5) { --stagger: 8px; }
+  #print-view .right-half .key-column:nth-child(6) { --stagger: 10px; }
+  #print-view .left-half .thumb-key:nth-child(2),
+  #print-view .left-half .thumb-key:nth-child(3),
+  #print-view .right-half .thumb-key:nth-child(3),
+  #print-view .right-half .thumb-key:nth-child(4) { transform: translateY(-1px); }
+  #print-view .left-half .thumb-key:nth-child(4) { transform: translateY(1px) rotate(10deg); }
+  #print-view .left-half .thumb-key:nth-child(5) { transform: translateY(2px) rotate(22deg); }
+  #print-view .right-half .thumb-key:nth-child(1) { transform: translateY(2px) rotate(-22deg); }
+  #print-view .right-half .thumb-key:nth-child(2) { transform: translateY(1px) rotate(-10deg); }
 </style>
 </head>
 <body>
@@ -1832,61 +2011,64 @@ LAYERS.forEach((layer, li) => {
   const kb = document.createElement('div');
   kb.className = 'keyboard' + (li === 0 ? ' active' : '');
   kb.id = 'kb-' + li;
-
-  // Rows 0-2: 12 keys each (6 left + gap + 6 right)
-  for (let r = 0; r < 3; r++) {
-    const row = document.createElement('div');
-    row.className = 'row';
-    for (let c = 0; c < 12; c++) {
-      if (c === 6) {
-        const gap = document.createElement('div');
-        gap.className = 'split-gap';
-        row.appendChild(gap);
-      }
-      row.appendChild(makeKey(layer.rows[r][c]));
-    }
-    kb.appendChild(row);
-  }
-
-  // Row 3: 6 left + 2 center + gap + 6 right
-  const middle = document.createElement('div');
-  middle.className = 'row';
-  layer.rows[3].forEach((key, idx) => {
-    if (idx === 6) {
-      middle.appendChild(makeKey(key));
-      const innerGap = document.createElement('div');
-      innerGap.className = 'inner-key-gap';
-      middle.appendChild(innerGap);
-      return;
-    }
-    if (idx === 7) {
-      middle.appendChild(makeKey(key));
-      return;
-    }
-    if (idx === 8) {
-      const gap = document.createElement('div');
-      gap.className = 'split-gap';
-      middle.appendChild(gap);
-    }
-    middle.appendChild(makeKey(key));
-  });
-  kb.appendChild(middle);
-
-  // Thumb row: 5 left + gap + 5 right
-  const thumb = document.createElement('div');
-  thumb.className = 'thumb-row';
-  for (let c = 0; c < 10; c++) {
-    if (c === 5) {
-      const gap = document.createElement('div');
-      gap.className = 'thumb-gap';
-      thumb.appendChild(gap);
-    }
-    thumb.appendChild(makeKey(layer.rows[4][c]));
-  }
-  kb.appendChild(thumb);
+  kb.appendChild(makeSplitBoard(layer));
 
   kbsEl.appendChild(kb);
 });
+
+function makeSplitBoard(layer) {
+  const board = document.createElement('div');
+  board.className = 'split-board';
+  board.appendChild(makeHalf(layer, 'left'));
+  board.appendChild(makeHalf(layer, 'right'));
+  return board;
+}
+
+function makeHalf(layer, side) {
+  const isLeft = side === 'left';
+  const half = document.createElement('div');
+  half.className = `keyboard-half ${side}-half`;
+
+  const matrix = document.createElement('div');
+  matrix.className = 'key-matrix';
+  const topOffset = isLeft ? 0 : 6;
+  const bottomOffset = isLeft ? 0 : 8;
+  for (let columnIndex = 0; columnIndex < 6; columnIndex++) {
+    const column = document.createElement('div');
+    column.className = 'key-column';
+    for (let rowIndex = 0; rowIndex < 3; rowIndex++) {
+      column.appendChild(makeKey(layer.rows[rowIndex][topOffset + columnIndex]));
+    }
+    column.appendChild(makeKey(layer.rows[3][bottomOffset + columnIndex]));
+    matrix.appendChild(column);
+  }
+  half.appendChild(matrix);
+
+  const controls = document.createElement('div');
+  controls.className = 'controls';
+  const display = document.createElement('div');
+  display.className = 'display-module';
+  display.setAttribute('aria-hidden', 'true');
+  display.innerHTML = `<span class="display-side">${isLeft ? 'LEFT' : 'RIGHT'}</span><span class="display-layer">${esc(layer.name)}</span>`;
+  controls.appendChild(display);
+
+  const controlKeyIndex = isLeft ? 6 : 7;
+  const controlKey = makeKey(layer.rows[3][controlKeyIndex]);
+  controlKey.classList.add('control-key');
+  controls.appendChild(controlKey);
+  half.appendChild(controls);
+
+  const thumbs = document.createElement('div');
+  thumbs.className = 'thumb-cluster';
+  const thumbOffset = isLeft ? 0 : 5;
+  for (let thumbIndex = 0; thumbIndex < 5; thumbIndex++) {
+    const key = makeKey(layer.rows[4][thumbOffset + thumbIndex]);
+    key.classList.add('thumb-key');
+    thumbs.appendChild(key);
+  }
+  half.appendChild(thumbs);
+  return half;
+}
 
 function makeKey(k) {
   const el = document.createElement('div');
@@ -1918,82 +2100,53 @@ function printAll() {
     pv.id = 'print-view';
     document.body.appendChild(pv);
   }
+  pv.replaceChildren();
+  pv.insertAdjacentHTML('beforeend',
+    '<div class="pv-title">%%KEYBOARD_NAME%% CH-DE Keymap</div>' +
+    '<div class="pv-legend">' +
+    '<div class="pv-legend-item"><div class="pv-legend-swatch" style="background:#fff;border-color:#bbb;"></div> Normal</div>' +
+    '<div class="pv-legend-item"><div class="pv-legend-swatch" style="background:#ede0f8;border-color:#b09ad0;"></div> Mod</div>' +
+    '<div class="pv-legend-item"><div class="pv-legend-swatch" style="background:#e0f5ea;border-color:#8bc9a0;"></div> Layer</div>' +
+    '<div class="pv-legend-item"><div class="pv-legend-swatch" style="background:#dde8f8;border-color:#90b0d0;"></div> BT</div>' +
+    '<div class="pv-legend-item"><div class="pv-legend-swatch" style="background:#fce8ea;border-color:#d09098;"></div> Special</div>' +
+    '<span style="color:#1a7a42;">green</span>=hold <span style="color:#c06020;">orange</span>=shift' +
+    '</div>'
+  );
 
-  let html = '<div class="pv-title">%%KEYBOARD_NAME%% CH-DE Keymap</div>';
-  html += '<div class="pv-legend">';
-  html += '<div class="pv-legend-item"><div class="pv-legend-swatch" style="background:#fff;border-color:#bbb;"></div> Normal</div>';
-  html += '<div class="pv-legend-item"><div class="pv-legend-swatch" style="background:#ede0f8;border-color:#b09ad0;"></div> Mod</div>';
-  html += '<div class="pv-legend-item"><div class="pv-legend-swatch" style="background:#e0f5ea;border-color:#8bc9a0;"></div> Layer</div>';
-  html += '<div class="pv-legend-item"><div class="pv-legend-swatch" style="background:#dde8f8;border-color:#90b0d0;"></div> BT</div>';
-  html += '<div class="pv-legend-item"><div class="pv-legend-swatch" style="background:#fce8ea;border-color:#d09098;"></div> Special</div>';
-  html += '<span style="color:#1a7a42;">green</span>=hold <span style="color:#c06020;">orange</span>=shift';
-  html += '</div>';
-  function pvLayer(layer) {
-    let h = '<div class="pv-layer">';
-    h += `<div class="pv-layer-name">${esc(layer.name)}</div>`;
-    for (let r = 0; r < 3; r++) {
-      h += '<div class="pv-row">';
-      for (let c = 0; c < 12; c++) {
-        if (c === 6) h += '<div class="pv-gap"></div>';
-        h += pvKey(layer.rows[r][c]);
-      }
-      h += '</div>';
-    }
-    h += '<div class="pv-row">';
-    layer.rows[3].forEach((key, idx) => {
-      if (idx === 6) {
-        h += pvKey(key);
-        h += '<div class="pv-inner-gap"></div>';
-        return;
-      }
-      if (idx === 7) {
-        h += pvKey(key);
-        return;
-      }
-      if (idx === 8) h += '<div class="pv-gap"></div>';
-      h += pvKey(key);
-    });
-    h += '</div>';
-    h += '<div class="pv-row pv-thumb">';
-    for (let c = 0; c < 10; c++) {
-      if (c === 5) h += '<div class="pv-thumb-gap"></div>';
-      h += pvKey(layer.rows[4][c]);
-    }
-    h += '</div>';
-    h += '</div>';
-    return h;
+  function appendPrintLayer(parent, layer) {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'pv-layer';
+    const name = document.createElement('div');
+    name.className = 'pv-layer-name';
+    name.textContent = layer.name;
+    wrapper.appendChild(name);
+    wrapper.appendChild(makeSplitBoard(layer));
+    parent.appendChild(wrapper);
   }
 
-  // Default layer centered on top
-  LAYERS.filter(l => l.side === 'center').forEach(layer => {
-    html += '<div class="pv-default">' + pvLayer(layer) + '</div>';
-  });
+  const defaultLayers = document.createElement('div');
+  defaultLayers.className = 'pv-default';
+  LAYERS.filter(l => l.side === 'center').forEach(layer => appendPrintLayer(defaultLayers, layer));
+  pv.appendChild(defaultLayers);
 
   // Non-default layers in two columns: left | right
   const leftLayers  = LAYERS.filter(l => l.side === 'left');
   const rightLayers = LAYERS.filter(l => l.side === 'right');
+  const columns = document.createElement('div');
+  columns.className = 'pv-columns';
+  const leftColumn = document.createElement('div');
+  leftColumn.className = 'pv-column';
+  leftLayers.forEach(layer => appendPrintLayer(leftColumn, layer));
+  columns.appendChild(leftColumn);
+  const rightColumn = document.createElement('div');
+  rightColumn.className = 'pv-column';
+  rightLayers.forEach(layer => appendPrintLayer(rightColumn, layer));
+  columns.appendChild(rightColumn);
+  pv.appendChild(columns);
 
-  html += '<div class="pv-columns">';
-  html += '<div class="pv-column">';
-  leftLayers.forEach(layer => { html += pvLayer(layer); });
-  html += '</div>';
-  html += '<div class="pv-column">';
-  rightLayers.forEach(layer => { html += pvLayer(layer); });
-  html += '</div>';
-  html += '</div>';
   const infoBox = document.querySelector('.info-box');
-  if (infoBox) html += infoBox.outerHTML;
-  pv.innerHTML = html;
+  if (infoBox) pv.appendChild(infoBox.cloneNode(true));
   window.print();
-}
-
-function pvKey(k) {
-  const cls = k.c || '';
-  let inner = '';
-  if (k.s) inner += `<span class="pv-shift">${esc(k.s)}</span>`;
-  if (k.t) inner += `<span class="pv-label">${esc(k.t)}</span>`;
-  if (k.h) inner += `<span class="pv-hold">${esc(k.h)}</span>`;
-  return `<div class="pv-key ${cls}">${inner}</div>`;
 }
 </script>
 </body>
