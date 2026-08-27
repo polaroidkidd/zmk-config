@@ -81,6 +81,33 @@
                         mods = <(MOD_RALT)>;
                 };
 
+                ton: toggle_layer_on {
+                        compatible = "zmk,behavior-toggle-layer";
+                        #binding-cells = <1>;
+                        toggle-mode = "on";
+                };
+
+                toff: toggle_layer_off {
+                        compatible = "zmk,behavior-toggle-layer";
+                        #binding-cells = <1>;
+                        toggle-mode = "off";
+                };
+
+                mo_none: momentary_layer_no_tap {
+                        compatible = "zmk,behavior-hold-tap";
+                        #binding-cells = <2>;
+                        flavor = "hold-preferred";
+                        tapping-term-ms = <200>;
+                        bindings = <&mo>, <&none>;
+                };
+
+                num_td: number_layer_tap_dance {
+                        compatible = "zmk,behavior-tap-dance";
+                        #binding-cells = <0>;
+                        tapping-term-ms = <200>;
+                        bindings = <&mo_none NUM 0>, <&ton NUM>;
+                };
+
         };
 
         macros {
@@ -102,6 +129,12 @@
                         bindings = <&kp CAPS>, <&kp DE_A_UMLAUT>, <&kp CAPS>;
                 };
 
+                num_esc: number_layer_escape {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        bindings = <&kp ESC>, <&toff NUM>;
+                };
+
                 i3_gui: i3_gui {
                         compatible = "zmk,behavior-macro";
                         #binding-cells = <0>;
@@ -121,7 +154,7 @@
         &kp TAB      &kp DE_Q          &kp DE_W          &kp DE_E          &kp DE_R          &kp DE_T                                             &kp DE_Z         &kp DE_U        &kp DE_I          &kp DE_O           &p_lbrc             &ue_rbrc
         &kp LSHFT    &kp DE_A          &kp DE_S          &kp DE_D          &kp DE_F          &kp DE_G                                             &kp DE_H         &kp DE_J        &kp DE_K          &kp DE_L           &oe_lbkt            &ae_rbkt
         &kp LCTRL    &kp DE_Y          &kp DE_X          &kp DE_C          &kp DE_V          &kp DE_B         &kp DE_LT          &kp DE_SQT       &kp DE_N         &kp DE_M        &kp DE_COMMA      &kp DE_DOT         &kp DE_MINUS        &kp RET
-                                       &mo NUM           &mo SYS           &kp LALT          &i3_gui          &kp SPACE          &kp BACKSPACE    &mo SYMBL        &mo NUM         &kp RALT          &kp RCTRL
+                                       &num_td           &mo SYS           &kp LALT          &i3_gui          &kp SPACE          &kp BACKSPACE    &mo SYMBL        &kp RALT        &kp RCTRL         &num_td
                         >;
                 };
 
@@ -162,10 +195,10 @@
                 number_layer {
                         display-name = "NUM";
                         bindings = <
-        &trans       &trans            &trans            &trans            &trans            &trans                                                &trans           &trans          &trans            &trans             &kp DE_GRAVE         &kp DE_DLLR
+        &num_esc     &trans            &trans            &trans            &trans            &trans                                                &trans           &trans          &trans            &trans             &kp DE_GRAVE         &kp DE_DLLR
         &trans       &trans            &trans            &trans            &trans            &trans                                                &trans           &trans          &trans            &kp DE_N7          &kp DE_N8            &kp DE_N9
         &trans       &trans            &trans            &trans            &trans            &trans                                                &trans           &trans          &trans            &kp DE_N4          &kp DE_N5            &kp DE_N6
-        &trans       &trans            &trans            &trans            &trans            &trans            &trans             &trans           &trans           &trans          &trans            &kp DE_N1          &kp DE_N2            &kp DE_N3
+        &trans       &trans            &trans            &trans            &trans            &trans            &trans             &num_esc         &trans           &trans          &trans            &kp DE_N1          &kp DE_N2            &kp DE_N3
                                        &trans            &trans            &kp RALT          &none             &trans             &trans           &trans           &trans          &kp DE_N0         &trans
                         >;
                 };
