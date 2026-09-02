@@ -27,11 +27,11 @@ ZMK firmware configuration for a split Sofle Choc Pro keyboard (60 keys) with a 
 
 **`config/sofle_choc_pro.conf`** sets runtime flags for BLE and the keyboard name.
 
-**`config/west.yml`** pins dependencies: ZMK v0.3, nice-view-gem v0.3.0, and the Keebart board module.
+**`config/west.yml`** pins dependencies: ZMK v0.3 and the Keebart board/display module.
 
 ## Key Conventions
 
 - When adding new `DE_*` keycodes, update both `config/ch-de.h` AND the label tables in `generate.py` (`DE_LABELS`, `DE_NAME_FALLBACKS`).
 - Layer-key display shortcuts for `NUM` and `SYMBL` are encoded in `generate.py` — keep them in sync with keymap layer names.
 - `generate.py` uses regex to parse the keymap; avoid breaking the DTS block structure (macros, behaviors, keymap sections).
-- `build.yaml` defines the build matrix: `sofle_choc_pro_left` and `sofle_choc_pro_right`, both with the `nice_view_disp` shield.
+- `build.yaml` defines the build matrix: `sofle_choc_pro_left` and `sofle_choc_pro_right`, both with the `sharp_mip` shield.

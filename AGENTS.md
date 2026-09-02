@@ -2,7 +2,7 @@
 
 ## Project Structure & Module Organization
 
-This repository is a ZMK user configuration for a Sofle Choc Pro split keyboard with Swiss German (CH-DE) keycodes. The active firmware sources live in `config/`: `sofle_choc_pro.keymap` defines layers, macros, and behaviors; `sofle_choc_pro.conf` holds runtime options; `ch-de.h` defines locale-specific `DE_*` keycodes; `west.yml` pins ZMK and module dependencies. `build.yaml` provides the GitHub Actions build matrix, currently targeting `sofle_choc_pro_left` and `sofle_choc_pro_right` with `nice_view_disp`. `generate.py` builds the visualizer `index.html`, and `layout.png` is a visual asset. Treat `.zmk/`, `zephyr/`, `__pycache__/`, and generated HTML as local/generated artifacts unless intentionally updating tooling.
+This repository is a ZMK user configuration for a Sofle Choc Pro split keyboard with Swiss German (CH-DE) keycodes. The active firmware sources live in `config/`: `sofle_choc_pro.keymap` defines layers, macros, and behaviors; `sofle_choc_pro.conf` holds runtime options; `ch-de.h` defines locale-specific `DE_*` keycodes; `west.yml` pins ZMK and module dependencies. `build.yaml` provides the GitHub Actions build matrix, currently targeting `sofle_choc_pro_left` and `sofle_choc_pro_right` with the `sharp_mip` shield. `generate.py` builds the visualizer `index.html`, and `layout.png` is a visual asset. Treat `.zmk/`, `zephyr/`, `__pycache__/`, and generated HTML as local/generated artifacts unless intentionally updating tooling.
 
 ## Build, Test, and Development Commands
 

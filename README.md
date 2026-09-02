@@ -6,7 +6,7 @@ Personal [ZMK](https://zmk.dev) firmware configuration for a split Sofle Choc Pr
 
 - **Keyboard:** Sofle Choc Pro (4x6 + 5 thumb keys per half)
 - **Build targets:** `sofle_choc_pro_left` and `sofle_choc_pro_right`
-- **Displays:** `nice_view_disp`
+- **Displays:** `sharp_mip`
 - **Firmware:** ZMK v0.3
 
 ## Layers
