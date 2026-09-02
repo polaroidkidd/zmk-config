@@ -154,7 +154,7 @@
         &kp TAB      &kp DE_Q          &kp DE_W          &kp DE_E          &kp DE_R          &kp DE_T                                             &kp DE_Z         &kp DE_U        &kp DE_I          &kp DE_O           &p_lbrc             &ue_rbrc
         &kp LSHFT    &kp DE_A          &kp DE_S          &kp DE_D          &kp DE_F          &kp DE_G                                             &kp DE_H         &kp DE_J        &kp DE_K          &kp DE_L           &oe_lbkt            &ae_rbkt
         &kp LCTRL    &kp DE_Y          &kp DE_X          &kp DE_C          &kp DE_V          &kp DE_B         &kp DE_LT          &kp DE_SQT       &kp DE_N         &kp DE_M        &kp DE_COMMA      &kp DE_DOT         &kp DE_MINUS        &kp RET
-                                       &num_td           &mo SYS           &kp LALT          &i3_gui          &kp SPACE          &kp BACKSPACE    &mo SYMBL        &kp RALT        &kp RCTRL         &num_td
+                                       &mo NUM           &mo SYS           &kp LALT          &i3_gui          &kp SPACE          &kp BACKSPACE    &mo SYMBL        &kp RALT        &kp RCTRL         &num_td
                         >;
                 };
 
