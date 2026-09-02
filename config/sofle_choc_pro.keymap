@@ -28,6 +28,20 @@
                         bindings = <&kp DE_N1>, <&kp KP_PLUS>;
                         mods = <(MOD_LSFT|MOD_RSFT)>;
                 };
+
+                n0_grave: number_0_grave {
+                        compatible = "zmk,behavior-mod-morph";
+                        #binding-cells = <0>;
+                        bindings = <&kp DE_N0>, <&kp DE_GRAVE>;
+                        mods = <(MOD_RALT)>;
+                };
+
+                del_dllr: delete_dollar {
+                        compatible = "zmk,behavior-mod-morph";
+                        #binding-cells = <0>;
+                        bindings = <&kp DEL>, <&kp DE_DLLR>;
+                        mods = <(MOD_RALT)>;
+                };
                 
                 p_lbrc: p_left_brace {
                         compatible = "zmk,behavior-mod-morph";
@@ -150,7 +164,7 @@
                 root_layer {
                         display-name = "ROOT";
                         bindings = <
-        &kp ESC      &n1_plus          &kp DE_N2         &kp DE_N3         &kp DE_N4         &kp DE_N5                                            &kp DE_N6        &kp DE_N7       &kp DE_N8         &kp DE_N9          &kp DE_N0           &kp DEL
+        &kp ESC      &n1_plus          &kp DE_N2         &kp DE_N3         &kp DE_N4         &kp DE_N5                                            &kp DE_N6        &kp DE_N7       &kp DE_N8         &kp DE_N9          &n0_grave           &del_dllr
         &kp TAB      &kp DE_Q          &kp DE_W          &kp DE_E          &kp DE_R          &kp DE_T                                             &kp DE_Z         &kp DE_U        &kp DE_I          &kp DE_O           &p_lbrc             &ue_rbrc
         &kp LSHFT    &kp DE_A          &kp DE_S          &kp DE_D          &kp DE_F          &kp DE_G                                             &kp DE_H         &kp DE_J        &kp DE_K          &kp DE_L           &oe_lbkt            &ae_rbkt
         &kp LCTRL    &kp DE_Y          &kp DE_X          &kp DE_C          &kp DE_V          &kp DE_B         &kp DE_LT          &kp DE_SQT       &kp DE_N         &kp DE_M        &kp DE_COMMA      &kp DE_DOT         &kp DE_MINUS        &kp RET
