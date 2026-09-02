@@ -164,7 +164,7 @@
         &kp LG(ESC)  &kp LG(N1)        &kp LG(N2)        &kp LG(N3)        &kp LG(N4)        &kp LG(N5)                                            &kp LG(N6)       &kp LG(N7)      &kp LG(N8)        &kp LG(N9)         &kp LG(N0)           &trans
         &kp LG(TAB)  &kp LG(Q)         &kp LG(W)         &kp LG(E)         &kp LG(R)         &kp LG(T)                                             &kp LG(DE_Z)     &trans          &kp LG(I)         &trans             &kp LG(P)            &trans
         &trans       &kp LG(LC(A))     &kp LG(S)         &kp LG(LC(S))     &kp LG(F)         &kp LG(DE_MINUS)                                      &kp LG(H)        &kp LG(J)       &kp LG(UP)        &kp LG(L)          &kp LG(A)            &kp LG(D)
-        &trans       &kp LG(DE_Y)      &kp LG(DE_DOT)    &kp LG(DE_C)      &kp LG(E)         &kp LG(V)         &kp LG(DE_COMMA)   &kp DE_CARET     &kp LG(N)        &kp LG(LEFT)    &kp LG(DOWN)      &kp LG(RIGHT)      &kp LG(DE_MINUS)     &kp LG(RET)
+        &trans       &kp LG(DE_Y)      &kp LG(DE_DOT)    &kp LG(DE_C)      &kp LG(E)         &kp LG(V)         &kp LG(DE_COMMA)   &kp DE_TILDE     &kp LG(N)        &kp LG(LEFT)    &kp LG(DOWN)      &kp LG(RIGHT)      &kp LG(DE_MINUS)     &kp LG(RET)
                                        &trans            &trans            &kp LG(BACKSPACE) &none             &kp LG(LS(SPACE))  &kp BACKSPACE    &none            &none           &trans            &trans
                         >;
                 };
@@ -175,7 +175,7 @@
         &kp ESC      &kp F1            &kp F2            &kp F3            &kp F4            &kp F5                                                &kp F6           &kp F7          &kp F8            &kp F9             &kp F10              &kp F12
         &trans       &bt BT_SEL 0      &bt BT_SEL 1      &bt BT_SEL 2      &bt BT_SEL 3      &bt BT_SEL 4                                          &trans           &trans          &trans            &trans             &kp DE_LBRC          &kp DE_RBRC
         &trans       &rgb_ug RGB_HUD   &rgb_ug RGB_HUI   &rgb_ug RGB_SAD   &rgb_ug RGB_SAI   &rgb_ug RGB_EFF                                       &trans           &trans          &trans            &trans             &kp DE_LBKT          &kp DE_RBKT
-        &bt BT_CLR   &rgb_ug RGB_BRD   &rgb_ug RGB_BRI   &rgb_ug RGB_ON    &rgb_ug RGB_OFF   &studio_unlock    &none              &kp DE_TILDE     &trans           &trans          &trans            &trans             &trans               &trans
+        &trans       &rgb_ug RGB_BRD   &rgb_ug RGB_BRI   &rgb_ug RGB_ON    &rgb_ug RGB_OFF   &studio_unlock    &bt BT_CLR         &kp DE_CARET     &trans           &trans          &trans            &trans             &trans               &trans
                                        &trans            &trans            &kp RALT          &none             &trans             &trans           &trans           &trans          &trans            &trans
                         >;
                 };
