@@ -146,7 +146,7 @@
                 num_esc: number_layer_escape {
                         compatible = "zmk,behavior-macro";
                         #binding-cells = <0>;
-                        bindings = <&kp ESC>, <&toff NUM>;
+                        bindings = <&toff NUM>;
                 };
 
                 i3_gui: i3_gui {

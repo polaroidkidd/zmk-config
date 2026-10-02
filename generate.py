@@ -884,7 +884,7 @@ LAYER_KEY_LABELS = {
 
 CUSTOM_BEHAVIOR_LABELS = {
     "i3_gui": {"t": "I3", "c": "layer-key"},
-    "num_esc": {"t": "ESC", "h": "NUM off", "c": "layer-key"},
+    "num_esc": {"t": "NUM off", "c": "layer-key"},
     "num_td": {"t": "↙", "h": "hold · 2× lock", "c": "layer-key"},
 }
 
